@@ -1,0 +1,27 @@
+# Student: Krizia Houston Buck
+# Faculty: Dr. Emre Celebi
+# University of Central Arkansas
+# Summer 2017
+# Graduate Project
+
+
+def main():
+    print("Krizia Houston Buck - UCA Summer 2017 - Graduate Project - Dr. Emre Celebi")
+# end of main
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if __name__ == '__main__':
+    main()
+# end of program
