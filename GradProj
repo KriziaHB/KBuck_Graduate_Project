@@ -8,7 +8,7 @@
 import PIL
 from PIL import Image
 
-# read image
+# read image #
 def readImage():
     print('in readImage')
 
@@ -26,54 +26,78 @@ def readImage():
 
     im = Image.open(pic1)
     im.show()
+
+    # get individual pixels - LINEAR
+##
+    userinput = input('Go into maniImage? (y/n): ')
+    if (userinput == 'y'):
+        # Manipulate images (pixels)
+        imMani = maniImage(im)
+        pixels = imMani.load()
+##
+    else:
+        pixels = im.load()
+
+
+    return(pixels)
+# end of readImage #
+
+
+
+# manipulate images #
+def maniImage(im):
     print (im.format, im.size, im.mode)
 
     # Rotate an image
-    # im.rotate(45).show()
+    im.rotate(45).show()
 
-    # Manipulate images (pixels)
-    maniImage(im)
-# end of readImage
-
-
-
-# manipulate images (pixels)
-def maniImage(im):
     # multiply each pixel by a constant
     out = im.point(lambda i: i * 2)
     out.show()
 
     # Split and merge bands (rgb)
     r, g, b = im.split()
+    r.show()
+    g.show()
+    b.show()
+    imM1 = Image.merge("RGB", (r, b, g))
+    imM2 = Image.merge("RGB", (g, b, r))
+    imM3 = Image.merge("RGB", (g, r, b))
+    imM4 = Image.merge("RGB", (b, g, r))
+    imM5 = Image.merge("RGB", (b, r, g))
+    imM1.show()
+    imM2.show()
+    imM3.show()
+    imM4.show()
+    imM5.show()
 
     # get pixel values as (r,g,b) at indices
     data = list(im.getdata())
     print('Get Data: ')
     print(data)
 
-
-    # get individual pixels - LINEAR
-    pix = im.load()
-    print('Pixels loaded individually for access: ')
-    x, y = 10, 20
-    print(pix[x, y])
-
-# end of maniImage
+    # return manipulated image
+    return(im)
+# end of maniImage #
 
 
 
-# call everything from main
+# call everything from main #
 def main():
     print("Krizia Houston Buck - UCA Summer 2017 - Graduate Project - Dr. Emre Celebi")
-    readImage()
-# end of main
+
+    # read in image, manipulatation possible, return individual pixels
+    pix = readImage()
+    x, y = 2, 4
+    print('Pixels loaded individually for access. Example: '); print('Pixel value of [' + str(x) + ', ' + str(y) + ']'); print(pix[x,y])
+# end of main #
 
 
 
-# call main
+# call main #
 if __name__ == '__main__':
     main()
-# end of program
+# end of program #
 
 
 
