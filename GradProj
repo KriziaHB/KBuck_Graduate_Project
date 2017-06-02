@@ -3,15 +3,21 @@
 # University of Central Arkansas
 # Summer 2017
 # Graduate Project
+
+# PIL for manipulating images
 import PIL
-# import Image
+from PIL import Image
 
 # read image
 def readImage():
     # Max on paddleboard JPEG, 750x1334, RGB: IMG_5455.JPG
-    # /Users/kriziahb/Documents/UCA/Graduate Project/Images for Testing
+    # Hiking Gatlinburg JPEG, 2320x3088, RGB: ELOF9870.jpg
+    # Max in grass JPEG, 750x1334, RGB: IMG_5331.JPG
+    # Max paddleboard from behind JPEG, 750x1334, RGB: IMG_5457.JPG
+    # Josh on bike JPEG, 4032x3024, RGB: IMG_5672.JPG
     print('in readImage')
-
+    im = Image.open("IMG_5455.JPG")
+    im.rotate(45).show()
 # end of readImage
 
 
