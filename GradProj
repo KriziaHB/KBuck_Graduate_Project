@@ -31,22 +31,6 @@ def readImage():
     # Rotate an image
     # im.rotate(45).show()
 
-    # Split and merge bands (rgb)
-    r, g, b = im.split()
-    # r.show()
-    # g.show()
-    # b.show()
-    # imM1 = Image.merge("RGB", (r, b, g))
-    # imM2 = Image.merge("RGB", (g, b, r))
-    # imM3 = Image.merge("RGB", (g, r, b))
-    # imM4 = Image.merge("RGB", (b, g, r))
-    # imM5 = Image.merge("RGB", (b, r, g))
-    # imM1.show()
-    # imM2.show()
-    # imM3.show()
-    # imM4.show()
-    # imM5.show()
-
     # Manipulate images (pixels)
     maniImage(im)
 # end of readImage
@@ -59,7 +43,20 @@ def maniImage(im):
     out = im.point(lambda i: i * 2)
     out.show()
 
+    # Split and merge bands (rgb)
+    r, g, b = im.split()
 
+    # get pixel values as (r,g,b) at indices
+    data = list(im.getdata())
+    print('Get Data: ')
+    print(data)
+
+
+    # get individual pixels - LINEAR
+    pix = im.load()
+    print('Pixels loaded individually for access: ')
+    x, y = 10, 20
+    print(pix[x, y])
 
 # end of maniImage
 
@@ -83,6 +80,24 @@ if __name__ == '__main__':
 #### HELP ####
 
 ## http://effbot.org/imagingbook/introduction.htm
+    # Split and merge bands (rgb)
+    # r, g, b = im.split()
+    # r.show()
+    # g.show()
+    # b.show()
+    # imM1 = Image.merge("RGB", (r, b, g))
+    # imM2 = Image.merge("RGB", (g, b, r))
+    # imM3 = Image.merge("RGB", (g, r, b))
+    # imM4 = Image.merge("RGB", (b, g, r))
+    # imM5 = Image.merge("RGB", (b, r, g))
+    # imM1.show()
+    # imM2.show()
+    # imM3.show()
+    # imM4.show()
+    # imM5.show()
+
+
+
     # Manipulate individual bands (RGB)  -  imout = im.point(lambda i: expression and 255)
     # split the image into individual bands  -
     # source = im.split()
@@ -97,3 +112,21 @@ if __name__ == '__main__':
     # im = Image.merge(im.mode, source)
     # im.show()
     # im.save("output.jpg")
+
+
+    # getcolors
+    # im.getcolors() ⇒ a list of(count, color) tuples or None
+    # im.getcolors(maxcolors) ⇒ a list of(count, color) tuples or None
+    # try to get (count, colors)
+    # c = im.getcolors()
+    # print('Get Colors: ')
+    # print(c)
+    # # get pixel values as (r,g,b) at indices
+    # d = list(im.getdata())
+    # print('Get Data: ')
+    # print(d)
+    # # get individual pixel
+    # pix = im.load()
+    # print('Pixels loaded individually for access: ')
+    # x, y = 10, 20
+    # print(pix[x, y])
