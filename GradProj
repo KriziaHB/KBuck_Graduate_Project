@@ -3,22 +3,23 @@
 # University of Central Arkansas
 # Summer 2017
 # Graduate Project
+import PIL
+# import Image
+
+# read image
+def readImage():
+    # Max on paddleboard JPEG, 750x1334, RGB: IMG_5455.JPG
+    # /Users/kriziahb/Documents/UCA/Graduate Project/Images for Testing
+    print('in readImage')
+
+# end of readImage
+
 
 
 def main():
     print("Krizia Houston Buck - UCA Summer 2017 - Graduate Project - Dr. Emre Celebi")
+    readImage()
 # end of main
-
-
-
-
-
-
-
-
-
-
-
 
 
 
