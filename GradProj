@@ -16,7 +16,7 @@ import OKM
 
 
 # Read Image #
-def readImage():
+def readImage(userIn):
    # print('in readImage')
 
     # Max on paddleboard  -  JPEG, 750x1334, RGB: IMG_5455.JPG
@@ -32,7 +32,6 @@ def readImage():
 
 
 ##### User selects image to use
-    userIn = input('\nSelect which image to use (1-5): ')
     if (userIn =='1'):
         picture = pic1
     elif (userIn == '2'):
@@ -104,13 +103,21 @@ def maniImage(im):
 
 # Call Everything from Main #
 def main():
+    # variables
+    c = 1 # iteration count
+    times = [] # elapsed time list
     print("Krizia Houston Buck - UCA Summer 2017 - Graduate Project - Dr. Emre Celebi")
-    c = 1
-    times = []
+
+    # new file called Results.txt for all user input and elapsed times 
+    output = open("Results.txt", "w")
+    output.write("Krizia Houston Buck - UCA Summer 2017 - Graduate Project - Dr. Emre Celebi \n\n")
+    output.write("Time Result(s) - Image, Initialization, Presentation Style, Learning Rate: (in seconds) \n")
 
     while (c > 0):
+##### User selects image
+        userIn = input('\nSelect which image to use (1-5): ')
         # read in image, manipulatation possible, return individual pixels
-        pix = readImage()
+        pix = readImage(userIn)
      #   x, y = 2, 4; print('Pixels loaded individually for access. Example: '); print('Pixel value of [' + str(x) + ', ' + str(y) + ']'); print(pix[x,y])
 
 
@@ -158,6 +165,8 @@ def main():
         print(filename + " now available")
     #    out.save(filename)
     #    out.show()
+        # Results.txt output
+        output.write(str(userIn) + ", " + str(initChoice) + ", " + str(psChoice) + ", " + str(LR) + " - " + str(times[c-1]) + "\n")
 
         # ask user if they want to do it all again
         uIn4 = input('Run again? (y/n): ')
@@ -174,15 +183,9 @@ def main():
     print("Average times: " + str(avg))
 
 
-    # new file called Results.txt:
-    output = open("Results.txt", "w")
-    output.write("Krizia Houston Buck - UCA Summer 2017 - Graduate Project - Dr. Emre Celebi \n\n")
-    output.write("Time Result(s): \n")
-    for item in times:
-        output.write("%s \n" % item)
+    # close Results file
     output.write("\nAverage of " + str(len(times)) + " run(s): \n")
     output.write(str(avg))
-    # close Results file
     output.close()
 
     print("Terminating - Results.txt now available ")
