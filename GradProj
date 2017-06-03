@@ -3,10 +3,12 @@
 # University of Central Arkansas
 # Summer 2017
 # Graduate Project
+# GradProj.py (main file)
 
 # PIL for manipulating images
 import PIL
 from PIL import Image
+import OKM
 
 # read image #
 def readImage():
@@ -95,30 +97,6 @@ def maniImage(im):
 
 
 
-# Online K-Means #
-def kmeans(k, pix, initChoice, pChoice, LR):
-    print("in kmeans")
-    end = 0
-
-    # iterate through pixels to form clusters
-    while (end < 5):
-        print("while")
-        end += 1
-
-    # return to main
-    out = 0
-    return(out)
-# end of kmeans #
-
-
-
-# K Nearest Neighbor #
-def knn():
-    print("in knn")
-# end of knn #
-
-
-
 # call everything from main #
 def main():
     print("Krizia Houston Buck - UCA Summer 2017 - Graduate Project - Dr. Emre Celebi")
@@ -159,7 +137,7 @@ def main():
 
 
     # cluster data using Online K-Means
-    out = kmeans(k, pix, initChoice, pChoice, LR)
+    out = OKM.kmeans(k, pix, initChoice, pChoice, LR)
 # end of main #
 
 
