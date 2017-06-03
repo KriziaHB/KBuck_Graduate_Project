@@ -108,7 +108,7 @@ def main():
     times = [] # elapsed time list
     print("Krizia Houston Buck - UCA Summer 2017 - Graduate Project - Dr. Emre Celebi")
 
-    # new file called Results.txt for all user input and elapsed times 
+    # new file called Results.txt for all user input and elapsed times
     output = open("Results.txt", "w")
     output.write("Krizia Houston Buck - UCA Summer 2017 - Graduate Project - Dr. Emre Celebi \n\n")
     output.write("Time Result(s) - Image, Initialization, Presentation Style, Learning Rate: (in seconds) \n")
