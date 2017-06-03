@@ -8,6 +8,9 @@
 # PIL for manipulating images
 import PIL
 from PIL import Image
+# time for stopwatch capability
+import time
+# Online K-Means python file
 import OKM
 
 # Read Image #
@@ -27,7 +30,7 @@ def readImage():
 
 
 ##### User selects image to use
-    userIn = input('Select which image to use (1-5): ')
+    userIn = input('\nSelect which image to use (1-5): ')
     if (userIn =='1'):
         picture = pic1
     elif (userIn == '2'):
@@ -100,44 +103,74 @@ def maniImage(im):
 # Call Everything from Main #
 def main():
     print("Krizia Houston Buck - UCA Summer 2017 - Graduate Project - Dr. Emre Celebi")
+    c = 1
+    times = []
 
-    # read in image, manipulatation possible, return individual pixels
-    pix = readImage()
- #   x, y = 2, 4; print('Pixels loaded individually for access. Example: '); print('Pixel value of [' + str(x) + ', ' + str(y) + ']'); print(pix[x,y])
+    while (c > 0):
+        # read in image, manipulatation possible, return individual pixels
+        pix = readImage()
+     #   x, y = 2, 4; print('Pixels loaded individually for access. Example: '); print('Pixel value of [' + str(x) + ', ' + str(y) + ']'); print(pix[x,y])
 
 
 ##### User inputs cluster number
-    uIn = input('Number of clusters (k): ')
-    k = int(uIn)
+        uIn = input('Number of clusters (k): ')
+        k = int(uIn)
 
 ##### User chooses type of Initialization
-    uIn1 = input('[1] Linear Initialization, [2] Random Initialization, or [3] Most Common Color Initialization: ')
-    if (uIn1 == '1'):
-        initChoice = 1
-    elif (uIn1 == '2'):
-        initChoice = 2
-    elif (uIn1 == '3'):
-        initChoice = 3
-    else:
-        initChoice = 1
+        uIn1 = input('[1] Linear Initialization, [2] Random Initialization, or [3] Most Common Color Initialization: ')
+        if (uIn1 == '1'):
+            initChoice = 1
+        elif (uIn1 == '2'):
+            initChoice = 2
+        elif (uIn1 == '3'):
+            initChoice = 3
+        else:
+            initChoice = 1
 
 ##### User chooses type of Presentation Style
-    uIn2 = input('Presentation Style of [1] Cyclic or [2] Random: ')
-    if (uIn2 == '2'):
-        psChoice = 2
-    else:
-        psChoice = 1
+        uIn2 = input('Presentation Style of [1] Cyclic or [2] Random: ')
+        if (uIn2 == '2'):
+            psChoice = 2
+        else:
+            psChoice = 1
 
 ##### User chooses the Learning Rate
-    uIn3 = input('Learning Rate of [1] 1/(1+t) or [2] sqrt(1/(1+t)): ')
-    if (uIn3 == '2'):
-        LR = 2
-    else:
-        LR = 1
+        uIn3 = input('Learning Rate of [1] 1/(1+t) or [2] sqrt(1/(1+t)): ')
+        if (uIn3 == '2'):
+            LR = 2
+        else:
+            LR = 1
+        print("\n#### Running Algorithm ####")
 
+    ## Online K - Means ##
+        # time the clustering of data using stopwatch
+        start = time.time()
+        out = OKM.kmeans(k, pix, initChoice, psChoice, LR)
+        end = time.time()
+        elapsed = end - start
+        times.append(elapsed)
+        print("\nElapsed time in seconds: " + str(times[c-1]))
 
-    # cluster data using Online K-Means
-    out = OKM.kmeans(k, pix, initChoice, psChoice, LR)
+        # save and display the image with fewer colors
+        filename = "Output" + str(c) + ".JPEG"
+        print(filename + " now available")
+    #    out.save(filename)
+    #    out.show()
+
+        # ask user if they want to do it all again
+        uIn4 = input('Run again? (y/n): ')
+        if (uIn4 == 'y'):
+            c += 1
+        else:
+            c = 0
+
+    # user selected to end the program
+    # average of all times executed
+    s = sum(times)
+    avg = s / len(times)
+    print("\n#### Results ####")
+    print("Average times: " + str(avg))
+    print("Terminating")
 # end of main #
 
 
