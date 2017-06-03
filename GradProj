@@ -13,6 +13,8 @@ import time
 # Online K-Means python file
 import OKM
 
+
+
 # Read Image #
 def readImage():
    # print('in readImage')
@@ -170,7 +172,20 @@ def main():
     avg = s / len(times)
     print("\n#### Results ####")
     print("Average times: " + str(avg))
-    print("Terminating")
+
+
+    # new file called Results.txt:
+    output = open("Results.txt", "w")
+    output.write("Krizia Houston Buck - UCA Summer 2017 - Graduate Project - Dr. Emre Celebi \n\n")
+    output.write("Time Result(s): \n")
+    for item in times:
+        output.write("%s \n" % item)
+    output.write("\nAverage of " + str(len(times)) + " run(s): \n")
+    output.write(str(avg))
+    # close Results file
+    output.close()
+
+    print("Terminating - Results.txt now available ")
 # end of main #
 
 
