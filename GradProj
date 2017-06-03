@@ -10,7 +10,7 @@ from PIL import Image
 
 # read image #
 def readImage():
-    print('in readImage')
+   # print('in readImage')
 
     # Max on paddleboard  -  JPEG, 750x1334, RGB: IMG_5455.JPG
     pic1 = "IMG_5455.JPG"
@@ -24,17 +24,30 @@ def readImage():
     pic5 = "IMG_5672.JPG"
 
 
-    im = Image.open(pic1)
+##### User selects image to use
+    userIn = input('Select which image to use (1-5): ')
+    if (userIn =='1'):
+        picture = pic1
+    elif (userIn == '2'):
+        picture = pic2
+    elif (userIn == '3'):
+        picture = pic3
+    elif (userIn == '4'):
+        picture = pic4
+    elif (userIn == '5'):
+        picture = pic5
+    else:
+        picture = pic1
+
+    im = Image.open(picture)
     im.show()
 
-    # get individual pixels - LINEAR
-##
+##### User selects whether to go to maniImage
     userinput = input('Go into maniImage? (y/n): ')
     if (userinput == 'y'):
-        # Manipulate images (pixels)
+##      # Manipulate images (pixels)
         imMani = maniImage(im)
         pixels = imMani.load()
-##
     else:
         pixels = im.load()
 
@@ -82,14 +95,71 @@ def maniImage(im):
 
 
 
+# Online K-Means #
+def kmeans(k, pix, initChoice, pChoice, LR):
+    print("in kmeans")
+    end = 0
+
+    # iterate through pixels to form clusters
+    while (end < 5):
+        print("while")
+        end += 1
+
+    # return to main
+    out = 0
+    return(out)
+# end of kmeans #
+
+
+
+# K Nearest Neighbor #
+def knn():
+    print("in knn")
+# end of knn #
+
+
+
 # call everything from main #
 def main():
     print("Krizia Houston Buck - UCA Summer 2017 - Graduate Project - Dr. Emre Celebi")
 
     # read in image, manipulatation possible, return individual pixels
     pix = readImage()
-    x, y = 2, 4
-    print('Pixels loaded individually for access. Example: '); print('Pixel value of [' + str(x) + ', ' + str(y) + ']'); print(pix[x,y])
+ #   x, y = 2, 4; print('Pixels loaded individually for access. Example: '); print('Pixel value of [' + str(x) + ', ' + str(y) + ']'); print(pix[x,y])
+
+
+##### User inputs cluster number
+    uIn = input('Number of clusters (k): ')
+    k = int(uIn)
+
+##### User chooses type of Initialization
+    uIn1 = input('[1] Linear Initialization, [2] Random Initialization, or [3] Most Common Color Initialization: ')
+    if (uIn1 == '1'):
+        initChoice = 1
+    elif (uIn1 == '2'):
+        initChoice = 2
+    elif (uIn1 == '3'):
+        initChoice = 3
+    else:
+        initChoice = 1
+
+##### User chooses type of Presentation Style
+    uIn2 = input('Presentation Style of [1] Cyclic or [2] Random: ')
+    if (uIn2 == '2'):
+        pChoice = 2
+    else:
+        pChoice = 1
+
+##### User chooses the Learning Rate
+    uIn3 = input('Learning Rate of [1] 1/(1+t) or [2] sqrt(1/(1+t)): ')
+    if (uIn3 == '2'):
+        LR = 2
+    else:
+        LR = 1
+
+
+    # cluster data using Online K-Means
+    out = kmeans(k, pix, initChoice, pChoice, LR)
 # end of main #
 
 
