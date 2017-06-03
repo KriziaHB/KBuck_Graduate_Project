@@ -10,7 +10,7 @@ import PIL
 from PIL import Image
 import OKM
 
-# read image #
+# Read Image #
 def readImage():
    # print('in readImage')
 
@@ -59,7 +59,7 @@ def readImage():
 
 
 
-# manipulate images #
+# Manipulate Images - learn to use PIL #
 def maniImage(im):
     print (im.format, im.size, im.mode)
 
@@ -97,7 +97,7 @@ def maniImage(im):
 
 
 
-# call everything from main #
+# Call Everything from Main #
 def main():
     print("Krizia Houston Buck - UCA Summer 2017 - Graduate Project - Dr. Emre Celebi")
 
@@ -124,9 +124,9 @@ def main():
 ##### User chooses type of Presentation Style
     uIn2 = input('Presentation Style of [1] Cyclic or [2] Random: ')
     if (uIn2 == '2'):
-        pChoice = 2
+        psChoice = 2
     else:
-        pChoice = 1
+        psChoice = 1
 
 ##### User chooses the Learning Rate
     uIn3 = input('Learning Rate of [1] 1/(1+t) or [2] sqrt(1/(1+t)): ')
@@ -137,19 +137,19 @@ def main():
 
 
     # cluster data using Online K-Means
-    out = OKM.kmeans(k, pix, initChoice, pChoice, LR)
+    out = OKM.kmeans(k, pix, initChoice, psChoice, LR)
 # end of main #
 
 
 
-# call main #
+# Call Main #
 if __name__ == '__main__':
     main()
 # end of program #
 
 
 
-#### HELP ####
+#### HELPFUL INFO ####
 
 ## http://effbot.org/imagingbook/introduction.htm
     # Split and merge bands (rgb)

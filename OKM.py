@@ -10,7 +10,7 @@ import PIL
 from PIL import Image
 
 # Online K-Means #
-def kmeans(k, pix, initC, pC, LR):
+def kmeans(k, pix, initC, psC, LR):
     print("in kmeans")
     end = 0
 
