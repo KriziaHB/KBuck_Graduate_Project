@@ -8,13 +8,18 @@
 # PIL for manipulating images
 import PIL
 from PIL import Image
+from collections import Counter # ** currently not in use
 
 
 
-# Online K-Means #
-def kmeans(k, pix, initC, psC, LR):
+# Online K-Means, call functions from here #
+def kmeans(k, im, pix, initC, psC, LR):
     print("in kmeans")
     end = 0
+
+    # ** CALL COUNTCOLOR FOR TESTING
+    colorCount(k, im, pix)
+
 
     # iterate through pixels to form clusters
     while (end < 5):
@@ -56,4 +61,19 @@ def upC():
 
 
 
-# #
+# Find Greatest Occurring Colors # ***** using for testing ******
+def colorCount(k, im, pix):
+    print("in colorCount")
+
+
+# end of colorCount #
+
+
+
+
+
+
+
+#### HELPFUL INFO FOR PILLOW ####
+
+# http://pillow.readthedocs.io/en/3.0.x/reference/PixelAccess.html

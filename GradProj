@@ -47,18 +47,11 @@ def readImage(userIn):
 
     im = Image.open(picture)
     im.show()
-
-##### User selects whether to go to maniImage
-    userinput = input('Go into maniImage? (y/n): ')
-    if (userinput == 'y'):
-##      # Manipulate images (pixels)
-        imMani = maniImage(im)
-        pixels = imMani.load()
-    else:
-        pixels = im.load()
+    hist = im.histogram()
+    print(sum(hist)) # proves that each pixel color is tallied separately as r, g, and b not as an rgb combo
 
 
-    return(pixels)
+    return(im)
 # end of readImage #
 
 
@@ -113,11 +106,20 @@ def main():
     output.write("Krizia Houston Buck - UCA Summer 2017 - Graduate Project - Dr. Emre Celebi \n\n")
     output.write("Time Result(s) - Image, Initialization, Presentation Style, Learning Rate: (in seconds) \n")
 
+    # rerun as many times as user wants
     while (c > 0):
 ##### User selects image
         userIn = input('\nSelect which image to use (1-5): ')
-        # read in image, manipulatation possible, return individual pixels
-        pix = readImage(userIn)
+        # read in image
+        im = readImage(userIn)
+##### User selects whether to go to maniImage
+        userinput = input('Go into maniImage? (y/n): ')
+        if (userinput == 'y'):
+    ##      # Manipulate images (pixels)
+            imMani = maniImage(im)
+            pix = imMani.load()
+        else:
+            pix = im.load()
      #   x, y = 2, 4; print('Pixels loaded individually for access. Example: '); print('Pixel value of [' + str(x) + ', ' + str(y) + ']'); print(pix[x,y])
 
 
@@ -154,7 +156,7 @@ def main():
     ## Online K - Means ##
         # time the clustering of data using stopwatch
         start = time.time()
-        out = OKM.kmeans(k, pix, initChoice, psChoice, LR)
+        out = OKM.kmeans(k, im, pix, initChoice, psChoice, LR)
         end = time.time()
         elapsed = end - start
         times.append(elapsed)
