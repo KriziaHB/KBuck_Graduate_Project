@@ -22,7 +22,7 @@ def kmeans(k, im, pix, initC, psC, LR):
 
 
     # iterate through pixels to form clusters
-    while (end < 5):
+    while (end < 2):
         print("while")
         end += 1
 
@@ -65,11 +65,32 @@ def upC():
 def colorCount(k, im, pix):
     print("in colorCount")
 
+    # proves that each pixel color is tallied separately as r, g, and b not as an rgb combo
+    hist = im.histogram()
+    print(sum(hist))
 
+    # experiment with splitting for counting
+    r, g, b = im.split()
+    rHist = r.histogram()
+    print("R: ")
+    print(rHist)
+    gHist = g.histogram()
+    print("G: ")
+    print(gHist)
+    bHist = b.histogram()
+    print("B: ")
+    print(bHist)
+    #print(Counter(r).most_common(k))
+
+
+
+    # built in quantization
+    out = im.quantize(k)
+    out.show()
 # end of colorCount #
 
 
-
+## end of OKM.py ##
 
 
 

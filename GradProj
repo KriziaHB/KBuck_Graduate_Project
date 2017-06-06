@@ -47,8 +47,6 @@ def readImage(userIn):
 
     im = Image.open(picture)
     im.show()
-    hist = im.histogram()
-    print(sum(hist)) # proves that each pixel color is tallied separately as r, g, and b not as an rgb combo
 
 
     return(im)
