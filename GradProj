@@ -70,6 +70,19 @@ def maniImage(im):
     # r.show()
     # g.show()
     # b.show()
+
+    # proves that each pixel color is tallied separately as r, g, and b not as an rgb combo
+    # hist = im.histogram()
+    # print(sum(hist))
+    # rHist = r.histogram()
+    # print("R: ")
+    # print(rHist)
+    # gHist = g.histogram()
+    # print("G: ")
+    # print(gHist)
+    # bHist = b.histogram()
+    # print("B: ")
+    # print(bHist)
     # imM1 = Image.merge("RGB", (r, b, g))
     # imM2 = Image.merge("RGB", (g, b, r))
     # imM3 = Image.merge("RGB", (g, r, b))
@@ -81,6 +94,10 @@ def maniImage(im):
     # imM4.show()
     # imM5.show()
 
+    # built in PIL quantization (use for comparison)
+    q = im.quantize(k)
+    q.show()
+
     # get pixel values as (r,g,b) at indices
     data = list(im.getdata())
     print('Get Data: ')
@@ -88,14 +105,21 @@ def maniImage(im):
 
 
 
-
-
-    # TESTING THESE IDEAS
-    rpix = r.getpixel((0,0))
+    # TESTING THESE IDEAS for individual pixel manipulation
+    rpix = r.getpixel((0,5))
     print("r pixel: " + str(rpix))
-    p = im.getpixel((0,0))
+    p = im.getpixel((0,5))
     print("p pixel: " + str(p))
+    rint = int(rpix)
 
+
+    # HOW TO CHANGE PIXELS
+    rint = 200
+    test = im.load()
+    for x in range(0,750):
+        for y in range(0,1334):
+            test[x,y] = (rint, rint, rint)
+    im.show()
 
 
     # return manipulated image

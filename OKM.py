@@ -29,11 +29,11 @@ def kmeans(k, im, pix, initC, psC, LR):
     # Most Common Colors Initialization
     elif (initC == 3):
         print("Most Common Color Init")
-        out = colorCount(k, im, pix)
+        centroids = colorCount(k, im, pix)
 # ** CALL COUNTCOLOR FOR TESTING
 
 
-
+    print(centroids)
 
 
 
@@ -46,7 +46,7 @@ def kmeans(k, im, pix, initC, psC, LR):
 
     # return to main
     # out = should be equal to whatever results from completed iterations, for now testing with out from colorCount
-    return(out)
+    return(im)
 # end of kmeans #
 
 
@@ -83,33 +83,43 @@ def upC():
 def colorCount(k, im, pix):
     print("in colorCount - k = " + str(k))
 
-    # proves that each pixel color is tallied separately as r, g, and b not as an rgb combo
-    hist = im.histogram()
-    print(sum(hist))
 
-    # experiment with splitting for counting
-    r, g, b = im.split()
-    rHist = r.histogram()
-    print("R: ")
-    print(rHist)
-    gHist = g.histogram()
-    print("G: ")
-    print(gHist)
-    bHist = b.histogram()
-    print("B: ")
-    print(bHist)
-    #print(Counter(r).most_common(k))
+    # print(Counter(r).most_common(k))
+  #  rpix = r.getpixel((0,5))
+
+    # HOW TO CHANGE PIXELS
+    # rint = 200
+    # test = im.load()
+    # for x in range(0,750):
+    #     for y in range(0,1334):
+    #         test[x,y] = (rint, rint, rint)
+    # im.show()
+
+    # List for all pixels for counting
+    pixList = []
+
+    for x in range(0,750):
+        for y in range(0,1334):
+            pixList.append(pix[x,y])
+    print(pixList)
+    print(len(pixList))
+    cen = Counter(pixList).most_common(k)
+    print(cen)
+
+    centroids = []
+    for element in cen:
+        centroids.append(element[0])
+    print(centroids)
+    print(type(centroids)) #list
+    print(type(centroids[2])) #tuple
+    c = centroids[2]
+    print(c[0])
+    print(c[1])
+    print(c[2])
+    print(type(c[2])) #int
 
 
-
-
-
-
-
-    # built in PIL quantization (use for comparison)
-    out = im.quantize(k)
-    out.show()
-    return(out)
+    return(centroids)
 # end of colorCount #
 
 
