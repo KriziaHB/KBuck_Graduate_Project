@@ -17,9 +17,27 @@ def kmeans(k, im, pix, initC, psC, LR):
     print("in kmeans")
     end = 0
 
-    # ** CALL COUNTCOLOR FOR TESTING
-    colorCount(k, im, pix)
 
+##****** COME BACK
+    # Linear Initialiation
+    if (initC == 1):
+        print("Linear Init")
+    # Random Initialization
+    elif (initC == 2):
+        print("Random Init")
+        rando(k, im, pix)
+    # Most Common Colors Initialization
+    elif (initC == 3):
+        print("Most Common Color Init")
+        out = colorCount(k, im, pix)
+# ** CALL COUNTCOLOR FOR TESTING
+
+
+
+
+
+
+## ** FIGURE OUT K-MEANS HERE
 
     # iterate through pixels to form clusters
     while (end < 2):
@@ -27,7 +45,7 @@ def kmeans(k, im, pix, initC, psC, LR):
         end += 1
 
     # return to main
-    out = 0
+    # out = should be equal to whatever results from completed iterations, for now testing with out from colorCount
     return(out)
 # end of kmeans #
 
@@ -41,7 +59,7 @@ def term():
 
 
 # Randomizer for Initialization and Presentation Style #
-def rando():
+def rando(k, im, pix):
     print("in rando")
 # end of rando #
 
@@ -63,7 +81,7 @@ def upC():
 
 # Find Greatest Occurring Colors # ***** using for testing ******
 def colorCount(k, im, pix):
-    print("in colorCount")
+    print("in colorCount - k = " + str(k))
 
     # proves that each pixel color is tallied separately as r, g, and b not as an rgb combo
     hist = im.histogram()
@@ -84,9 +102,14 @@ def colorCount(k, im, pix):
 
 
 
-    # built in quantization
+
+
+
+
+    # built in PIL quantization (use for comparison)
     out = im.quantize(k)
     out.show()
+    return(out)
 # end of colorCount #
 
 

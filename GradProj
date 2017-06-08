@@ -67,24 +67,36 @@ def maniImage(im):
 
     # Split and merge bands (rgb)
     r, g, b = im.split()
-    r.show()
-    g.show()
-    b.show()
-    imM1 = Image.merge("RGB", (r, b, g))
-    imM2 = Image.merge("RGB", (g, b, r))
-    imM3 = Image.merge("RGB", (g, r, b))
-    imM4 = Image.merge("RGB", (b, g, r))
-    imM5 = Image.merge("RGB", (b, r, g))
-    imM1.show()
-    imM2.show()
-    imM3.show()
-    imM4.show()
-    imM5.show()
+    # r.show()
+    # g.show()
+    # b.show()
+    # imM1 = Image.merge("RGB", (r, b, g))
+    # imM2 = Image.merge("RGB", (g, b, r))
+    # imM3 = Image.merge("RGB", (g, r, b))
+    # imM4 = Image.merge("RGB", (b, g, r))
+    # imM5 = Image.merge("RGB", (b, r, g))
+    # imM1.show()
+    # imM2.show()
+    # imM3.show()
+    # imM4.show()
+    # imM5.show()
 
     # get pixel values as (r,g,b) at indices
     data = list(im.getdata())
     print('Get Data: ')
     print(data)
+
+
+
+
+
+    # TESTING THESE IDEAS
+    rpix = r.getpixel((0,0))
+    print("r pixel: " + str(rpix))
+    p = im.getpixel((0,0))
+    print("p pixel: " + str(p))
+
+
 
     # return manipulated image
     return(im)
@@ -161,10 +173,10 @@ def main():
         print("\nElapsed time in seconds: " + str(times[c-1]))
 
         # save and display the image with fewer colors
-        filename = "Output" + str(c) + ".JPEG"
+        filename = "Output" + str(c) + ".PNG"
         print(filename + " now available")
-    #    out.save(filename)
-    #    out.show()
+        out.save(filename)
+        out.show()
         # Results.txt output
         output.write(str(userIn) + ", " + str(initChoice) + ", " + str(psChoice) + ", " + str(LR) + " - " + str(times[c-1]) + "\n")
 
