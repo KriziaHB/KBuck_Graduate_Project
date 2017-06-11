@@ -22,10 +22,11 @@ def kmeans(k, im, pix, initC, psC, LR):
     length = int(im.size[1])
 
 
-##****** COME BACK to Linear
-    # Linear Initialiation
+
+    #! Linear Initialiation
     if (initC == 1):
         print("Linear Init")
+        centroids = linearI(k, pix, width, length)
     #! Random Initialization
     elif (initC == 2):
         print("Random Init")
@@ -33,12 +34,23 @@ def kmeans(k, im, pix, initC, psC, LR):
     #! Most Common Colors Initialization
     elif (initC == 3):
         print("Most Common Color Init")
-        centroids = colorCount(k, width, length, pix)
+        centroids = colorCount(k, pix, width, length)
 
 
     print("* Original Centroids *")
     print(centroids)
 
+
+    # Membership data for going through OKM
+    prevmembership = []
+    membership = []
+    for x in range(0,width): # initialize previous membership with original data and fake centroid
+        for y in range(0,length):
+            m1 = x
+            m2 = y
+            m3 = -1
+            m4 = (m1, m2, m3)
+            prevmembership.append(m4)
 
 
 ## ** FIGURE OUT K-MEANS HERE
@@ -47,6 +59,8 @@ def kmeans(k, im, pix, initC, psC, LR):
     while (end < 2):
         print("while")
         end += 1
+
+
 ## **
 
     # return to main
@@ -63,9 +77,42 @@ def term():
 
 
 
+# Linear Initialization #
+def linearI(k, pix, width, length):
+    print("--in linearI")
+
+    centroids = []
+    c = 0
+    jumpW = int(width / k) - 1
+    jumpL = int(length / k ) - 1
+    x,y, correction = 0, 0, 0
+
+    # go through making centroids a diagonal line top left to bottom right
+    while (c < k):
+        l = pix[x,y]
+
+        if l in centroids: # centroid exists, increment to test new value
+            c = c
+            correction += 1
+            x += 1
+            y += 1
+        else: # add new centroid, set up next x/y, and reset correction
+            centroids.append(l)
+            print(str(x) + "  " + str(y))
+            c += 1
+            x += (jumpW - correction)
+            y += (jumpL - correction)
+            correction = 0
+
+
+    return(centroids)
+# end of linearI #
+
+
+
 # Randomizer for Initialization #
 def randoI(k):
-    print("--in rando")
+    print("--in randoI")
 
     count = 0
     centroids = []
@@ -92,8 +139,8 @@ def randoI(k):
 
 
 # Randomizer for Presentation Style #
-def randoP(k, width, length, pix):
-    print("--in rando")
+def randoP(k, pix, width, length):
+    print("--in randoP")
 
 
     #return(random)
@@ -115,8 +162,8 @@ def upC():
 
 
 
-# Find Greatest Occurring Colors # ***** using for testing ******
-def colorCount(k, width, length, pix):
+# Find Greatest Occurring Colors #
+def colorCount(k, pix, width, length):
     print("--in colorCount - k = " + str(k))
 
 
@@ -155,6 +202,8 @@ def colorCount(k, width, length, pix):
 
 
 ## end of OKM.py ##
+
+
 
 
 
