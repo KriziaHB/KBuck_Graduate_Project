@@ -52,7 +52,6 @@ def kmeans(k, im, pix, initC, psC, LR):
             m4 = (m1, m2, m3)
             prevmembership.append(m4)
 
-
 ## ** FIGURE OUT K-MEANS HERE
 
     # iterate through pixels to form clusters
