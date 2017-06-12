@@ -10,6 +10,7 @@ import PIL
 from PIL import Image
 from collections import Counter # ** currently not in use
 from random import randint
+import math
 
 
 
@@ -17,6 +18,7 @@ from random import randint
 def kmeans(k, im, pix, initC, psC, LR):
     print("--in kmeans")
     end = 0
+    t = 1.0
 
     width = int(im.size[0])
     length = int(im.size[1])
@@ -39,6 +41,7 @@ def kmeans(k, im, pix, initC, psC, LR):
 
     print("* Original Centroids *")
     print(centroids)
+    previousCentroids = centroids
 
 
     # Membership data for going through OKM
@@ -55,12 +58,16 @@ def kmeans(k, im, pix, initC, psC, LR):
 ## ** FIGURE OUT K-MEANS HERE
 
     # iterate through pixels to form clusters
-    while (end < 2):
+    while (end < 2 and t > 0.5):
         print("while")
         end += 1
-
+        if (previousCentroids != centroids):
+            t = term(k, previousCentroids, centroids) # check for convergence of centroids
 
 ## **
+
+    # Use cluster data to make new image
+    im = newImage(k, pix, centroids, membership, width, length)
 
     # return to main
     # out = should be equal to whatever results from completed iterations, for now testing with out from colorCount
@@ -68,10 +75,26 @@ def kmeans(k, im, pix, initC, psC, LR):
 # end of kmeans #
 
 
-
+##################### UNTESTED 
 # Check Termination Criteria to see if met #
-def term():
+def term(k, oldCent, newCent):
     print("--in term")
+
+    # termination value (if small, then convergence is reached)
+    t = 0.0
+    sum = 0.0
+
+    # go through all centroids comparing them to what they used to be using Euclidean distance
+    for i in range(0,k):
+        a = oldCent[i]
+        b = newCent[i]
+        euclidean = math.sqrt(pow((a[0] - b[0]),2) + pow((a[1] - b[1]),2) + pow((a[2] - b[2]),2))
+        sum += euclidean
+
+    t = float(sum / k)
+    print("t: " + str(t))
+
+    return(t)
 # end of term #
 
 
@@ -198,6 +221,32 @@ def colorCount(k, pix, width, length):
 
     return(centroids)
 # end of colorCount #
+
+
+################ UNTESTED
+# Create New Image to be Printed as Output #
+def newImage(k, pix, centroids, membership, width, length):
+    print("--in newImage")
+
+    # round centroids to ints for quantization
+    for i in range(0,k):
+        a = centroids[i]
+        r = int(a[0])
+        g = int(a[1])
+        b = int(a[2])
+        centroids[i] = (r, g, b)
+
+
+    # replace pixels with their cluster's centroid
+    for x in range(0,width):
+        for y in range(0,length):
+            index = (x * width) + y # compensating for flattened membership list
+            pixel = membership[index] # selecting current pixel membership cluster
+            c = pixel[2] # cluster number (centroid number)
+            pix[x,y] = centroids[c] # replace original color with centroid color value
+
+    return(pix)
+# end of newImage #
 
 
 ## end of OKM.py ##
