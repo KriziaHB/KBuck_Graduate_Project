@@ -54,28 +54,50 @@ def kmeans(k, im, pix, initC, psC, LR):
             m3 = -1
             m4 = (m1, m2, m3)
             prevmembership.append(m4)
+    for x in range(0, width):  # initialize previous membership with original data and fake centroid
+        for y in range(0, length):
+            m1 = x
+            m2 = y
+            m3 = -2
+            m4 = (m1, m2, m3)
+            membership.append(m4)
 
-## ** FIGURE OUT K-MEANS HERE
 
+## **  K-MEANS HERE  ** ##
     # iterate through pixels to form clusters
     while (end < 2 and t > 0.5):
         print("while")
-        end += 1
-        if (previousCentroids != centroids):
-            t = term(k, previousCentroids, centroids) # check for convergence of centroids
 
-## **
+        # Check through all points each while iteration
+        for x in range(0, width):
+            for y in range(0, length):
+                # Presentation Style
+                if (psC == 1): # Linear
+                    pixel = pix[x,y]
+                else: # Random
+                    pixel = randoP(k, pix, width, length)
+                # find the index of nearest centroid to current pixel and update membership
+                m = knn(k, pixel, centroids)
+                membership[(x*width) + y][3] = m
+                # update the nearest center
+                centroids[m] = upC(pixel, centroids[m], LR)
+        #! end of for loops
+
+        end += 1
+        # check for convergence of centroids
+        t = term(k, previousCentroids, centroids)
+    #! end of while loop
+## ** end of K-MEANS ** ##
 
     # Use cluster data to make new image
-    im = newImage(k, pix, centroids, membership, width, length)
+    pix = newImage(k, pix, centroids, membership, width, length)
 
-    # return to main
-    # out = should be equal to whatever results from completed iterations, for now testing with out from colorCount
+    # return to main with final image
     return(im)
 # end of kmeans #
 
 
-##################### UNTESTED 
+##################### UNTESTED
 # Check Termination Criteria to see if met #
 def term(k, oldCent, newCent):
     print("--in term")
@@ -171,15 +193,52 @@ def randoP(k, pix, width, length):
 
 
 # K Nearest Neighbor - find nearest centroid to current pixel #
-def knn():
+def knn(k, pixel, centroids):
     print("--in knn")
+
+    distances = []
+
+    # find distance from current pixel to each centroid and select the closest one
+    for i in range(0,k):
+        cent = centroids[i]
+        r = pixel[0]
+        g = pixel[1]
+        b = pixel[2]
+        cr = cent[0]
+        cg = cent[1]
+        cb = cent[2]
+
+        distances.append(math.sqrt(pow((r - cr), 2) + pow((g - cg), 2) + pow((b - cb), 2)))
+
+    centroidIndex = distances.index(min(distances))
+
+    return(centroidIndex)
+
 # end of knn #
 
 
 
 # Update the Nearest Center (centroid) #
-def upC():
+def upC(pixel, oldCentroid, LR):
     print("--in upC")
+
+    # Learning Rate of (1/(1+t))
+    if (LR == 1):
+        r = 0
+        g = 0
+        b = 0
+
+    # Learning Rate of sqrt(1/(1+t))
+    else:
+        r = 0
+        g = 0
+        b = 0
+
+
+    # updated centroid
+    c = (r, g, b)
+
+    return(c)
 # end of upC #
 
 
@@ -211,7 +270,6 @@ def colorCount(k, pix, width, length):
  #   print(type(centroids[2])) #tuple
  #   c = centroids[0]
  #   print(type(c[2])) #int
-
     # c = centroids[0]
     # print(c)
     # d = (12, 12, 12)
