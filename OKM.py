@@ -75,14 +75,14 @@ def kmeans(k, im, pix, initC, psC, LR):
                 membership[index] = copyOver(membership[index], pix, m)
                 # update the nearest center
                 centroids[m] = upC(pixel, centroids[m], LR)
-        #! end of for loops
+        # end of for loops
 
         end += 1
         # check for convergence of centroids
         t = term(k, previousCentroids, centroids)
         previousCentroids = list(centroids)
         prevmembership = list(membership)
-    #! end of while loop
+    # end of while loop
 ## ** end of K-MEANS ** ##
 
     # Use cluster data to make new image
@@ -302,7 +302,7 @@ def newImage(k, pix, centroids, membership, width, length):
         for y in range(0,length):
             index = (x * width) + y # compensating for flattened membership list
             pixel = membership[index] # selecting current pixel membership cluster
-            c = pixel[2] # cluster number (centroid number)
+            c = pixel[3] # cluster number (centroid number)
             pix[x,y] = centroids[c] # replace original color with centroid color value
 
     return(pix)
