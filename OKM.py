@@ -41,44 +41,38 @@ def kmeans(k, im, pix, initC, psC, LR):
 
     print("* Original Centroids *")
     print(centroids)
-    previousCentroids = centroids
+    previousCentroids = list(centroids)
 
 
-    # Membership data for going through OKM
+    #! Membership data for going through OKM
     prevmembership = []
     membership = []
     for x in range(0,width): # initialize previous membership with original data and fake centroid
         for y in range(0,length):
             m1 = x
             m2 = y
-            m3 = -1
-            m4 = (m1, m2, m3)
-            prevmembership.append(m4)
-    for x in range(0, width):  # initialize previous membership with original data and fake centroid
-        for y in range(0, length):
-            m1 = x
-            m2 = y
-            m3 = -2
+            m3 = 0
             m4 = (m1, m2, m3)
             membership.append(m4)
-
+            prevmembership.append(m4)
 
 ## **  K-MEANS HERE  ** ##
     # iterate through pixels to form clusters
-    while (end < 2 and t > 0.5):
+    while (end < 10 or t < 0.5):
         print("while")
 
         # Check through all points each while iteration
         for x in range(0, width):
             for y in range(0, length):
-                # Presentation Style
+                #! Presentation Style
                 if (psC == 1): # Linear
                     pixel = pix[x,y]
                 else: # Random
                     pixel = randoP(k, pix, width, length)
                 # find the index of nearest centroid to current pixel and update membership
                 m = knn(k, pixel, centroids)
-                membership[(x*width) + y][3] = m
+                index = (x*width) + y
+                membership[index] = copyOver(membership[index], pix, m)
                 # update the nearest center
                 centroids[m] = upC(pixel, centroids[m], LR)
         #! end of for loops
@@ -86,6 +80,8 @@ def kmeans(k, im, pix, initC, psC, LR):
         end += 1
         # check for convergence of centroids
         t = term(k, previousCentroids, centroids)
+        previousCentroids = list(centroids)
+        prevmembership = list(membership)
     #! end of while loop
 ## ** end of K-MEANS ** ##
 
@@ -110,7 +106,7 @@ def term(k, oldCent, newCent):
     for i in range(0,k):
         a = oldCent[i]
         b = newCent[i]
-        euclidean = math.sqrt(pow((a[0] - b[0]),2) + pow((a[1] - b[1]),2) + pow((a[2] - b[2]),2))
+        euclidean = float(math.sqrt(pow((a[0] - b[0]),2) + pow((a[1] - b[1]),2) + pow((a[2] - b[2]),2)))
         sum += euclidean
 
     t = float(sum / k)
@@ -194,7 +190,7 @@ def randoP(k, pix, width, length):
 
 # K Nearest Neighbor - find nearest centroid to current pixel #
 def knn(k, pixel, centroids):
-    print("--in knn")
+    #print("--in knn")
 
     distances = []
 
@@ -220,19 +216,25 @@ def knn(k, pixel, centroids):
 
 # Update the Nearest Center (centroid) #
 def upC(pixel, oldCentroid, LR):
-    print("--in upC")
+    #print("--in upC")
 
-    # Learning Rate of (1/(1+t))
-    if (LR == 1):
-        r = 0
-        g = 0
-        b = 0
 
-    # Learning Rate of sqrt(1/(1+t))
-    else:
-        r = 0
-        g = 0
-        b = 0
+    r = float((pixel[0] + oldCentroid[0])/2)
+    g = float((pixel[1] + oldCentroid[1])/2)
+    b = float((pixel[2] + oldCentroid[2])/2)
+
+
+    # # Learning Rate of (1/(1+t))
+    # if (LR == 1):
+    #     r = 0
+    #     g = 0
+    #     b = 0
+    #
+    # # Learning Rate of sqrt(1/(1+t))
+    # else:
+    #     r = 0
+    #     g = 0
+    #     b = 0
 
 
     # updated centroid
@@ -305,6 +307,21 @@ def newImage(k, pix, centroids, membership, width, length):
 
     return(pix)
 # end of newImage #
+
+
+
+# Replace Membership value of pixel #
+def copyOver(p, pix, m):
+    #print("--in copyOver")
+
+    pixel = pix[p[0],p[1]]
+    r = pixel[0]
+    g = pixel[1]
+    b = pixel[2]
+
+    pixel = (r,g,b,m)
+    return(pixel)
+# end of copyOver #
 
 
 ## end of OKM.py ##
