@@ -11,7 +11,7 @@ from PIL import Image
 from collections import Counter # ** currently not in use
 from random import randint
 import math
-import Centroids # Centroids.py
+from ColorPixel import ColorPixel # ColorPixel.py
 
 
 
@@ -25,13 +25,12 @@ def kmeans(k, im, pix, initC, psC, LR):
     width = int(im.size[0])
     length = int(im.size[1])
     centroids = []
-    CENTS = Centroids(centroids)
 
 
     #! Linear Initialiation
     if (initC == 1):
         print("Linear Init")
-        centroids = linearI(k, pix, width, length, CENTS)
+        centroids = linearI(k, pix, width, length)
     #! Random Initialization
     elif (initC == 2):
         print("Random Init")
@@ -43,7 +42,8 @@ def kmeans(k, im, pix, initC, psC, LR):
 
 
     print("* Original Centroids *")
-    print(centroids)
+    for i in centroids:
+        i.printRGB()
     previousCentroids = list(centroids)
 
 
@@ -69,9 +69,10 @@ def kmeans(k, im, pix, initC, psC, LR):
             for y in range(0, length):
                 #! Presentation Style
                 if (psC == 1): # Linear
-                    pixel = pix[x,y]
+                    pixel = ColorPixel(pix[x,y])
                 else: # Random
                     pixel = randoP(k, pix, width, length)
+                    pixel = ColorPixel(pixel)
                 # find the index of nearest centroid to current pixel and update membership
                 m = knn(k, pixel, centroids)
                 index = (x*width) + y
@@ -105,11 +106,12 @@ def term(k, oldCent, newCent):
     t = 0.0
     sum = 0.0
 
+
     # go through all centroids comparing them to what they used to be using Euclidean distance
     for i in range(0,k):
-        a = oldCent[i]
-        b = newCent[i]
-        euclidean = float(math.sqrt(pow((a[0] - b[0]),2) + pow((a[1] - b[1]),2) + pow((a[2] - b[2]),2)))
+        a = ColorPixel(oldCent[i])
+        b = ColorPixel(newCent[i])
+        euclidean = float(math.sqrt(pow((a.r() - b.r()),2) + pow((a.g() - b.g()),2) + pow((a.b() - b.b()),2)))
         sum += euclidean
 
     t = float(sum / k)
@@ -121,7 +123,7 @@ def term(k, oldCent, newCent):
 
 
 # Linear Initialization #
-def linearI(k, pix, width, length, CENTS):
+def linearI(k, pix, width, length):
     print("--in linearI")
 
 
@@ -129,25 +131,26 @@ def linearI(k, pix, width, length, CENTS):
     jumpW = int(width / k) - 1
     jumpL = int(length / k ) - 1
     x,y, correction = 0, 0, 0
+    centroids = []
 
     # go through making centroids a diagonal line top left to bottom right
     while (c < k):
         l = pix[x,y]
 
-        if l in CENTS.centroids: # centroid exists, increment to test new value
+        if l in centroids: # centroid exists, increment to test new value
             correction += 1
             x += 1
             y += 1
         else: # add new centroid, set up next x/y, and reset correction
-            CENTS.insertCTUP(l)
-            print(str(x) + "  " + str(y))
+            cent = ColorPixel(l)
+            centroids.append(cent)
             c += 1
             x += (jumpW - correction)
             y += (jumpL - correction)
             correction = 0
 
 
-    return(CENTS.centroids)
+    return(centroids)
 # end of linearI #
 
 
@@ -158,7 +161,6 @@ def randoI(k):
 
     count = 0
     centroids = []
-    c = Centroids(centroids)
 
 
     # go through until all centroid spots are filled with a unique color
@@ -167,15 +169,16 @@ def randoI(k):
         r1 = randint(0, 255)
         r2 = randint(0, 255)
         r3 = randint(0, 255)
-        r = c.newC(r1, r2, r3)
+        rgb = (r1, r2, r3)
+        c = ColorPixel(rgb)
       #  r = (r1, r2, r3)
         # print(r)
 
         # if current random color is not a centroid, add it, or else repeat until unique
-        if r in centroids:
+        if c in centroids:
             count = count
         else:
-            centroids.append(r)
+            centroids.append(c)
             count += 1
 
     return(centroids)
@@ -208,6 +211,7 @@ def knn(k, pixel, centroids):
         cr = cent[0]
         cg = cent[1]
         cb = cent[2]
+
 
         distances.append(math.sqrt(pow((r - cr), 2) + pow((g - cg), 2) + pow((b - cb), 2)))
 
@@ -268,7 +272,7 @@ def colorCount(k, pix, width, length):
     # After count is complete, only keep the pixel data (not the number of times it appears)
     centroids = []
     for element in cen:
-        centroids.append(element[0])
+        centroids.append(ColorPixel(element[0]))
     # centroids is a list of tuples containing ints
     # replace individual centroids by assigning a new tuple to that centroid index
 
@@ -299,7 +303,8 @@ def newImage(k, pix, centroids, membership, width, length):
         r = int(a[0])
         g = int(a[1])
         b = int(a[2])
-        centroids[i] = (r, g, b)
+        rgb = (r, g, b)
+        centroids[i] = ColorPixel(rgb)
 
 
     # replace pixels with their cluster's centroid
