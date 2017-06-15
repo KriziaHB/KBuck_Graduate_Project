@@ -11,6 +11,7 @@ from PIL import Image
 from collections import Counter # ** currently not in use
 from random import randint
 import math
+import Classes # import Classes.py
 
 
 
