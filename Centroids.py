@@ -9,7 +9,7 @@
 import PIL
 from PIL import Image
 
-
+# ******* maybe try making a Color class with RGB then use inheritance for Centroids and Pixels (have a location too)
 
 class Centroids(object):
 
