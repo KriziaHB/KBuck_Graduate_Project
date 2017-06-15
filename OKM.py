@@ -11,7 +11,8 @@ from PIL import Image
 from collections import Counter # ** currently not in use
 from random import randint
 import math
-import Classes # import Classes.py
+import Centroids # Centroids.py
+
 
 
 
@@ -23,13 +24,14 @@ def kmeans(k, im, pix, initC, psC, LR):
 
     width = int(im.size[0])
     length = int(im.size[1])
-
+    centroids = []
+    CENTS = Centroids(centroids)
 
 
     #! Linear Initialiation
     if (initC == 1):
         print("Linear Init")
-        centroids = linearI(k, pix, width, length)
+        centroids = linearI(k, pix, width, length, CENTS)
     #! Random Initialization
     elif (initC == 2):
         print("Random Init")
@@ -119,10 +121,10 @@ def term(k, oldCent, newCent):
 
 
 # Linear Initialization #
-def linearI(k, pix, width, length):
+def linearI(k, pix, width, length, CENTS):
     print("--in linearI")
 
-    centroids = []
+
     c = 0
     jumpW = int(width / k) - 1
     jumpL = int(length / k ) - 1
@@ -132,13 +134,12 @@ def linearI(k, pix, width, length):
     while (c < k):
         l = pix[x,y]
 
-        if l in centroids: # centroid exists, increment to test new value
-            c = c
+        if l in CENTS.centroids: # centroid exists, increment to test new value
             correction += 1
             x += 1
             y += 1
         else: # add new centroid, set up next x/y, and reset correction
-            centroids.append(l)
+            CENTS.insertCTUP(l)
             print(str(x) + "  " + str(y))
             c += 1
             x += (jumpW - correction)
@@ -146,7 +147,7 @@ def linearI(k, pix, width, length):
             correction = 0
 
 
-    return(centroids)
+    return(CENTS.centroids)
 # end of linearI #
 
 
@@ -157,6 +158,8 @@ def randoI(k):
 
     count = 0
     centroids = []
+    c = Centroids(centroids)
+
 
     # go through until all centroid spots are filled with a unique color
     while (count < k):
@@ -164,7 +167,8 @@ def randoI(k):
         r1 = randint(0, 255)
         r2 = randint(0, 255)
         r3 = randint(0, 255)
-        r = (r1, r2, r3)
+        r = c.newC(r1, r2, r3)
+      #  r = (r1, r2, r3)
         # print(r)
 
         # if current random color is not a centroid, add it, or else repeat until unique
