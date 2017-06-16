@@ -61,7 +61,7 @@ def kmeans(k, im, pix, initC, psC, LR):
 
 ## **  K-MEANS HERE  ** ##
     # iterate through pixels to form clusters
-    while (end < 10 or t < 0.5):
+    while (end < 10 or t > 5.0):
         print("while")
 
         # Check through all points each while iteration
@@ -76,9 +76,9 @@ def kmeans(k, im, pix, initC, psC, LR):
                 # find the index of nearest centroid to current pixel and update membership
                 m = knn(k, pixel, centroids)
                 index = (x*width) + y
-                membership[index] = copyOver(membership[index], pix, m)
+                membership[index] = copyOver(membership[index], m)
                 # update the nearest center
-                centroids[m] = upC(pixel, centroids[m], LR)
+                centroids[m] = centroids[m].upC(pixel, centroids[m], LR)
         # end of for loops
 
         end += 1
@@ -103,16 +103,22 @@ def term(k, oldCent, newCent):
     print("--in term")
 
     # termination value (if small, then convergence is reached)
-    t = 0.0
     sum = 0.0
 
 
     # go through all centroids comparing them to what they used to be using Euclidean distance
     for i in range(0,k):
-        a = ColorPixel(oldCent[i])
-        b = ColorPixel(newCent[i])
-        euclidean = float(math.sqrt(pow((a.r() - b.r()),2) + pow((a.g() - b.g()),2) + pow((a.b() - b.b()),2)))
+        old = oldCent[i]
+        updated = newCent[i]
+        print(type(old))
+        print(type(updated))
+        r = pow((old.r - updated.r),2)
+        g = pow((old.g - updated.g),2)
+        b = pow((old.b - updated.b),2)
+        euclidean = math.sqrt(r + g + b)
+        print(euclidean)
         sum += euclidean
+        print(sum)
 
     t = float(sum / k)
     print("t: " + str(t))
@@ -205,15 +211,17 @@ def knn(k, pixel, centroids):
     # find distance from current pixel to each centroid and select the closest one
     for i in range(0,k):
         cent = centroids[i]
-        r = pixel[0]
-        g = pixel[1]
-        b = pixel[2]
-        cr = cent[0]
-        cg = cent[1]
-        cb = cent[2]
+        r = pixel.r
+        g = pixel.g
+        b = pixel.b
+        cr = cent.r
+        cg = cent.g
+        cb = cent.b
 
-
-        distances.append(math.sqrt(pow((r - cr), 2) + pow((g - cg), 2) + pow((b - cb), 2)))
+        d = math.sqrt(pow((r - cr), 2) + pow((g - cg), 2) + pow((b - cb), 2))
+        distances.append(d)
+        if (distances[i] == 0.0):
+            return(i)
 
     centroidIndex = distances.index(min(distances))
 
@@ -228,9 +236,9 @@ def upC(pixel, oldCentroid, LR):
     #print("--in upC")
 
 
-    r = float((pixel[0] + oldCentroid[0])/2)
-    g = float((pixel[1] + oldCentroid[1])/2)
-    b = float((pixel[2] + oldCentroid[2])/2)
+    r = float((pixel.r + oldCentroid.r)/2)
+    g = float((pixel.g + oldCentroid.g)/2)
+    b = float((pixel.b + oldCentroid.b)/2)
 
 
     # # Learning Rate of (1/(1+t))
@@ -247,8 +255,8 @@ def upC(pixel, oldCentroid, LR):
 
 
     # updated centroid
-    c = (r, g, b)
-
+    c = oldCentroid.insertRGB(r, g, b)
+    print(type(c))
     return(c)
 # end of upC #
 
@@ -300,9 +308,9 @@ def newImage(k, pix, centroids, membership, width, length):
     # round centroids to ints for quantization
     for i in range(0,k):
         a = centroids[i]
-        r = int(a[0])
-        g = int(a[1])
-        b = int(a[2])
+        r = int(a.r)
+        g = int(a.g)
+        b = int(a.b)
         rgb = (r, g, b)
         centroids[i] = ColorPixel(rgb)
 
@@ -312,8 +320,11 @@ def newImage(k, pix, centroids, membership, width, length):
         for y in range(0,length):
             index = (x * width) + y # compensating for flattened membership list
             pixel = membership[index] # selecting current pixel membership cluster
-            c = pixel[3] # cluster number (centroid number)
-            pix[x,y] = centroids[c] # replace original color with centroid color value
+            c = pixel[2] # cluster number (centroid number)
+            r = centroids[c].r
+            g = centroids[c].g
+            b = centroids[c].b
+            pix[x,y] = (r, g, b)  # replace original color with centroid color value not in ColorPixel form
 
     return(pix)
 # end of newImage #
@@ -321,15 +332,14 @@ def newImage(k, pix, centroids, membership, width, length):
 
 
 # Replace Membership value of pixel #
-def copyOver(p, pix, m):
+def copyOver(p, m):
     #print("--in copyOver")
 
-    pixel = pix[p[0],p[1]]
-    r = pixel[0]
-    g = pixel[1]
-    b = pixel[2]
+    # pixel = pix[p[0],p[1]]
+    x = p[0]
+    y = p[1]
 
-    pixel = (r,g,b,m)
+    pixel = (x, y, m)
     return(pixel)
 # end of copyOver #
 
