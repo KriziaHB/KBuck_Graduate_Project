@@ -94,9 +94,7 @@ def maniImage(im):
     # imM4.show()
     # imM5.show()
 
-    # built in PIL quantization (use for comparison)
-    q = im.quantize(k)
-    q.show()
+
 
     # get pixel values as (r,g,b) at indices
     data = list(im.getdata())
@@ -186,6 +184,11 @@ def main():
         else:
             LR = 1
         print("\n#### Running Algorithm ####")
+
+
+    # built in PIL quantization (use for comparison)
+        q = im.quantize(k)
+        q.show()
 
     ## Online K - Means ##
         # time the clustering of data using stopwatch
