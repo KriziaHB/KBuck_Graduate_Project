@@ -195,6 +195,7 @@ def main():
         elapsed = end - start
         times.append(elapsed)
         print("\nElapsed time in seconds: " + str(times[c-1]))
+        print("Elapsed time in minutes: " + str(elapsed/60.0))
 
         # save and display the image with fewer colors
         filename = "Output" + str(c) + ".PNG"
@@ -216,11 +217,11 @@ def main():
     s = sum(times)
     avg = s / len(times)
     print("\n#### Results ####")
-    print("Average times: " + str(avg))
+    print("Average time: " + str(avg))
 
 
     # close Results file
-    output.write("\nAverage of " + str(len(times)) + " run(s): \n")
+    output.write("\nAverage of " + str(len(times)) + " run(s) in seconds: \n")
     output.write(str(avg))
     output.close()
 

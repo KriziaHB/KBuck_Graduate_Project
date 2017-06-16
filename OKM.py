@@ -12,6 +12,7 @@ from collections import Counter # ** currently not in use
 from random import randint
 import math
 from ColorPixel import ColorPixel # ColorPixel.py
+import copy
 
 
 
@@ -44,7 +45,7 @@ def kmeans(k, im, pix, initC, psC, LR):
     print("* Original Centroids *")
     for i in centroids:
         i.printRGB()
-    previousCentroids = list(centroids)
+    previousCentroids = copy.deepcopy(centroids)
 
 
     #! Membership data for going through OKM
@@ -61,7 +62,7 @@ def kmeans(k, im, pix, initC, psC, LR):
 
 ## **  K-MEANS HERE  ** ##
     # iterate through pixels to form clusters
-    while (end < 10 or t > 5.0):
+    while (end < 10): #or t > 50.0):
         print("while")
 
         # Check through all points each while iteration
@@ -84,13 +85,14 @@ def kmeans(k, im, pix, initC, psC, LR):
         end += 1
         # check for convergence of centroids
         t = term(k, previousCentroids, centroids)
-        previousCentroids = list(centroids)
-        prevmembership = list(membership)
+        previousCentroids = copy.deepcopy(centroids)
+        prevmembership = copy.deepcopy(membership)
     # end of while loop
 ## ** end of K-MEANS ** ##
 
     # Use cluster data to make new image
     pix = newImage(k, pix, centroids, membership, width, length)
+    print("Iterations: " + str(end))
 
     # return to main with final image
     return(im)
@@ -105,20 +107,15 @@ def term(k, oldCent, newCent):
     # termination value (if small, then convergence is reached)
     sum = 0.0
 
-
     # go through all centroids comparing them to what they used to be using Euclidean distance
     for i in range(0,k):
         old = oldCent[i]
         updated = newCent[i]
-        print(type(old))
-        print(type(updated))
         r = pow((old.r - updated.r),2)
         g = pow((old.g - updated.g),2)
         b = pow((old.b - updated.b),2)
         euclidean = math.sqrt(r + g + b)
-        print(euclidean)
         sum += euclidean
-        print(sum)
 
     t = float(sum / k)
     print("t: " + str(t))
