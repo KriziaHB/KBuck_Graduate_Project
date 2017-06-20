@@ -28,7 +28,7 @@ def kmeans(k, im, pix, initC, psC, LR):
     centroids = []
 
 
-    #! Linear Initialiation
+    #! Linear Initialization
     if (initC == 1):
         print("Linear Init")
         centroids = linearI(k, pix, width, length)
@@ -62,7 +62,8 @@ def kmeans(k, im, pix, initC, psC, LR):
 
 ## **  K-MEANS HERE  ** ##
     # iterate through pixels to form clusters
-    while (end < 10): #or t > 50.0):
+    t = 100.0
+    while (t > 5.0): #(end < 10 and t > 5.0):
         print("while")
 
         # Check through all points each while iteration
@@ -84,7 +85,13 @@ def kmeans(k, im, pix, initC, psC, LR):
 
         end += 1
         # check for convergence of centroids
-        t = term(k, previousCentroids, centroids)
+        T = term(k, previousCentroids, centroids)
+        if cmp(prevmembership,membership):
+        #if (t == T or set(prevmembership) == set(membership)):
+            break
+        else:
+            t = copy.deepcopy(T)
+
         previousCentroids = copy.deepcopy(centroids)
         prevmembership = copy.deepcopy(membership)
     # end of while loop
@@ -205,12 +212,13 @@ def knn(k, pixel, centroids):
 
     distances = []
 
+    r = pixel.r
+    g = pixel.g
+    b = pixel.b
+
     # find distance from current pixel to each centroid and select the closest one
     for i in range(0,k):
         cent = centroids[i]
-        r = pixel.r
-        g = pixel.g
-        b = pixel.b
         cr = cent.r
         cg = cent.g
         cb = cent.b
