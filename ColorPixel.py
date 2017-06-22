@@ -53,13 +53,13 @@ class ColorPixel(object):
         print('(' + str(self.r) + ', ' + str(self.g) + ', ' + str(self.b) + ') ')
 
     # Update the Nearest Center (centroid) #
-    def upC(self, pixel, oldCentroid, LR):
+    def upC(self, pixel, LR):
         # print("--in upC")
 
 
-        self.r = float((pixel.r + oldCentroid.r) / 2)
-        self.g = float((pixel.g + oldCentroid.g) / 2)
-        self.b = float((pixel.b + oldCentroid.b) / 2)
+        self.r = float((pixel.r + self.r) / 2)
+        self.g = float((pixel.g + self.g) / 2)
+        self.b = float((pixel.b + self.b) / 2)
 
             # # Learning Rate of (1/(1+t))
             # if (LR == 1):

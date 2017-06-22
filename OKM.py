@@ -42,6 +42,7 @@ def kmeans(k, im, pix, initC, psC, LR):
         centroids = colorCount(k, pix, width, length)
 
 
+
     print("* Original Centroids *")
     for i in centroids:
         i.printRGB()
@@ -49,22 +50,20 @@ def kmeans(k, im, pix, initC, psC, LR):
 
 
     #! Membership data for going through OKM
-    prevmembership = []
+    previous_membership = []
     membership = []
     for x in range(0,width): # initialize previous membership with original data and fake centroid
         for y in range(0,length):
-            m1 = x
-            m2 = y
-            m3 = 0
-            m4 = (m1, m2, m3)
-            membership.append(m4)
-            prevmembership.append(m4)
+            membership.append(0)
+            previous_membership.append(0)
 
-## **  K-MEANS HERE  ** ##
+
+
+        ## **  K-MEANS HERE  ** ##
     # iterate through pixels to form clusters
     t = 100.0
-    while (t > 5.0 and end < 30):
-        print("while")
+    while (t > 5.0 and end < 20):
+        print("while: " + str(end))
 
         # Check through all points each while iteration
         for x in range(0, width):
@@ -73,28 +72,29 @@ def kmeans(k, im, pix, initC, psC, LR):
                 if (psC == 1): # Linear
                     pixel = ColorPixel(pix[x,y])
                 else: # Random
-                    pixel = randoP(k, pix, width, length)
-                    pixel = ColorPixel(pixel)
+                    pi = randoP(k, pix, width, length)
+                    pixel = ColorPixel(pi)
                 # find the index of nearest centroid to current pixel and update membership
                 m = knn(k, pixel, centroids)
                 index = (x*width) + y
-                membership[index] = copyOver(membership[index], m)
+                membership[index] = m
                 # update the nearest center
-                centroids[m] = centroids[m].upC(pixel, centroids[m], LR)
+                centroids[m] = centroids[m].upC(pixel, LR)
         # end of for loops
 
         end += 1
         # check for convergence of centroids
         T = term(k, previousCentroids, centroids)
-        if (prevmembership == membership):
-        #if (t == T or set(prevmembership) == set(membership)):
+        if (previous_membership == membership):
+        #if (t == T or set(previous_membership) == set(membership)):
             break
         else:
             t = copy.deepcopy(T)
 
+        # Reset old centroids
         previousCentroids = copy.deepcopy(centroids)
-        prevmembership = copy.deepcopy(membership)
-        print(end)
+        # Reset old membership
+        previous_membership = copyOver(membership) ##Untested!!!!!!!!!!!
     # end of while loop
 ## ** end of K-MEANS ** ##
 
@@ -325,12 +325,11 @@ def newImage(k, pix, centroids, membership, width, length):
     for x in range(0,width):
         for y in range(0,length):
             index = (x * width) + y # compensating for flattened membership list
-            pixel = membership[index] # selecting current pixel membership cluster
-            c = pixel[2] # cluster number (centroid number)
-            r = centroids[c].r
-            g = centroids[c].g
-            b = centroids[c].b
-            pix[x,y] = (r, g, b)  # replace original color with centroid color value not in ColorPixel form
+            cluster = membership[index] # selecting current pixel membership cluster
+            R = centroids[cluster].r
+            G = centroids[cluster].g
+            B = centroids[cluster].b
+            pix[x,y] = (R, G, B)  # replace original color with centroid color value not in ColorPixel form
 
     return(pix)
 # end of newImage #
@@ -338,15 +337,15 @@ def newImage(k, pix, centroids, membership, width, length):
 
 
 # Replace Membership value of pixel #
-def copyOver(p, m):
+def copyOver(m):
     #print("--in copyOver")
 
-    # pixel = pix[p[0],p[1]]
-    x = p[0]
-    y = p[1]
+    pm = []
 
-    pixel = (x, y, m)
-    return(pixel)
+    for i in m:
+        pm.append(i)
+
+    return(pm)
 # end of copyOver #
 
 

@@ -135,7 +135,7 @@ def main():
     # variables
     c = 1 # iteration count
     times = [] # elapsed time list
-    print("Krizia Houston Buck - UCA Summer 2017 - Graduate Project - Dr. Emre Celebi")
+    print("Krizia Houston Buck - UCA Summer 2017 - Applied Computing Graduate Project - Dr. Emre Celebi - Department of Computer Science ")
 
     # new file called Results.txt for all user input and elapsed times
     output = open("Results.txt", "w")
