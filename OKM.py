@@ -63,7 +63,7 @@ def kmeans(k, im, pix, initC, psC, LR):
 ## **  K-MEANS HERE  ** ##
     # iterate through pixels to form clusters
     t = 100.0
-    while (t > 5.0): #(end < 10 and t > 5.0):
+    while (t > 5.0 and end < 30):
         print("while")
 
         # Check through all points each while iteration
@@ -86,7 +86,7 @@ def kmeans(k, im, pix, initC, psC, LR):
         end += 1
         # check for convergence of centroids
         T = term(k, previousCentroids, centroids)
-        if cmp(prevmembership,membership):
+        if (prevmembership == membership):
         #if (t == T or set(prevmembership) == set(membership)):
             break
         else:
@@ -94,6 +94,7 @@ def kmeans(k, im, pix, initC, psC, LR):
 
         previousCentroids = copy.deepcopy(centroids)
         prevmembership = copy.deepcopy(membership)
+        print(end)
     # end of while loop
 ## ** end of K-MEANS ** ##
 
