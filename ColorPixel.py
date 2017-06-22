@@ -57,9 +57,6 @@ class ColorPixel(object):
         # print("--in upC")
 
 
-        self.r = float((pixel.r + self.r) / 2)
-        self.g = float((pixel.g + self.g) / 2)
-        self.b = float((pixel.b + self.b) / 2)
 
             # # Learning Rate of (1/(1+t))
             # if (LR == 1):
@@ -68,14 +65,16 @@ class ColorPixel(object):
             #     b = 0
             #
             # # Learning Rate of sqrt(1/(1+t))
-            # else:
+            # if (LR == 1):
             #     r = 0
             #     g = 0
             #     b = 0
+            # else:
+
+        self.r = float((pixel.r + self.r) / 2)
+        self.g = float((pixel.g + self.g) / 2)
+        self.b = float((pixel.b + self.b) / 2)
 
 
-            # updated centroid
-            # c = oldCentroid.insertRGB(r, g, b)
-            # print(type(c))
         return (self)
     # end of ColorPixel class #

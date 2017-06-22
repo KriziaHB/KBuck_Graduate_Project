@@ -183,10 +183,12 @@ def main():
 
 ##### User chooses the Learning Rate
         uIn3 = input('Learning Rate of [1] 1/(1+t) or [2] sqrt(1/(1+t)): ')
+        if (uIn3 == '1'):
+            LR = 1
         if (uIn3 == '2'):
             LR = 2
         else:
-            LR = 1
+            LR = 0
         print("\n#### Running Algorithm ####")
 
 
@@ -205,10 +207,11 @@ def main():
         print("Elapsed time in minutes: " + str(elapsed/60.0))
 
         # save and display the image with fewer colors
+        out.show()
         filename = "Output" + str(c) + ".PNG"
         print(filename + " now available")
         out.save(filename)
-        out.show()
+
         # Results.txt output
         output.write(str(userIn) + ", " + str(initChoice) + ", " + str(psChoice) + ", " + str(LR) + " - " + str(times[c-1]) + "\n")
 
