@@ -68,7 +68,7 @@ def kmeans(k, im, pix, initC, psC, LR):
         ## **  K-MEANS HERE  ** ##
     # iterate through pixels to form clusters
     t = 100.0
-    while (t > 5.0 and end < 10):
+    while (t > 5.0 and end < 20):
         print("while: " + str(end))
 
         # Check through all points each while iteration
