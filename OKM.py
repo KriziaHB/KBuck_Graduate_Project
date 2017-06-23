@@ -27,6 +27,9 @@ def kmeans(k, im, pix, initC, psC, LR):
     length = int(im.size[1])
     print("width: " + str(width) + " -- length: " + str(length))
     centroids = []
+    clustersize = []
+    for i in range(0,k):
+        clustersize.append(0)
 
 
     #! Linear Initialization
@@ -68,7 +71,7 @@ def kmeans(k, im, pix, initC, psC, LR):
         ## **  K-MEANS HERE  ** ##
     # iterate through pixels to form clusters
     t = 100.0
-    while (t > 5.0 and end < 20):
+    while (t > 5.0 and end < 5):
         print("while: " + str(end))
 
         # Check through all points each while iteration
@@ -87,9 +90,15 @@ def kmeans(k, im, pix, initC, psC, LR):
                 # find the index of nearest centroid to current pixel and update membership
                 m = knn(k, pixel, centroids)
                 index = (y*width) + x
+                # update the size of the current cluster
+                if (membership[index] != m):
+                    clustersize[m] += 1
+                    if (membership[index] > 0):
+                        membership[index] -= 1
+                cluster = clustersize[m]
                 membership[index] = m
                 # update the nearest center
-                centroids[m] = centroids[m].upC(pixel, LR)
+                centroids[m] = centroids[m].upC(pixel, LR, cluster)
         # end of for loops
 
         end += 1
