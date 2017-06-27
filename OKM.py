@@ -60,18 +60,14 @@ def kmeans(k, im, pix, initC, psC, LR):
         membership.append(0)
         previous_membership.append(0)
 
-    # Extra list for Random Presentation Style to keep track of if the pixel has been used
-    if (psC == 2):
-        presentation = []
-        for i in range(0,length*width):
-            presentation.append(0)
+
 
 
 
         ## **  K-MEANS HERE  ** ##
     # iterate through pixels to form clusters
     t = 100.0
-    while (t > 5.0 and end < 5):
+    while (t > 5.0 and end < 50):
         print("while: " + str(end))
 
         # Check through all points each while iteration
@@ -81,12 +77,10 @@ def kmeans(k, im, pix, initC, psC, LR):
                 if (psC == 1): # Linear
                     pixel = ColorPixel(pix[x,y])
                 else: # Random
-                    pi = randoP(k, pix, width, length, presentation)
+                    pi = randoP(k, pix, width, length)
                     # claim RGB
                     piToRGB = (pi[0], pi[1], pi[2])
                     pixel = ColorPixel(piToRGB)
-                    # update that this pixel was seen
-                    presentation[(pi[4]*width) + pi[3]] = 1
                 # find the index of nearest centroid to current pixel and update membership
                 m = knn(k, pixel, centroids)
                 index = (y*width) + x
@@ -114,13 +108,9 @@ def kmeans(k, im, pix, initC, psC, LR):
         previousCentroids = copy.deepcopy(centroids)
         # Reset old membership
         previous_membership = copyOver(membership) ##Untested!!!!!!!!!!!
-
-        # Extra list for Random Presentation Style to keep track of if the pixel has been used
-        if (psC == 2):
-            for i in range(0, length * width):
-                presentation[i] = 0
     # end of while loop
 ## ** end of K-MEANS ** ##
+
 
     # Use cluster data to make new image
     pix = newImage(k, pix, centroids, membership, width, length)
@@ -143,10 +133,13 @@ def term(k, oldCent, newCent):
     for i in range(0,k):
         old = oldCent[i]
         updated = newCent[i]
-        r = pow((old.r - updated.r),2)
-        g = pow((old.g - updated.g),2)
-        b = pow((old.b - updated.b),2)
-        euclidean = math.sqrt(r + g + b)
+        r = old.r - updated.r
+        r2 = r * r
+        g = old.g - updated.g
+        g2 = g * g
+        b = old.b - updated.b
+        b2 = b * b
+        euclidean = (r2 + g2 + b2)
         sum += euclidean
 
     t = float(sum / k)
@@ -201,10 +194,10 @@ def randoI(k):
     # go through until all centroid spots are filled with a unique color
     while (count < k):
 
-        r1 = randint(0, 255)
-        r2 = randint(0, 255)
-        r3 = randint(0, 255)
-        rgb = (r1, r2, r3)
+        r = randint(0, 255)
+        g = randint(0, 255)
+        b = randint(0, 255)
+        rgb = (r, g, b)
         c = ColorPixel(rgb)
       #  r = (r1, r2, r3)
         # print(r)
@@ -222,24 +215,25 @@ def randoI(k):
 
 
 # Randomizer for Presentation Style #
-def randoP(k, pix, width, length, presentation):
+def randoP(k, pix, width, length):
     print("--in randoP")
 
     # will be 0 when an unused pixel is found
     cont = 1
+    max = (width - 1) * (length - 1)
 
     while (cont == 1):
-        x = randint(0, width-1)
-        y = randint(0, length-1)
+        random = randint(0, max)
 
         # find unused pixels for this iteration
-        if (presentation[(y*width) + x] == 0):
-            pixel = ColorPixel(pix[x, y])
-            r = pixel.r
-            g = pixel.g
-            b = pixel.b
-            cont = 0
-            print("x: " + str(x) + " y: " + str(y))
+        x = random % width
+        y = random // width
+        pixel = ColorPixel(pix[x, y])
+        r = pixel.r
+        g = pixel.g
+        b = pixel.b
+        cont = 0
+        print("x: " + str(x) + " y: " + str(y))
     # end of while
 
 
@@ -266,7 +260,11 @@ def knn(k, pixel, centroids):
         cg = cent.g
         cb = cent.b
 
-        d = math.sqrt(pow((r - cr), 2) + pow((g - cg), 2) + pow((b - cb), 2))
+        distR = (r - cr) * (r - cr)
+        distG = (g - cg) * (g - cg)
+        distB = (b - cb) * (b - cb)
+
+        d = distR + distG + distB # removed sqrt
         distances.append(d)
         if (distances[i] == 0.0):
             return(i)
@@ -276,37 +274,6 @@ def knn(k, pixel, centroids):
     return(centroidIndex)
 
 # end of knn #
-
-
-
-# Update the Nearest Center (centroid) #
-def upC(pixel, oldCentroid, LR):
-    #print("--in upC")
-
-
-    r = float((pixel.r + oldCentroid.r)/2)
-    g = float((pixel.g + oldCentroid.g)/2)
-    b = float((pixel.b + oldCentroid.b)/2)
-
-
-    # # Learning Rate of (1/(1+t))
-    # if (LR == 1):
-    #     r = 0
-    #     g = 0
-    #     b = 0
-    #
-    # # Learning Rate of sqrt(1/(1+t))
-    # else:
-    #     r = 0
-    #     g = 0
-    #     b = 0
-
-
-    # updated centroid
-    c = oldCentroid.insertRGB(r, g, b)
-    print(type(c))
-    return(c)
-# end of upC #
 
 
 

@@ -5,7 +5,7 @@
 # Graduate Project
 # ColorPixel.py (Color Class file)
 
-# PIL for manipulating images
+import math
 
 # ******* maybe try making a Color class with RGB then use inheritance for Centroids and Pixels (have a location too)
 
@@ -62,17 +62,17 @@ class ColorPixel(object):
             self.r = float(((1 / (1 + t)) * pixel.r) + (1 - ((1 / (1 + t)) * self.r)))
             self.g = float(((1 / (1 + t)) * pixel.g) + (1 - ((1 / (1 + t)) * self.g)))
             self.b = float(((1 / (1 + t)) * pixel.b) + (1 - ((1 / (1 + t)) * self.b)))
-
-            # # Learning Rate of sqrt(1/(1+t))
-            # if (LR == 1):
-            #     r = 0
-            #     g = 0
-            #     b = 0
-            # else:
-
-        self.r = float((pixel.r + self.r) / 2)
-        self.g = float((pixel.g + self.g) / 2)
-        self.b = float((pixel.b + self.b) / 2)
+        # Learning Rate of sqrt(1/(1+t))
+        ##!! Gives back white image
+        elif (LR == 2):
+            self.r = (math.sqrt(1 / (1 + t)) * pixel.r) + (math.sqrt(1 - (1 / (1 + t))) * self.r)
+            self.g = (math.sqrt(1 / (1 + t)) * pixel.g) + (math.sqrt(1 - (1 / (1 + t))) * self.g)
+            self.b = (math.sqrt(1 / (1 + t)) * pixel.b) + (math.sqrt(1 - (1 / (1 + t))) * self.b)
+        # Average of both points for LR
+        else:
+            self.r = float((pixel.r + self.r) / 2)
+            self.g = float((pixel.g + self.g) / 2)
+            self.b = float((pixel.b + self.b) / 2)
 
 
         return (self)
