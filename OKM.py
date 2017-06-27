@@ -50,7 +50,7 @@ def kmeans(k, im, pix, initC, psC, LR):
     print("* Original Centroids *")
     for i in centroids:
         i.printRGB()
-    previousCentroids = copy.deepcopy(centroids)
+    previous_centroids = copy.deepcopy(centroids)
 
 
     # Membership data for going through OKM
@@ -65,50 +65,49 @@ def kmeans(k, im, pix, initC, psC, LR):
 
 
         ## **  K-MEANS HERE  ** ##
-    # iterate through pixels to form clusters
-    t = 100.0
-    while (t > 5.0 and end < 50):
-        print("while: " + str(end))
+    # Random Presentation Style
+    if (psC == 2):
+        pix = randoP(k, pix, width, length, centroids, previous_centroids, membership, previous_membership, clustersize, LR)
+    # Linear Presentation Style
+    else:
+        # iterate through pixels to form clusters
+        t = 100.0
+        while (t > 5.0 and end < 50):
+            print("while: " + str(end))
 
-        # Check through all points each while iteration
-        for y in range(0, length):
-            for x in range(0, width):
-                #! Presentation Style
-                if (psC == 1): # Linear
+            # Check through all points each while iteration
+            for y in range(0, length):
+                for x in range(0, width):
+                    # Linear Presentation Style
                     pixel = ColorPixel(pix[x,y])
-                else: # Random
-                    pi = randoP(k, pix, width, length)
-                    # claim RGB
-                    piToRGB = (pi[0], pi[1], pi[2])
-                    pixel = ColorPixel(piToRGB)
-                # find the index of nearest centroid to current pixel and update membership
-                m = knn(k, pixel, centroids)
-                index = (y*width) + x
-                # update the size of the current cluster
-                if (membership[index] != m):
-                    clustersize[m] += 1
-                    if (membership[index] > 0):
-                        membership[index] -= 1
-                cluster = clustersize[m]
-                membership[index] = m
-                # update the nearest center
-                centroids[m] = centroids[m].upC(pixel, LR, cluster)
-        # end of for loops
+                    # find the index of nearest centroid to current pixel and update membership
+                    m = knn(k, pixel, centroids)
+                    index = (y*width) + x
+                    # update the size of the current cluster
+                    if (membership[index] != m):
+                        clustersize[m] += 1
+                        if (membership[index] > 0):
+                            membership[index] -= 1
+                    cluster = clustersize[m]
+                    membership[index] = m
+                    # update the nearest center
+                    centroids[m] = centroids[m].upC(pixel, LR, cluster)
+            # end of for loops
 
-        end += 1
-        # check for convergence of centroids
-        T = term(k, previousCentroids, centroids)
-        if (previous_membership == membership):
-        #if (t == T or set(previous_membership) == set(membership)):
-            break
-        else:
-            t = copy.deepcopy(T)
+            end += 1
+            # check for convergence of centroids
+            T = term(k, previous_centroids, centroids)
+            if (previous_membership == membership):
+            #if (t == T or set(previous_membership) == set(membership)):
+                break
+            else:
+                t = copy.deepcopy(T)
 
-        # Reset old centroids
-        previousCentroids = copy.deepcopy(centroids)
-        # Reset old membership
-        previous_membership = copyOver(membership) ##Untested!!!!!!!!!!!
-    # end of while loop
+            # Reset old centroids
+            previous_centroids = copy.deepcopy(centroids)
+            # Reset old membership
+            previous_membership = copyOver(membership) ##Untested!!!!!!!!!!!
+        # end of while loop
 ## ** end of K-MEANS ** ##
 
 
@@ -139,7 +138,7 @@ def term(k, oldCent, newCent):
         g2 = g * g
         b = old.b - updated.b
         b2 = b * b
-        euclidean = (r2 + g2 + b2)
+        euclidean = math.sqrt(r2 + g2 + b2) # REMOVE SQRT
         sum += euclidean
 
     t = float(sum / k)
@@ -209,36 +208,63 @@ def randoI(k):
             centroids.append(c)
             count += 1
 
+
     return(centroids)
 # end of randoI #
 
 
 
 # Randomizer for Presentation Style #
-def randoP(k, pix, width, length):
+def randoP(k, pix, width, length, centroids, previous_centroids, membership, previous_membership, clustersize, LR):
     print("--in randoP")
 
     # will be 0 when an unused pixel is found
     cont = 1
+    end = 0
     max = (width - 1) * (length - 1)
 
-    while (cont == 1):
-        random = randint(0, max)
+    while (cont == 1 or end == (max*10)):
 
-        # find unused pixels for this iteration
+        # Find random number to generate pixel location
+        random = randint(0, max)
         x = random % width
         y = random // width
         pixel = ColorPixel(pix[x, y])
-        r = pixel.r
-        g = pixel.g
-        b = pixel.b
-        cont = 0
-        print("x: " + str(x) + " y: " + str(y))
+
+        # find the index of nearest centroid to current pixel and update membership
+        m = knn(k, pixel, centroids)
+        index = (y * width) + x
+        # update the size of the current cluster
+        if (membership[index] != m):
+            clustersize[m] += 1
+            if (membership[index] > 0):
+                membership[index] -= 1
+        cluster = clustersize[m]
+        membership[index] = m
+        # update the nearest center
+        centroids[m] = centroids[m].upC(pixel, LR, cluster)
+
+
+        # end of pixel manipulation
+        end += 1
+        # check for convergence of centroids
+        if (end%5000 == 0):
+            print("randoP while: " + str(end))
+            T = term(k, previous_centroids, centroids)
+            if (previous_membership == membership):
+                # if (t == T or set(previous_membership) == set(membership)):
+                cont = 0
+            else:
+                t = copy.deepcopy(T)
+
+            # Reset old centroids
+            previous_centroids = copy.deepcopy(centroids)
+            # Reset old membership
+            previous_membership = copyOver(membership)  ##Untested!!!!!!!!!!!
     # end of while
 
 
-    random = (r, g, b, x, y)
-    return(random)
+    return(pix)
 # end of randoP #
 
 

@@ -63,7 +63,7 @@ class ColorPixel(object):
             self.g = float(((1 / (1 + t)) * pixel.g) + (1 - ((1 / (1 + t)) * self.g)))
             self.b = float(((1 / (1 + t)) * pixel.b) + (1 - ((1 / (1 + t)) * self.b)))
         # Learning Rate of sqrt(1/(1+t))
-        ##!! Gives back white image
+##!! Gives back white image
         elif (LR == 2):
             self.r = (math.sqrt(1 / (1 + t)) * pixel.r) + (math.sqrt(1 - (1 / (1 + t))) * self.r)
             self.g = (math.sqrt(1 / (1 + t)) * pixel.g) + (math.sqrt(1 - (1 / (1 + t))) * self.g)
