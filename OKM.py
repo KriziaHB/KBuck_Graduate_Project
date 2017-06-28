@@ -109,11 +109,11 @@ def kmeans(k, im, pix, initC, psC, LR):
             previous_membership = copyOver(membership) ##Untested!!!!!!!!!!!
         # end of while loop
 ## ** end of K-MEANS ** ##
-
+        print("Iterations: " + str(end))
 
     # Use cluster data to make new image
     pix = newImage(k, pix, centroids, membership, width, length)
-    print("Iterations: " + str(end))
+
 
     # return to main with final image
     return(im)
@@ -223,7 +223,7 @@ def randoP(k, pix, width, length, centroids, previous_centroids, membership, pre
     end = 0
     max = (width - 1) * (length - 1)
 
-    while (cont == 1 or end == (max*10)):
+    while (cont == 1):
 
         # Find random number to generate pixel location
         random = randint(0, max)
@@ -261,6 +261,8 @@ def randoP(k, pix, width, length, centroids, previous_centroids, membership, pre
             previous_centroids = copy.deepcopy(centroids)
             # Reset old membership
             previous_membership = copyOver(membership)  ##Untested!!!!!!!!!!!
+        if (end == (max*50)):
+            cont = 0
     # end of while
 
 
