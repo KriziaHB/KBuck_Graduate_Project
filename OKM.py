@@ -72,7 +72,7 @@ def kmeans(k, im, pix, initC, psC, LR):
     else:
         # iterate through pixels to form clusters
         t = 100.0
-        while (t > 5.0 and end < 50):
+        while (t > 5.0 and end < 50): #!! if you change end value here, then also change in randoP
             print("while: " + str(end))
 
             # Check through all points each while iteration
