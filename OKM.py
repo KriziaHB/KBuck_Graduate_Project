@@ -251,6 +251,10 @@ def randoP(k, pix, width, length, centroids, previous_centroids, membership, pre
         if (end%5000 == 0):
             print("randoP while: " + str(end))
             T = term(k, previous_centroids, centroids)
+
+            # NEXT AREA TO WORK ON
+            if (T < 1): # adjust later
+                cont = 0
             if (previous_membership == membership):
                 # if (t == T or set(previous_membership) == set(membership)):
                 cont = 0
