@@ -397,7 +397,14 @@
       <option name="project" value="LOCAL" />
       <updated>1498836529266</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Smaller peppers image, new test images with more colors, and reduced frequency of checks in randoP. Still need to walk through entire code again checking for same errors/changes that should be made like in Meeting #3 with Dr. Celebi.">
+      <created>1498847398655</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1498847398655</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TodoView">
@@ -446,7 +453,8 @@
     <MESSAGE value="Issue with LR#2: fixed equation (sqrt was in wrong spot) now getting all black images instead of all white" />
     <MESSAGE value="Issue with LR#2: fixed it! Literally a () fix" />
     <MESSAGE value="LR#2 working beautifully!" />
-    <option name="LAST_COMMIT_MESSAGE" value="LR#2 working beautifully!" />
+    <MESSAGE value="Smaller peppers image, new test images with more colors, and reduced frequency of checks in randoP. Still need to walk through entire code again checking for same errors/changes that should be made like in Meeting #3 with Dr. Celebi." />
+    <option name="LAST_COMMIT_MESSAGE" value="Smaller peppers image, new test images with more colors, and reduced frequency of checks in randoP. Still need to walk through entire code again checking for same errors/changes that should be made like in Meeting #3 with Dr. Celebi." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
