@@ -65,9 +65,9 @@ class ColorPixel(object):
         # Learning Rate of sqrt(1/(1+t))
 ##!! Gives back white image
         elif (LR == 2):
-            self.r = (math.sqrt(1 / (1 + t)) * pixel.r) + (math.sqrt(1 - (1 / (1 + t))) * self.r)
-            self.g = (math.sqrt(1 / (1 + t)) * pixel.g) + (math.sqrt(1 - (1 / (1 + t))) * self.g)
-            self.b = (math.sqrt(1 / (1 + t)) * pixel.b) + (math.sqrt(1 - (1 / (1 + t))) * self.b)
+            self.r = (math.sqrt(1 / (1 + t)) * pixel.r) + (1 - math.sqrt((1 / (1 + t))) * self.r)
+            self.g = (math.sqrt(1 / (1 + t)) * pixel.g) + (1 - math.sqrt((1 / (1 + t))) * self.g)
+            self.b = (math.sqrt(1 / (1 + t)) * pixel.b) + (1 - math.sqrt((1 / (1 + t))) * self.b)
         # Average of both points for LR
         else:
             self.r = float((pixel.r + self.r) / 2)
