@@ -250,7 +250,7 @@ def randoP(k, pix, width, length, centroids, previous_centroids, membership, pre
         # end of pixel manipulation
         end += 1
         # check for convergence of centroids
-        if (end%5000 == 0):
+        if (end%100000 == 0):
             print("randoP while: " + str(end))
          #    T = term(k, previous_centroids, centroids)
          #

@@ -27,14 +27,21 @@ def readImage(userIn):
     pic3 = "IMG_5331.JPG"
     # Max paddleboard from behind  -  JPEG, 750x1334, RGB: IMG_5457.JPG
     pic4 = "IMG_5457.JPG"
-    # Josh on bike  -  JPEG, 4032x3024, RGB: IMG_5672.JPG
-    pic5 = "IMG_5672.JPG"
+    # Josh and Max on canoe  -  JPEG, 750 × 1334, RGB: IMG_5755.JPG
+    pic5 = "IMG_5755.JPG"
     # Max (small testing image) - JPEG, 214 × 240, RGB: IMG_5765.JPG
     pic6 = "IMG_5765.JPG"
     # Vegetables - JPEG, 512 x 512, RGB: veggies.JPG
     pic7 = "veggies.JPG"
     # Peppers - JPEG, 250 x 250, RGB: peppers.JPG
     pic8 = "peppers.JPG"
+    # Max kayak - JPEG, 750 × 1334, RGB: IMG_5769.JPG
+    pic9 = "IMG_5769.JPG"
+    # Max flowers no filter - JPEG, 1334 × 750, RGB: IMG_5778.JPG
+    pic10 = "IMG_5778.JPG"
+    # Max flowers with filter - JPEG, 1334 × 750, RGB: IMG_5779.JPG
+    pic11 = "IMG_5779.JPG"
+
 
 
 ##### User selects image to use
@@ -54,6 +61,12 @@ def readImage(userIn):
         picture = pic7
     elif (userIn == '8'):
         picture = pic8
+    elif (userIn == '9'):
+        picture = pic9
+    elif (userIn == '10'):
+        picture = pic10
+    elif (userIn == '11'):
+        picture = pic11
     else:
         picture = pic1
 
@@ -153,7 +166,7 @@ def main():
     # rerun as many times as user wants
     while (c > 0):
 ##### User selects image
-        userIn = input('\nSelect which image to use (1-8) [small testing images (6 & 8)]:  ')
+        userIn = input('\nSelect which image to use (1-11) [small testing images (6-Max & 8-peppers)]:  ')
         # read in image
         im = readImage(userIn)
 ##### User selects whether to go to maniImage
