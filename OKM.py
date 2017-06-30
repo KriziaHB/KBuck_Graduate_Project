@@ -227,22 +227,24 @@ def randoP(k, pix, width, length, centroids, previous_centroids, membership, pre
 
         # Find random number to generate pixel location
         random = randint(0, max)
-        x = random % width
+        x = random % width  ## COMBINE INTO ONE FUNCTION
         y = random // width
-        pixel = ColorPixel(pix[x, y])
+        mod = divmod(random,width)
+        pixel = ColorPixel(pix[mod[1], mod[0]])
 
         # find the index of nearest centroid to current pixel and update membership
         m = knn(k, pixel, centroids)
-        index = (y * width) + x
+
         # update the size of the current cluster
-        if (membership[index] != m):
+        if (membership[random] != m):
             clustersize[m] += 1
-            if (membership[index] > 0):
-                membership[index] -= 1
-        cluster = clustersize[m]
-        membership[index] = m
+           # if (membership[random] > 0):
+            membership[random] -= 1
+
+
+        membership[random] = m
         # update the nearest center
-        centroids[m] = centroids[m].upC(pixel, LR, cluster)
+        centroids[m] = centroids[m].upC(pixel, LR, clustersize[m])
 
 
         # end of pixel manipulation
@@ -250,16 +252,16 @@ def randoP(k, pix, width, length, centroids, previous_centroids, membership, pre
         # check for convergence of centroids
         if (end%5000 == 0):
             print("randoP while: " + str(end))
-            T = term(k, previous_centroids, centroids)
-
-            # NEXT AREA TO WORK ON
-            if (T < 1): # adjust later
-                cont = 0
-            if (previous_membership == membership):
-                # if (t == T or set(previous_membership) == set(membership)):
-                cont = 0
-            else:
-                t = copy.deepcopy(T)
+         #    T = term(k, previous_centroids, centroids)
+         #
+         #    # NEXT AREA TO WORK ON
+         # #   if (T < 1): # adjust later
+         # #       cont = 0
+         #    if (previous_membership == membership):
+         #        # if (t == T or set(previous_membership) == set(membership)):
+         #        cont = 0
+         #    else:
+         #        t = copy.deepcopy(T)
 
             # Reset old centroids
             previous_centroids = copy.deepcopy(centroids)
@@ -298,8 +300,7 @@ def knn(k, pixel, centroids):
 
         d = distR + distG + distB # removed sqrt
         distances.append(d)
-        if (distances[i] == 0.0):
-            return(i)
+     ####!! COME BACK CHECK IF KEEPING TRACK OF MIN IS FASTER, remove some variables to simpollify
 
     centroidIndex = distances.index(min(distances))
 

@@ -55,19 +55,22 @@ class ColorPixel(object):
     # Update the Nearest Center (centroid) #
     def upC(self, pixel, LR, t):
         # print("--in upC")
+        rate = (1 / (1 + t))
+        rateminus = 1 - rate
 
 
         # Learning Rate of (1/(1+t))
         if (LR == 1):
-            self.r = float(((1 / (1 + t)) * pixel.r) + (1 - ((1 / (1 + t)) * self.r)))
-            self.g = float(((1 / (1 + t)) * pixel.g) + (1 - ((1 / (1 + t)) * self.g)))
-            self.b = float(((1 / (1 + t)) * pixel.b) + (1 - ((1 / (1 + t)) * self.b)))
+            self.r = float((rate * pixel.r) + (rateminus * self.r))
+            self.g = float((rate * pixel.g) + (rateminus * self.g))
+            self.b = float((rate * pixel.b) + (rateminus * self.b))
         # Learning Rate of sqrt(1/(1+t))
-##!! Gives back white image
         elif (LR == 2):
-            self.r = (math.sqrt(1 / (1 + t)) * pixel.r) + ((1 - math.sqrt(1 / (1 + t))) * self.r)
-            self.g = (math.sqrt(1 / (1 + t)) * pixel.g) + ((1 - math.sqrt(1 / (1 + t))) * self.g)
-            self.b = (math.sqrt(1 / (1 + t)) * pixel.b) + ((1 - math.sqrt(1 / (1 + t))) * self.b)
+            ratesqrt = math.sqrt(rate)
+            ratesqrtminus = math.sqrt(rateminus)
+            self.r = (ratesqrt * pixel.r) + (ratesqrtminus * self.r)
+            self.g = (ratesqrt * pixel.g) + (ratesqrtminus * self.g)
+            self.b = (ratesqrt * pixel.b) + (ratesqrtminus * self.b)
         # Average of both points for LR
         else:
             self.r = float((pixel.r + self.r) / 2)
