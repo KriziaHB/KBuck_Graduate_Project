@@ -169,16 +169,17 @@ def main():
         userIn = input('\nSelect which image to use (1-11) [small testing images (6-Max & 8-peppers)]:  ')
         # read in image
         im = readImage(userIn)
-##### User selects whether to go to maniImage
-        userinput = input('Go into maniImage? (y/n): ')
-        if (userinput == 'y'):
-    ##      # Manipulate images (pixels)
-            imMani = maniImage(im)
-            pix = imMani.load()
-        else:
-            pix = im.load()
-     #   x, y = 2, 4; print('Pixels loaded individually for access. Example: '); print('Pixel value of [' + str(x) + ', ' + str(y) + ']'); print(pix[x,y])
+# ##### User selects whether to go to maniImage
+#         userinput = input('Go into maniImage? (y/n): ')
+#         if (userinput == 'y'):
+#     ##      # Manipulate images (pixels)
+#             imMani = maniImage(im)
+#             pix = imMani.load()
+#         else:
+#             pix = im.load()
+#      #   x, y = 2, 4; print('Pixels loaded individually for access. Example: '); print('Pixel value of [' + str(x) + ', ' + str(y) + ']'); print(pix[x,y])
 
+        pix = im.load()
 
 ##### User inputs cluster number
         uIn = input('Number of clusters (k): ')
@@ -196,7 +197,7 @@ def main():
             initChoice = 1
 
 ##### User chooses type of Presentation Style
-        uIn2 = input('Presentation Style of [1] Cyclic or [2] Random: ')
+        uIn2 = input('Presentation Style of [1] Cyclic/Linear or [2] Random: ')
         if (uIn2 == '2'):
             psChoice = 2
         else:
@@ -210,7 +211,7 @@ def main():
             LR = 2
         else:
             LR = 0
-        print("\n#### Running Algorithm ####")
+
 
 
     # built in PIL quantization (use for comparison)
@@ -218,6 +219,7 @@ def main():
         q.show()
 
     ## Online K - Means ##
+        print("\n#### Running Algorithm ####")
         # time the clustering of data using stopwatch
         start = time.time()
         out = OKM.kmeans(k, im, pix, initChoice, psChoice, LR)
@@ -248,7 +250,7 @@ def main():
     s = sum(times)
     avg = s / len(times)
     print("\n#### Results ####")
-    print("Average time: " + str(avg))
+    print("Average time in seconds: " + str(avg))
 
 
     # close Results file

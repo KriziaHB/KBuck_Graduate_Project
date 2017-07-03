@@ -20,9 +20,8 @@ import copy
 # Online K-Means, call functions from here #
 def kmeans(k, im, pix, initC, psC, LR):
     print("--in kmeans")
-    end = 0
-    t = 1.0
 
+    # Variables to be used throughout
     width = int(im.size[0])
     length = int(im.size[1])
     print("width: " + str(width) + " -- length: " + str(length))
@@ -32,6 +31,7 @@ def kmeans(k, im, pix, initC, psC, LR):
         clustersize.append(0)
 
 
+# Initializations
     #! Linear Initialization
     if (initC == 1):
         print("Linear Init")
@@ -45,15 +45,15 @@ def kmeans(k, im, pix, initC, psC, LR):
         print("Most Common Color Init")
         centroids = colorCount(k, pix, width, length)
 
-
-
     print("* Original Centroids *")
     for i in centroids:
         i.printRGB()
     previous_centroids = copy.deepcopy(centroids)
+# end Initializations
 
 
     # Membership data for going through OKM
+# DO NOT NEED previous_membership when using number of iterations as sole convergence type
     previous_membership = []
     membership = []
     for i in range(0,length*width): # initialize previous membership with original data and fake centroid
@@ -61,55 +61,14 @@ def kmeans(k, im, pix, initC, psC, LR):
         previous_membership.append(0)
 
 
-
-
-
-        ## **  K-MEANS HERE  ** ##
-    # Random Presentation Style
+## **  K-MEANS HERE via two different Presentation Styles ** ##
+    # Random Presentation Style - OKM runs from a different method entirely
     if (psC == 2):
         pix = randoP(k, pix, width, length, centroids, previous_centroids, membership, previous_membership, clustersize, LR)
-    # Linear Presentation Style
+    # Linear Presentation Style - OKM runs here
     else:
-        # iterate through pixels to form clusters
-        t = 100.0
-        while (t > 5.0 and end < 50): #!! if you change end value here, then also change in randoP
-            print("while: " + str(end))
-
-            # Check through all points each while iteration
-            for y in range(0, length):
-                for x in range(0, width):
-                    # Linear Presentation Style
-                    pixel = ColorPixel(pix[x,y])
-                    # find the index of nearest centroid to current pixel and update membership
-                    m = knn(k, pixel, centroids)
-                    index = (y*width) + x
-                    # update the size of the current cluster
-                    if (membership[index] != m):
-                        clustersize[m] += 1
-                        if (membership[index] > 0):
-                            membership[index] -= 1
-                    cluster = clustersize[m]
-                    membership[index] = m
-                    # update the nearest center
-                    centroids[m] = centroids[m].upC(pixel, LR, cluster)
-            # end of for loops
-
-            end += 1
-            # check for convergence of centroids
-            T = term(k, previous_centroids, centroids)
-            if (previous_membership == membership):
-            #if (t == T or set(previous_membership) == set(membership)):
-                break
-            else:
-                t = copy.deepcopy(T)
-
-            # Reset old centroids
-            previous_centroids = copy.deepcopy(centroids)
-            # Reset old membership
-            previous_membership = copyOver(membership) ##Untested!!!!!!!!!!!
-        # end of while loop
+        pix = linearP(k, pix, width, length, centroids, previous_centroids, membership, previous_membership, clustersize, LR)
 ## ** end of K-MEANS ** ##
-        print("Iterations: " + str(end))
 
     # Use cluster data to make new image
     pix = newImage(k, pix, centroids, membership, width, length)
@@ -153,11 +112,11 @@ def term(k, oldCent, newCent):
 def linearI(k, pix, width, length):
     print("--in linearI")
 
-
+    # Count, jump, coordinate, and corrector variables
     c = 0
-    jumpW = int(width / k) - 1
-    jumpL = int(length / k ) - 1
-    x,y, correction = 0, 0, 0
+    jumpW = int(width / k) #- 1
+    jumpL = int(length / k ) #- 1
+    x, y, correction = 0, 0, 0
     centroids = []
 
     # go through making centroids a diagonal line top left to bottom right
@@ -170,6 +129,7 @@ def linearI(k, pix, width, length):
             y += 1
         else: # add new centroid, set up next x/y, and reset correction
             cent = ColorPixel(l)
+            print(str(x) + "  ___  " + str(y))
             centroids.append(cent)
             c += 1
             x += (jumpW - correction)
@@ -202,9 +162,7 @@ def randoI(k):
         # print(r)
 
         # if current random color is not a centroid, add it, or else repeat until unique
-        if c in centroids:
-            count = count
-        else:
+        if c not in centroids:
             centroids.append(c)
             count += 1
 
@@ -214,7 +172,35 @@ def randoI(k):
 
 
 
-# Randomizer for Presentation Style #
+# Find Greatest Occurring Colors #
+def colorCount(k, pix, width, length):
+    print("--in colorCount - k = " + str(k))
+
+
+    # List for all pixels for counting
+    pixList = []
+
+    for y in range(0,length):
+        for x in range(0,width):
+            pixList.append(pix[x,y])
+  #  print(pixList)
+    cen = Counter(pixList).most_common(k)
+    print(cen)
+
+    # After count is complete, only keep the pixel data (not the number of times it appears)
+    centroids = []
+    for element in cen:
+        centroids.append(ColorPixel(element[0]))
+    # centroids is a list of tuples containing ints
+    # replace individual centroids by assigning a new tuple to that centroid index
+
+
+    return(centroids)
+# end of colorCount #
+
+
+
+# OKM with Random Points for Presentation Style #
 def randoP(k, pix, width, length, centroids, previous_centroids, membership, previous_membership, clustersize, LR):
     print("--in randoP")
 
@@ -277,67 +263,78 @@ def randoP(k, pix, width, length, centroids, previous_centroids, membership, pre
 
 
 
+# OKM with Linear Points for Presentation Style #
+def linearP(k, pix, width, length, centroids, previous_centroids, membership, previous_membership, clustersize, LR):
+    # iterate through pixels to form clusters
+    end = 0
+    t = 100.0
+    while (t > 5.0 and end < 50):  # !! if you change end value here, then also change in randoP
+        print("while: " + str(end))
+
+        # Check through all points each while iteration
+        for y in range(0, length):
+            for x in range(0, width):
+                # Linear Presentation Style
+                pixel = ColorPixel(pix[x, y])
+                # find the index of nearest centroid to current pixel and update membership
+                m = knn(k, pixel, centroids)
+                index = (y * width) + x
+                # update the size of the current cluster
+                if (membership[index] != m):
+                    clustersize[m] += 1
+                    if (membership[index] > 0):
+                        membership[index] -= 1
+                cluster = clustersize[m]
+                membership[index] = m
+                # update the nearest center
+                centroids[m] = centroids[m].upC(pixel, LR, cluster)
+        # end of for loops
+
+        end += 1
+        # check for convergence of centroids
+        T = term(k, previous_centroids, centroids)
+        if (previous_membership == membership):
+            # if (t == T or set(previous_membership) == set(membership)):
+            break
+        else:
+            t = copy.deepcopy(T)
+
+        # Reset old centroids
+        previous_centroids = copy.deepcopy(centroids)
+        # Reset old membership
+        previous_membership = copyOver(membership)  ##Untested!!!!!!!!!!!
+        # end of while loop
+
+    print("Iterations: " + str(end))
+    return(pix)
+# end of linearP #
+
+
+
 # K Nearest Neighbor - find nearest centroid to current pixel #
 def knn(k, pixel, centroids):
     #print("--in knn")
 
     distances = []
 
-    r = pixel.r
-    g = pixel.g
-    b = pixel.b
-
     # find distance from current pixel to each centroid and select the closest one
     for i in range(0,k):
         cent = centroids[i]
-        cr = cent.r
-        cg = cent.g
-        cb = cent.b
+        distR = pixel.r - cent.r
+        distG = pixel.g - cent.g
+        distB = pixel.b - cent.b
 
-        distR = (r - cr) * (r - cr)
-        distG = (g - cg) * (g - cg)
-        distB = (b - cb) * (b - cb)
-
-        d = distR + distG + distB # removed sqrt
+        d = (distR * distR) + (distG * distG) + (distB * distB) # removed sqrt
         distances.append(d)
-     ####!! COME BACK CHECK IF KEEPING TRACK OF MIN IS FASTER, remove some variables to simpollify
+  ####!! COME BACK CHECK IF KEEPING TRACK OF MIN IS FASTER, remove some variables to simplify
 
     centroidIndex = distances.index(min(distances))
 
     return(centroidIndex)
-
 # end of knn #
 
 
 
-# Find Greatest Occurring Colors #
-def colorCount(k, pix, width, length):
-    print("--in colorCount - k = " + str(k))
-
-
-    # List for all pixels for counting
-    pixList = []
-
-    for y in range(0,length):
-        for x in range(0,width):
-            pixList.append(pix[x,y])
-  #  print(pixList)
-    cen = Counter(pixList).most_common(k)
-    print(cen)
-
-    # After count is complete, only keep the pixel data (not the number of times it appears)
-    centroids = []
-    for element in cen:
-        centroids.append(ColorPixel(element[0]))
-    # centroids is a list of tuples containing ints
-    # replace individual centroids by assigning a new tuple to that centroid index
-
-
-    return(centroids)
-# end of colorCount #
-
-
-################ UNTESTED
 # Create New Image to be Printed as Output #
 def newImage(k, pix, centroids, membership, width, length):
     print("--in newImage")
@@ -345,22 +342,18 @@ def newImage(k, pix, centroids, membership, width, length):
     # round centroids to ints for quantization
     for i in range(0,k):
         a = centroids[i]
-        r = int(a.r)
-        g = int(a.g)
-        b = int(a.b)
-        rgb = (r, g, b)
-        centroids[i] = ColorPixel(rgb)
+        rgb = (int(a.r), int(a.g), int(a.b))
+        centroids[i] = ColorPixel((int(a.r), int(a.g), int(a.b)))
 
 
     # replace pixels with their cluster's centroid
     for y in range(0,length):
         for x in range(0,width):
-            index = (y * width) + x # compensating for flattened membership list
-            cluster = membership[index] # selecting current pixel membership cluster
-            R = centroids[cluster].r
-            G = centroids[cluster].g
-            B = centroids[cluster].b
-            pix[x,y] = (R, G, B)  # replace original color with centroid color value not in ColorPixel form
+            # compensating for flattened membership list
+            # selecting current pixel membership cluster
+            cluster = membership[(y * width) + x ]
+            # replace original color with centroid color value not in ColorPixel form
+            pix[x, y] = (centroids[cluster].r, centroids[cluster].g, centroids[cluster].b)
 
     return(pix)
 # end of newImage #

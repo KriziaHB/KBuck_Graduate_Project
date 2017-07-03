@@ -69,7 +69,7 @@ class ColorPixel(object):
         # Learning Rate of sqrt(1/(1+t))
         elif (LR == 2):
             ratesqrt = math.sqrt(rate)
-            ratesqrtComp = 1.0 - math.sqrt(rate)
+            ratesqrtComp = 1.0 - ratesqrt
             self.r = (ratesqrt * pixel.r) + (ratesqrtComp * self.r)
             self.g = (ratesqrt * pixel.g) + (ratesqrtComp * self.g)
             self.b = (ratesqrt * pixel.b) + (ratesqrtComp * self.b)
