@@ -24,7 +24,7 @@ def kmeans(k, im, pix, initC, psC, LR):
     # Variables to be used throughout
     width = int(im.size[0])
     length = int(im.size[1])
-    print("width: " + str(width) + " -- length: " + str(length))
+    print("width: " + str(width) + " -- length: " + str(length) + " -- k: " + str(k))
     centroids = []
     clustersize = []
     for i in range(0,k):

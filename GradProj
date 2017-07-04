@@ -151,6 +151,72 @@ def maniImage(im):
 
 
 
+# All Scenarios Run with only User Input Once #
+def allScenarios(output):
+    c = 1 # iteration count
+    times = [] # elapsed time list
+
+##### User selects image
+    userIn = input('Select which image to use (1-11) [small testing images (6-Max & 8-peppers)]:  ')
+    # read in image
+    im = readImage(userIn)
+    pix = im.load()
+
+##### User inputs cluster number
+    uIn = input('Number of clusters (k): ')
+    k = int(uIn)
+    K = k
+    q = im.quantize(K)
+    q.show()
+    q.save("PILquantizer.PNG")
+
+    # [1] Linear Initialization, [2] Random Initialization, or [3] Most Common Color Initialization
+    for init in range(1,4):
+        # Presentation Style of [1] Cyclic/Linear or [2] Random
+        for PS in range(1,3):
+            # Learning Rate of [1] 1/(1+t) or [2] sqrt(1/(1+t))
+            for LR in range(1,3):
+
+## Online K - Means ##
+                print("\n#### Running Algorithm ####")
+                # time the clustering of data using stopwatch
+                start = time.time()
+                out = OKM.kmeans(K, im, pix, init, PS, LR)
+                end = time.time()
+                elapsed = end - start
+                times.append(elapsed)
+                print("\nElapsed time in seconds: " + str(times[c-1]))
+                print("Elapsed time in minutes: " + str(elapsed/60.0))
+
+                # save and display the image with fewer colors
+                out.show()
+                filename = "Output" + str(c) + ".PNG"
+                print(filename + " now available")
+                out.save(filename)
+
+
+                # Results.txt output
+                output.write(str(userIn) + ", " + str(k) + ", " + str(init) + ", " + str(PS) + ", " + str(LR) + " - " + str(times[c-1]) + "\n")  # average of all times executed
+                c += 1
+    # end all for loops
+
+
+    # Final stats and close Results.txt
+    s = sum(times)
+    avg = s / len(times)
+    print("\n#### Results ####")
+    print("Average time in seconds: " + str(avg))
+
+    # close Results file
+    output.write("\nAverage of " + str(len(times)) + " run(s) in seconds: \n")
+    output.write(str(avg))
+    output.close()
+
+    print("Terminating - Results.txt now available ")
+# end allScenarios #
+
+
+
 # Call Everything from Main #
 def main():
     # variables
@@ -161,7 +227,16 @@ def main():
     # new file called Results.txt for all user input and elapsed times
     output = open("Results.txt", "w")
     output.write("Krizia Houston Buck - UCA Summer 2017 - Graduate Project - Dr. Emre Celebi \n\n")
-    output.write("Time Result(s) - Image, Initialization, Presentation Style, Learning Rate: (in seconds) \n")
+    output.write("Time Result(s) - Image, Clusters, Initialization, Presentation Style, Learning Rate: (in seconds) \n")
+
+
+##### User decides whether to do all of the cases in one or do some individual tests
+    userInput = input('\nRun [1] All Scenarios on one image or go [2] Individually for testing?: ')
+    if (userInput == '1'):
+        allScenarios(output)
+        # Skip option to do individual runs to preserve the information in Results.txt
+        c = -2
+
 
     # rerun as many times as user wants
     while (c > 0):
@@ -238,7 +313,7 @@ def main():
         out.save(filename)
 
         # Results.txt output
-        output.write(str(userIn) + ", " + str(initChoice) + ", " + str(psChoice) + ", " + str(LR) + " - " + str(times[c-1]) + "\n")
+        output.write(str(userIn) + ", " + str(k) + ", " + str(initChoice) + ", " + str(psChoice) + ", " + str(LR) + " - " + str(times[c-1]) + "\n")
 
         # ask user if they want to do it all again
         uIn4 = input('Run again? (y/n): ')
@@ -247,20 +322,21 @@ def main():
         else:
             c = 0
 
-    # user selected to end the program
-    # average of all times executed
-    s = sum(times)
-    avg = s / len(times)
-    print("\n#### Results ####")
-    print("Average time in seconds: " + str(avg))
+    if (c != -2):
+        # user selected to end the program
+        # average of all times executed
+        s = sum(times)
+        avg = s / len(times)
+        print("\n#### Results ####")
+        print("Average time in seconds: " + str(avg))
 
 
-    # close Results file
-    output.write("\nAverage of " + str(len(times)) + " run(s) in seconds: \n")
-    output.write(str(avg))
-    output.close()
+        # close Results file
+        output.write("\nAverage of " + str(len(times)) + " run(s) in seconds: \n")
+        output.write(str(avg))
+        output.close()
 
-    print("Terminating - Results.txt now available ")
+        print("Terminating - Results.txt now available ")
 # end of main #
 
 
