@@ -4,7 +4,6 @@
     <list default="true" id="a1ba30a6-db51-4e3a-a2f0-4038acb0cd01" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GradProj" afterPath="$PROJECT_DIR$/GradProj" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OKM.py" afterPath="$PROJECT_DIR$/OKM.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -16,22 +15,22 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="GradProj" pinned="false" current-in-tab="false">
+      <file leaf-file-name="GradProj" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/GradProj">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="149">
-              <caret line="185" column="37" lean-forward="true" selection-start-line="185" selection-start-column="37" selection-end-line="185" selection-end-column="37" />
+            <state relative-caret-position="370">
+              <caret line="179" column="0" lean-forward="true" selection-start-line="179" selection-start-column="0" selection-end-line="179" selection-end-column="0" />
               <folding>
                 <element signature="e#342#2004#0" expanded="false" />
                 <element signature="e#2093#3574#0" expanded="false" />
-                <element signature="e#6989#7036#0" expanded="false" />
-                <element signature="e#10100#10118#0" expanded="false" />
+                <element signature="e#7065#7112#0" expanded="false" />
+                <element signature="e#10176#10194#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OKM.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="OKM.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/OKM.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="302">
@@ -63,8 +62,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/ColorPixel.py" />
-        <option value="$PROJECT_DIR$/GradProj" />
         <option value="$PROJECT_DIR$/OKM.py" />
+        <option value="$PROJECT_DIR$/GradProj" />
       </list>
     </option>
   </component>
@@ -329,7 +328,14 @@
       <option name="project" value="LOCAL" />
       <updated>1499183982639</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Set up for All Scenario run, but having issue with colorCount">
+      <created>1499186515966</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1499186515966</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TodoView">
@@ -384,7 +390,8 @@
     <MESSAGE value="Fixed empty last row problem on random PS" />
     <MESSAGE value="LR #1 now works!" />
     <MESSAGE value="Built in quantizer now an option" />
-    <option name="LAST_COMMIT_MESSAGE" value="Built in quantizer now an option" />
+    <MESSAGE value="Set up for All Scenario run, but having issue with colorCount" />
+    <option name="LAST_COMMIT_MESSAGE" value="Set up for All Scenario run, but having issue with colorCount" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -427,8 +434,8 @@
           <folding>
             <element signature="e#342#2004#0" expanded="false" />
             <element signature="e#2093#3574#0" expanded="false" />
-            <element signature="e#6989#7036#0" expanded="false" />
-            <element signature="e#10100#10118#0" expanded="false" />
+            <element signature="e#7065#7112#0" expanded="false" />
+            <element signature="e#10176#10194#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -458,8 +465,8 @@
           <folding>
             <element signature="e#342#2004#0" expanded="false" />
             <element signature="e#2093#3574#0" expanded="false" />
-            <element signature="e#6989#7036#0" expanded="false" />
-            <element signature="e#10100#10118#0" expanded="false" />
+            <element signature="e#7065#7112#0" expanded="false" />
+            <element signature="e#10176#10194#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -480,25 +487,25 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GradProj">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="149">
-          <caret line="185" column="37" lean-forward="true" selection-start-line="185" selection-start-column="37" selection-end-line="185" selection-end-column="37" />
-          <folding>
-            <element signature="e#342#2004#0" expanded="false" />
-            <element signature="e#2093#3574#0" expanded="false" />
-            <element signature="e#6989#7036#0" expanded="false" />
-            <element signature="e#10100#10118#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/OKM.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="302">
           <caret line="179" column="0" lean-forward="true" selection-start-line="179" selection-start-column="0" selection-end-line="179" selection-end-column="0" />
           <folding>
             <element signature="e#8119#8157#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GradProj">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="370">
+          <caret line="179" column="0" lean-forward="true" selection-start-line="179" selection-start-column="0" selection-end-line="179" selection-end-column="0" />
+          <folding>
+            <element signature="e#342#2004#0" expanded="false" />
+            <element signature="e#2093#3574#0" expanded="false" />
+            <element signature="e#7065#7112#0" expanded="false" />
+            <element signature="e#10176#10194#0" expanded="false" />
           </folding>
         </state>
       </provider>

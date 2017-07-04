@@ -160,7 +160,6 @@ def allScenarios(output):
     userIn = input('Select which image to use (1-11) [small testing images (6-Max & 8-peppers)]:  ')
     # read in image
     im = readImage(userIn)
-    pix = im.load()
 
 ##### User inputs cluster number
     uIn = input('Number of clusters (k): ')
@@ -176,6 +175,8 @@ def allScenarios(output):
         for PS in range(1,3):
             # Learning Rate of [1] 1/(1+t) or [2] sqrt(1/(1+t))
             for LR in range(1,3):
+                # make sure pix is from original image each run
+                pix = im.load()
 
 ## Online K - Means ##
                 print("\n#### Running Algorithm ####")
