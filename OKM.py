@@ -127,7 +127,7 @@ def linearI(k, pix, width, length):
             y += 1
         else: # add new centroid, set up next x/y, and reset correction
             cent = ColorPixel(l)
-            print(str(x) + "  ___  " + str(y))
+            # print(str(x) + "  ___  " + str(y))
             centroids.append(cent)
             c += 1
             x += (jumpW - correction)
@@ -228,9 +228,9 @@ def randoP(k, pix, width, length, centroids, previous_centroids, membership, pre
         centroids[m] = centroids[m].upC(pixel, LR, clustersize[m])
 
         # End the algorithm after 50 full runs
-        if (end == (max*10)):
+        if (end == (max * 10)):
             print("Ten runs")
-        elif(end == (max*20)):
+        elif(end == (max * 20)):
             print("Twenty runs")
         elif (end == (max * 30)):
             print("Thirty runs")
@@ -252,9 +252,10 @@ def randoP(k, pix, width, length, centroids, previous_centroids, membership, pre
 def linearP(k, pix, width, length, centroids, previous_centroids, membership, previous_membership, clustersize, LR):
     # iterate through pixels to form clusters
     end = 0
-    t = 100.0
-    while (t > 5.0 and end < 50):  # !! if you change end value here, then also change in randoP
-        print("while: " + str(end))
+    # t = 100.0
+    while (end < 50):  # !! if you change end value here, then also change in randoP
+        if ((end % 10) == 0):
+            print("while: " + str(end))
 
         # Check through all points each while iteration
         for y in range(0, length):
@@ -276,20 +277,20 @@ def linearP(k, pix, width, length, centroids, previous_centroids, membership, pr
                 # update the nearest center
                 centroids[m] = centroids[m].upC(pixel, LR, clustersize[m])
         # end of for loops
-
         end += 1
-        # check for convergence of centroids
-        T = term(k, previous_centroids, centroids)
-        if (previous_membership == membership):
-            # if (t == T or set(previous_membership) == set(membership)):
-            break
-        else:
-            t = copy.deepcopy(T)
 
-        # Reset old centroids
-        previous_centroids = copy.deepcopy(centroids)
-        # Reset old membership
-        previous_membership = copyOver(membership)  ##Untested!!!!!!!!!!!
+        # # check for convergence of centroids
+        # T = term(k, previous_centroids, centroids)
+        # if (previous_membership == membership):
+        #     # if (t == T or set(previous_membership) == set(membership)):
+        #     break
+        # else:
+        #     t = copy.deepcopy(T)
+        #
+        # # Reset old centroids
+        # previous_centroids = copy.deepcopy(centroids)
+        # # Reset old membership
+        # previous_membership = copyOver(membership)
     # end of while loop
 
     print("Iterations: " + str(end))

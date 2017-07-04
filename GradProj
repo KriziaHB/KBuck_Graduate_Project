@@ -207,7 +207,7 @@ def main():
         uIn3 = input('Learning Rate of [1] 1/(1+t) or [2] sqrt(1/(1+t)): ')
         if (uIn3 == '1'):
             LR = 1
-        if (uIn3 == '2'):
+        elif (uIn3 == '2'):
             LR = 2
         else:
             LR = 0
