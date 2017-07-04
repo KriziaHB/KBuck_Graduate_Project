@@ -213,10 +213,12 @@ def main():
             LR = 0
 
 
+##### built in PIL quantization (use for comparison)
+        uIN = input('Built in PIL Quantizer? (y/n): ')
+        if (uIN == 'y'):
+            q = im.quantize(k)
+            q.show()
 
-    # built in PIL quantization (use for comparison)
-        q = im.quantize(k)
-        q.show()
 
     ## Online K - Means ##
         print("\n#### Running Algorithm ####")
