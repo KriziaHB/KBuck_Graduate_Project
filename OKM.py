@@ -70,6 +70,7 @@ def kmeans(k, im, pix, initC, psC, LR):
         pix = linearP(k, pix, width, length, centroids, previous_centroids, membership, previous_membership, clustersize, LR)
 ## ** end of K-MEANS ** ##
 
+
     # Use cluster data to make new image
     pix = newImage(k, pix, centroids, membership, width, length)
 
@@ -79,7 +80,7 @@ def kmeans(k, im, pix, initC, psC, LR):
 # end of kmeans #
 
 
-##################### UNTESTED
+##################### Not Using, Set number of iterations instead to keep all versions to equal number of runs
 # Check Termination Criteria to see if met #
 def term(k, oldCent, newCent):
     print("--in term")
@@ -91,13 +92,10 @@ def term(k, oldCent, newCent):
     for i in range(0,k):
         old = oldCent[i]
         updated = newCent[i]
-        r = old.r - updated.r
-        r2 = r * r
-        g = old.g - updated.g
-        g2 = g * g
-        b = old.b - updated.b
-        b2 = b * b
-        euclidean = math.sqrt(r2 + g2 + b2) # REMOVE SQRT
+        r = (old.r - updated.r) * (old.r - updated.r)
+        g = (old.g - updated.g) * (old.g - updated.g)
+        b = (old.b - updated.b) * (old.b - updated.b)
+        euclidean = math.sqrt(r + g + b) # REMOVE SQRT
         sum += euclidean
 
     t = float(sum / k)
@@ -207,54 +205,41 @@ def randoP(k, pix, width, length, centroids, previous_centroids, membership, pre
     # will be 0 when an unused pixel is found
     cont = 1
     end = 0
-    max = (width - 1) * (length - 1)
+    max = (width * length) - 1
 
     while (cont == 1):
 
         # Find random number to generate pixel location
         random = randint(0, max)
-        x = random % width  ## COMBINE INTO ONE FUNCTION
-        y = random // width
-        mod = divmod(random,width)
+        mod = divmod(random, width)
         pixel = ColorPixel(pix[mod[1], mod[0]])
 
         # find the index of nearest centroid to current pixel and update membership
         m = knn(k, pixel, centroids)
 
-        # update the size of the current cluster
+        # update the size of the current cluster and new cluster
         if (membership[random] != m):
             clustersize[m] += 1
-           # if (membership[random] > 0):
-            membership[random] -= 1
-
-
+            if (clustersize[membership[random]] > 0):
+                clustersize[membership[random]] -= 1
         membership[random] = m
+
         # update the nearest center
         centroids[m] = centroids[m].upC(pixel, LR, clustersize[m])
 
-
-        # end of pixel manipulation
-        end += 1
-        # check for convergence of centroids
-        if (end%100000 == 0):
-            print("randoP while: " + str(end))
-         #    T = term(k, previous_centroids, centroids)
-         #
-         #    # NEXT AREA TO WORK ON
-         # #   if (T < 1): # adjust later
-         # #       cont = 0
-         #    if (previous_membership == membership):
-         #        # if (t == T or set(previous_membership) == set(membership)):
-         #        cont = 0
-         #    else:
-         #        t = copy.deepcopy(T)
-
-            # Reset old centroids
-            previous_centroids = copy.deepcopy(centroids)
-            # Reset old membership
-            previous_membership = copyOver(membership)  ##Untested!!!!!!!!!!!
-        if (end == (max*50)):
+        # End the algorithm after 50 full runs
+        if (end == (max*10)):
+            print("Ten runs")
+        elif(end == (max*20)):
+            print("Twenty runs")
+        elif (end == (max * 30)):
+            print("Thirty runs")
+        elif (end == (max * 40)):
+            print("Forty runs")
+        elif (end == (max*50)):
+            print("Fifty runs")
             cont = 0
+        end += 1
     # end of while
 
 
@@ -276,18 +261,20 @@ def linearP(k, pix, width, length, centroids, previous_centroids, membership, pr
             for x in range(0, width):
                 # Linear Presentation Style
                 pixel = ColorPixel(pix[x, y])
+
                 # find the index of nearest centroid to current pixel and update membership
                 m = knn(k, pixel, centroids)
                 index = (y * width) + x
+
                 # update the size of the current cluster
                 if (membership[index] != m):
                     clustersize[m] += 1
-                    if (membership[index] > 0):
-                        membership[index] -= 1
-                cluster = clustersize[m]
+                    if (clustersize[membership[index]] > 0):
+                        clustersize[membership[index]] -= 1
                 membership[index] = m
+
                 # update the nearest center
-                centroids[m] = centroids[m].upC(pixel, LR, cluster)
+                centroids[m] = centroids[m].upC(pixel, LR, clustersize[m])
         # end of for loops
 
         end += 1
@@ -303,7 +290,7 @@ def linearP(k, pix, width, length, centroids, previous_centroids, membership, pr
         previous_centroids = copy.deepcopy(centroids)
         # Reset old membership
         previous_membership = copyOver(membership)  ##Untested!!!!!!!!!!!
-        # end of while loop
+    # end of while loop
 
     print("Iterations: " + str(end))
     return(pix)
@@ -338,12 +325,13 @@ def knn(k, pixel, centroids):
 # Create New Image to be Printed as Output #
 def newImage(k, pix, centroids, membership, width, length):
     print("--in newImage")
+    print("* Final Centroids *")
 
     # round centroids to ints for quantization
     for i in range(0,k):
         a = centroids[i]
-        rgb = (int(a.r), int(a.g), int(a.b))
         centroids[i] = ColorPixel((int(a.r), int(a.g), int(a.b)))
+        centroids[i].printRGB()
 
 
     # replace pixels with their cluster's centroid
