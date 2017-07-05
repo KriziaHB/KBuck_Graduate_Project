@@ -71,7 +71,7 @@ def readImage(userIn):
         picture = pic1
 
     im = Image.open(picture)
-    im.show()
+    # im.show()
 
 
     return(im)
@@ -166,6 +166,7 @@ def allScenarios(output):
     k = int(uIn)
     K = k
     q = im.quantize(K)
+    im.show()
     q.show()
     q.save("PILquantizer.PNG")
 
@@ -176,6 +177,7 @@ def allScenarios(output):
             # Learning Rate of [1] 1/(1+t) or [2] sqrt(1/(1+t))
             for LR in range(1,3):
                 # make sure pix is from original image each run
+                im = readImage(userIn)
                 pix = im.load()
 
 ## Online K - Means ##
@@ -254,8 +256,9 @@ def main():
 #         else:
 #             pix = im.load()
 #      #   x, y = 2, 4; print('Pixels loaded individually for access. Example: '); print('Pixel value of [' + str(x) + ', ' + str(y) + ']'); print(pix[x,y])
-
+        im.show()
         pix = im.load()
+
 
 ##### User inputs cluster number
         uIn = input('Number of clusters (k): ')
