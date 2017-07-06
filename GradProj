@@ -172,10 +172,30 @@ def allScenarios(output):
 
     # [1] Linear Initialization, [2] Random Initialization, or [3] Most Common Color Initialization
     for init in range(1,4):
+        # for output image name
+        if (init == 1):
+            INIT = "LI"
+        elif (init == 2):
+            INIT = "RI"
+        else:
+            INIT = "MCCI"
+
         # Presentation Style of [1] Cyclic/Linear or [2] Random
         for PS in range(1,3):
+            # for output image name
+            if (PS == 1):
+                pres = "LPS"
+            else:
+                pres = "RPS"
+
             # Learning Rate of [1] 1/(1+t) or [2] sqrt(1/(1+t))
             for LR in range(1,3):
+                # for output image name
+                if (LR == 1):
+                    lr = "LR1"
+                else:
+                    lr = "LR2"
+
                 # make sure pix is from original image each run
                 im = readImage(userIn)
                 pix = im.load()
@@ -193,13 +213,13 @@ def allScenarios(output):
 
                 # save and display the image with fewer colors
                 out.show()
-                filename = "Output" + str(c) + ".PNG"
+                filename = "Output" + str(c) + "_K" + str(K) + "_" + INIT + "_" + pres + "_" + lr + ".PNG"
                 print(filename + " now available")
                 out.save(filename)
 
 
                 # Results.txt output
-                output.write(str(userIn) + ", " + str(k) + ", " + str(init) + ", " + str(PS) + ", " + str(LR) + " - " + str(times[c-1]) + "\n")  # average of all times executed
+                output.write(str(userIn) + ", " + str(k) + ", " + str(init) + ", " + str(PS) + ", " + str(LR) + " - " + str(times[c-1]) + " * " + filename + "\n")  # average of all times executed
                 c += 1
     # end all for loops
 
