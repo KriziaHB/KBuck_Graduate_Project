@@ -229,10 +229,14 @@ def allScenarios(output):
     avg = s / len(times)
     print("\n#### Results ####")
     print("Average time in seconds: " + str(avg))
+    avgM = avg / 60.0
+    print("Average time in minutes: " + str(avgM))
 
     # close Results file
     output.write("\nAverage of " + str(len(times)) + " run(s) in seconds: \n")
     output.write(str(avg))
+    output.write("\nAverage of " + str(len(times)) + " run(s) in minutes: \n")
+    output.write(str(avgM))
     output.close()
 
     print("Terminating - Results.txt now available ")
