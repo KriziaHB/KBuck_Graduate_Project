@@ -171,7 +171,7 @@ def allScenarios(output):
     q.save("PILquantizer.PNG")
 
     # [1] Linear Initialization, [2] Random Initialization, or [3] Most Common Color Initialization
-    for init in range(1,5):
+    for init in range(1,4):
         # for output image name
         if (init == 1):
             INIT = "LI"
@@ -208,23 +208,8 @@ def allScenarios(output):
                 c += 1
     # end all for loops
 
-
-    # Final stats and close Results.txt
-    s = sum(times)
-    avg = s / len(times)
-    print("\n#### Results ####")
-    print("Average time in seconds: " + str(avg))
-    avgM = avg / 60.0
-    print("Average time in minutes: " + str(avgM))
-
-    # close Results file
-    output.write("\nAverage of " + str(len(times)) + " run(s) in seconds: \n")
-    output.write(str(avg))
-    output.write("\nAverage of " + str(len(times)) + " run(s) in minutes: \n")
-    output.write(str(avgM))
-    output.close()
-
-    print("Terminating - Results.txt now available ")
+    # Get final results.txt and output to terminal
+    results(times, output)
 # end allScenarios #
 
 
@@ -252,6 +237,28 @@ def run(output, image, K, im, pix, init, PS, LR, times, c, INIT, pres, lr):
 
     return(times)
 # end of run #
+
+
+
+# Results of the tests #
+def results(times, output):
+    # Final stats and close Results.txt
+    s = sum(times)
+    avg = s / len(times)
+    print("\n#### Results ####")
+    print("Average time in seconds: " + str(avg))
+    avgM = avg / 60.0
+    print("Average time in minutes: " + str(avgM))
+
+    # close Results file
+    output.write("\nAverage of " + str(len(times)) + " run(s) in seconds: \n")
+    output.write(str(avg))
+    output.write("\nAverage of " + str(len(times)) + " run(s) in minutes: \n")
+    output.write(str(avgM))
+    output.close()
+
+    print("Terminating - Results.txt now available ")
+# end of results #
 
 
 
@@ -357,19 +364,7 @@ def main():
 
     if (c != -2):
         # user selected to end the program
-        # average of all times executed
-        s = sum(times)
-        avg = s / len(times)
-        print("\n#### Results ####")
-        print("Average time in seconds: " + str(avg))
-
-
-        # close Results file
-        output.write("\nAverage of " + str(len(times)) + " run(s) in seconds: \n")
-        output.write(str(avg))
-        output.close()
-
-        print("Terminating - Results.txt now available ")
+        results(times, output)
 # end of main #
 
 

@@ -47,7 +47,7 @@ def kmeans(k, im, pix, initC, psC, LR):
     # Maximin Initialization #
     elif (initC == 4):
         print("Maximin Initialization")
-        centroids = maximin()
+        centroids = maximin(k, pix, width, length)
 
 
     print("* Original Centroids *")
@@ -204,10 +204,53 @@ def colorCount(k, pix, width, length):
 
 
 # Maximin Initialization #
-def maximin():
+def maximin(k, pix, width, length):
     print("--in maximin")
     centroids = []
+    # List for all pixels for counting
+    pixList = []
 
+    # narrow down to only colors in the image without duplicates
+    for y in range(0, length):
+        for x in range(0, width):
+            p = pix[x,y]
+            element = (p[0], p[1], p[2])
+            pixList.append(element)
+    colors = list(set(pixList))
+    print(colors)
+    print(len(colors))
+
+
+    # select first centroid randomly
+    max = len(colors) - 1
+    random = randint(0, max)
+    pixel = ColorPixel(colors[random])
+    centroids.append(pixel)
+
+    # all remaining centroids
+    orig = centroids[0]
+    for i in range(1,k):
+        dist = []
+        # figure out distances
+        for j in range(0,max+1):
+            c = colors[j]
+            r = (orig.r - c[0]) * (orig.r - c[0])
+            g = (orig.g - c[1]) * (orig.g - c[1])
+            b = (orig.b - c[2]) * (orig.b - c[2])
+            euclidean = math.sqrt(r + g + b)  # REMOVE SQRT
+            # add to distances list for check on maximum
+            dist.append(euclidean)
+
+        # color furthest away becomes a centroid
+        index = dist.index(max(dist))
+        print(index)
+        p = ColorPixel(colors[index])
+        centroids.append(p)
+        # Set new original to test on
+        orig = centroids[i]
+    # end of for loops
+
+    # return the intialized k centroids
     return(centroids)
 # end of maximin #
 
