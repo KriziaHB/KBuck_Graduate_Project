@@ -44,6 +44,11 @@ def kmeans(k, im, pix, initC, psC, LR):
     elif (initC == 3):
         print("Most Common Color Init")
         centroids = colorCount(k, pix, width, length)
+    # Maximin Initialization #
+    elif (initC == 4):
+        print("Maximin Initialization")
+        centroids = maximin()
+
 
     print("* Original Centroids *")
     for i in centroids:
@@ -195,6 +200,16 @@ def colorCount(k, pix, width, length):
 
     return(centroids)
 # end of colorCount #
+
+
+
+# Maximin Initialization #
+def maximin():
+    print("--in maximin")
+    centroids = []
+
+    return(centroids)
+# end of maximin #
 
 
 

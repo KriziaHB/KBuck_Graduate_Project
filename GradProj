@@ -157,9 +157,9 @@ def allScenarios(output):
     times = [] # elapsed time list
 
 ##### User selects image
-    userIn = input('Select which image to use (1-11) [small testing images (6-Max & 8-peppers)]:  ')
+    image = input('Select which image to use (1-11) [small testing images (6-Max & 8-peppers)]:  ')
     # read in image
-    im = readImage(userIn)
+    im = readImage(image)
 
 ##### User inputs cluster number
     uIn = input('Number of clusters (k): ')
@@ -171,14 +171,16 @@ def allScenarios(output):
     q.save("PILquantizer.PNG")
 
     # [1] Linear Initialization, [2] Random Initialization, or [3] Most Common Color Initialization
-    for init in range(1,4):
+    for init in range(1,5):
         # for output image name
         if (init == 1):
             INIT = "LI"
         elif (init == 2):
             INIT = "RI"
-        else:
+        elif (init == 3):
             INIT = "MCCI"
+        else:
+            INIT = "MI"
 
         # Presentation Style of [1] Cyclic/Linear or [2] Random
         for PS in range(1,3):
@@ -197,29 +199,12 @@ def allScenarios(output):
                     lr = "LR2"
 
                 # make sure pix is from original image each run
-                im = readImage(userIn)
+                im = readImage(image)
                 pix = im.load()
 
 ## Online K - Means ##
                 print("\n#### Running Algorithm ####")
-                # time the clustering of data using stopwatch
-                start = time.time()
-                out = OKM.kmeans(K, im, pix, init, PS, LR)
-                end = time.time()
-                elapsed = end - start
-                times.append(elapsed)
-                print("\nElapsed time in seconds: " + str(times[c-1]))
-                print("Elapsed time in minutes: " + str(elapsed/60.0))
-
-                # save and display the image with fewer colors
-                out.show()
-                filename = "Output" + str(c) + "_K" + str(K) + "_" + INIT + "_" + pres + "_" + lr + ".PNG"
-                print(filename + " now available")
-                out.save(filename)
-
-
-                # Results.txt output
-                output.write(str(userIn) + ", " + str(k) + ", " + str(init) + ", " + str(PS) + ", " + str(LR) + " - " + str(times[c-1]) + " * " + filename + "\n")  # average of all times executed
+                times = run(output, image, K, im, pix, init, PS, LR, times, c, INIT, pres, lr)
                 c += 1
     # end all for loops
 
@@ -241,6 +226,32 @@ def allScenarios(output):
 
     print("Terminating - Results.txt now available ")
 # end allScenarios #
+
+
+
+# Run OKM, print, and save to file #
+def run(output, image, K, im, pix, init, PS, LR, times, c, INIT, pres, lr):
+    # time the clustering of data using stopwatch
+    start = time.time()
+    out = OKM.kmeans(K, im, pix, init, PS, LR)
+    end = time.time()
+    elapsed = end - start
+    times.append(elapsed)
+    print("\nElapsed time in seconds: " + str(times[c - 1]))
+    print("Elapsed time in minutes: " + str(elapsed / 60.0))
+
+    # save and display the image with fewer colors
+    out.show()
+    filename = "Output" + str(c) + "_K" + str(K) + "_" + INIT + "_" + pres + "_" + lr + ".PNG"
+    print(filename + " now available")
+    out.save(filename)
+
+    # Results.txt output
+    output.write(str(image) + ", " + str(K) + ", " + str(init) + ", " + str(PS) + ", " + str(LR) + " - " + str(
+        times[c - 1]) + " * " + filename + "\n")  # average of all times executed
+
+    return(times)
+# end of run #
 
 
 
@@ -268,9 +279,9 @@ def main():
     # rerun as many times as user wants
     while (c > 0):
 ##### User selects image
-        userIn = input('\nSelect which image to use (1-11) [small testing images (6-Max & 8-peppers)]:  ')
+        image = input('\nSelect which image to use (1-11) [small testing images (6-Max & 8-peppers)]:  ')
         # read in image
-        im = readImage(userIn)
+        im = readImage(image)
 # ##### User selects whether to go to maniImage
 #         userinput = input('Go into maniImage? (y/n): ')
 #         if (userinput == 'y'):
@@ -289,31 +300,40 @@ def main():
         k = int(uIn)
 
 ##### User chooses type of Initialization
-        uIn1 = input('[1] Linear Initialization, [2] Random Initialization, or [3] Most Common Color Initialization: ')
-        if (uIn1 == '1'):
-            initChoice = 1
-        elif (uIn1 == '2'):
+        uIn1 = input('[1] Linear Initialization, [2] Random Initialization, [3] Most Common Color Initialization, or [4] Maximin: ')
+        if (uIn1 == '2'):
             initChoice = 2
+            INIT = "RI"
         elif (uIn1 == '3'):
             initChoice = 3
+            INIT = "MCCI"
+        elif (uIn1 == '4'):
+            initChoice = 4
+            INIT = "MI"
         else:
             initChoice = 1
+            INIT = "LI"
 
 ##### User chooses type of Presentation Style
         uIn2 = input('Presentation Style of [1] Cyclic/Linear or [2] Random: ')
         if (uIn2 == '2'):
             psChoice = 2
+            pres = "RPS"
         else:
             psChoice = 1
+            pres = "LPS"
 
 ##### User chooses the Learning Rate
         uIn3 = input('Learning Rate of [1] 1/(1+t) or [2] sqrt(1/(1+t)): ')
         if (uIn3 == '1'):
             LR = 1
+            lr = "LR1"
         elif (uIn3 == '2'):
             LR = 2
+            lr = "LR2"
         else:
             LR = 0
+            lr = "avgLR"
 
 
 ##### built in PIL quantization (use for comparison)
@@ -326,22 +346,7 @@ def main():
     ## Online K - Means ##
         print("\n#### Running Algorithm ####")
         # time the clustering of data using stopwatch
-        start = time.time()
-        out = OKM.kmeans(k, im, pix, initChoice, psChoice, LR)
-        end = time.time()
-        elapsed = end - start
-        times.append(elapsed)
-        print("\nElapsed time in seconds: " + str(times[c-1]))
-        print("Elapsed time in minutes: " + str(elapsed/60.0))
-
-        # save and display the image with fewer colors
-        out.show()
-        filename = "Output" + str(c) + ".PNG"
-        print(filename + " now available")
-        out.save(filename)
-
-        # Results.txt output
-        output.write(str(userIn) + ", " + str(k) + ", " + str(initChoice) + ", " + str(psChoice) + ", " + str(LR) + " - " + str(times[c-1]) + "\n")
+        times = run(output, image, k, im, pix, initChoice, psChoice, LR, times, c, INIT, pres, lr)
 
         # ask user if they want to do it all again
         uIn4 = input('Run again? (y/n): ')
