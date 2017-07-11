@@ -171,7 +171,7 @@ def allScenarios(output):
     q.save("PILquantizer.PNG")
 
     # [1] Linear Initialization, [2] Random Initialization, or [3] Most Common Color Initialization
-    for init in range(1,4):
+    for init in range(1,5):
         # for output image name
         if (init == 1):
             INIT = "LI"
@@ -226,7 +226,7 @@ def run(output, image, K, im, pix, init, PS, LR, times, c, INIT, pres, lr):
     print("Elapsed time in minutes: " + str(elapsed / 60.0))
 
     # save and display the image with fewer colors
-    out.show()
+ #   out.show()
     filename = "Output" + str(c) + "_K" + str(K) + "_" + INIT + "_" + pres + "_" + lr + ".PNG"
     print(filename + " now available")
     out.save(filename)

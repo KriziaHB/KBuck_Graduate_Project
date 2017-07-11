@@ -210,29 +210,50 @@ def maximin(k, pix, width, length):
     # List for all pixels for counting
     pixList = []
 
-    # narrow down to only colors in the image without duplicates
+    # narrow down to only colors in the image
     for y in range(0, length):
         for x in range(0, width):
             p = pix[x,y]
             element = (p[0], p[1], p[2])
             pixList.append(element)
+
+    # first centroid
+    cen1 = Counter(pixList).most_common(1)
+    cen1toRGB = cen1[0]
+    c = cen1toRGB[0]
+    pixel = ColorPixel(c)
+    centroids.append(pixel)
+
+    # remove duplicate colors
     colors = list(set(pixList))
     print(colors)
-    print(len(colors))
+    colorLen = len(colors)
+    print("Number of colors present: " + str(colorLen))
 
 
-    # select first centroid randomly
-    max = len(colors) - 1
-    random = randint(0, max)
-    pixel = ColorPixel(colors[random])
-    centroids.append(pixel)
+
+    # set up and find distances to build up distance matrix
+    matrix = [[0] * colorLen for l in range(colorLen)]
+    for x in range(0,colorLen):
+        i = colors[x]
+        for y in range(0,colorLen):
+            if (x == y):
+                break
+            j = colors[y]
+            r = (i[0]- j[0]) * (i[0]- j[0])
+            g = (i[1] - j[1]) * (i[1] - j[1])
+            b = (i[2] - j[2]) * (i[2] - j[2])
+            dist = math.sqrt(r + g + b)
+            matrix[x][y] = dist
+            matrix[y][x] = dist
+
 
     # all remaining centroids
     orig = centroids[0]
     for i in range(1,k):
         dist = []
         # figure out distances
-        for j in range(0,max+1):
+        for j in range(0,colorLen):
             c = colors[j]
             r = (orig.r - c[0]) * (orig.r - c[0])
             g = (orig.g - c[1]) * (orig.g - c[1])
@@ -242,9 +263,9 @@ def maximin(k, pix, width, length):
             dist.append(euclidean)
 
         # color furthest away becomes a centroid
-        index = dist.index(max(dist))
-        print(index)
-        p = ColorPixel(colors[index])
+        location = dist.index(max(dist))
+        print(location)
+        p = ColorPixel(colors[location])
         centroids.append(p)
         # Set new original to test on
         orig = centroids[i]
