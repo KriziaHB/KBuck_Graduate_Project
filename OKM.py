@@ -235,20 +235,20 @@ def maximin(k, pix, width, length):
 
 
 
-    # set up and find distances to build up distance matrix
-    matrix = [[0] * colorLen for l in range(colorLen)]
-    for x in range(0,colorLen):
-        i = colors[x]
-        for y in range(x,colorLen):
-            if (x == y):
-                break
-            j = colors[y]
-            r = (i[0] - j[0]) * (i[0] - j[0])
-            g = (i[1] - j[1]) * (i[1] - j[1])
-            b = (i[2] - j[2]) * (i[2] - j[2])
-            dist = r + g + b # REMOVED SQRT
-            matrix[x][y] = dist
-           # matrix[y][x] = dist
+    # # set up and find distances to build up distance matrix
+    # matrix = [[0] * colorLen for l in range(colorLen)]
+    # for x in range(0,colorLen):
+    #     i = colors[x]
+    #     for y in range(x,colorLen):
+    #         if (x == y):
+    #             break
+    #         j = colors[y]
+    #         r = (i[0] - j[0]) * (i[0] - j[0])
+    #         g = (i[1] - j[1]) * (i[1] - j[1])
+    #         b = (i[2] - j[2]) * (i[2] - j[2])
+    #         dist = r + g + b # REMOVED SQRT
+    #         matrix[x][y] = dist
+    #        # matrix[y][x] = dist
 
     total = 0
     # all remaining centroids
@@ -263,11 +263,17 @@ def maximin(k, pix, width, length):
             while (i < len(centroids)):
                 minDist =  195075 # minimum distance from centroid (start with 255^2 + 255^2 + 255^2)
                 x = centroidIndices[i]
+                a = colors[x]
                 # make sure not already a centroid
                 if (y not in centroidIndices):
                     # swap minimum distance if it is less than to this centroid
-                    if (minDist > matrix[x][y]):
-                        minDist = matrix[x][y]
+                    b = colors[y]
+                    r = (a[0] - b[0]) * (a[0] - b[0])
+                    g = (a[1] - b[1]) * (a[1] - b[1])
+                    b = (a[2] - b[2]) * (a[2] - b[2])
+                    d = r + g + b # REMOVED SQRT
+                    if (minDist > d):
+                        minDist = d
                         index = y
                 # repeat
                 i += 1

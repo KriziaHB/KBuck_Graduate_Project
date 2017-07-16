@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a1ba30a6-db51-4e3a-a2f0-4038acb0cd01" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OKM.py" afterPath="$PROJECT_DIR$/OKM.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -32,10 +33,10 @@
       <file leaf-file-name="OKM.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OKM.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="295">
-              <caret line="243" column="21" lean-forward="false" selection-start-line="243" selection-start-column="21" selection-end-line="243" selection-end-column="21" />
+            <state relative-caret-position="692">
+              <caret line="275" column="35" lean-forward="true" selection-start-line="275" selection-start-column="35" selection-end-line="275" selection-end-column="35" />
               <folding>
-                <element signature="e#11321#11359#0" expanded="false" />
+                <element signature="e#11602#11640#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -397,7 +398,14 @@
       <option name="project" value="LOCAL" />
       <updated>1500248692132</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="MATRIX maximin version">
+      <created>1500249021141</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1500249021141</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TodoView">
@@ -436,7 +444,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="LR #2 gives all white image. &#10;Removed sqrt from term, need to go back to it. &#10;Random Presentation Style needs work." />
     <MESSAGE value="untested Random Presentation" />
     <MESSAGE value="Random Presentation tested and very pixellated for now" />
     <MESSAGE value="Testing Random vs Cyclic Presentation. Random gives back dotted image, Cyclic produces horizontally lined image. &#10;&#10;K: 20, Init: Random, LR: 1&#10;Random: 1.6 minutes &#10;Cyclic: 1.3 minutes" />
@@ -461,24 +468,25 @@
     <MESSAGE value="Working on distance matrix in maximin" />
     <MESSAGE value="Maximin works" />
     <MESSAGE value="Sped up maximin" />
-    <option name="LAST_COMMIT_MESSAGE" value="Sped up maximin" />
+    <MESSAGE value="MATRIX maximin version" />
+    <option name="LAST_COMMIT_MESSAGE" value="MATRIX maximin version" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OKM.py</url>
-          <line>417</line>
+          <line>423</line>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OKM.py</url>
-          <line>404</line>
+          <line>410</line>
           <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OKM.py</url>
-          <line>353</line>
+          <line>359</line>
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -488,7 +496,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OKM.py</url>
-          <line>297</line>
+          <line>303</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
       </breakpoints>
@@ -515,7 +523,7 @@
         <state relative-caret-position="5302">
           <caret line="247" column="31" lean-forward="false" selection-start-line="247" selection-start-column="31" selection-end-line="247" selection-end-column="31" />
           <folding>
-            <element signature="e#11321#11359#0" expanded="false" />
+            <element signature="e#11602#11640#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -546,7 +554,7 @@
         <state relative-caret-position="5434">
           <caret line="247" column="31" lean-forward="false" selection-start-line="247" selection-start-column="31" selection-end-line="247" selection-end-column="31" />
           <folding>
-            <element signature="e#11321#11359#0" expanded="false" />
+            <element signature="e#11602#11640#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -577,7 +585,7 @@
         <state relative-caret-position="3806">
           <caret line="179" column="0" lean-forward="false" selection-start-line="179" selection-start-column="0" selection-end-line="179" selection-end-column="0" />
           <folding>
-            <element signature="e#11321#11359#0" expanded="false" />
+            <element signature="e#11602#11640#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -608,7 +616,7 @@
         <state relative-caret-position="5500">
           <caret line="250" column="16" lean-forward="true" selection-start-line="250" selection-start-column="16" selection-end-line="250" selection-end-column="16" />
           <folding>
-            <element signature="e#11321#11359#0" expanded="false" />
+            <element signature="e#11602#11640#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -664,10 +672,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/OKM.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="243" column="21" lean-forward="false" selection-start-line="243" selection-start-column="21" selection-end-line="243" selection-end-column="21" />
+        <state relative-caret-position="692">
+          <caret line="275" column="35" lean-forward="true" selection-start-line="275" selection-start-column="35" selection-end-line="275" selection-end-column="35" />
           <folding>
-            <element signature="e#11321#11359#0" expanded="false" />
+            <element signature="e#11602#11640#0" expanded="false" />
           </folding>
         </state>
       </provider>
