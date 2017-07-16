@@ -209,6 +209,9 @@ def maximin(k, pix, width, length):
     centroids = []
     # List for all pixels for counting
     pixList = []
+    # List for all centroid indices for use with matrix
+    centroidIndices = []
+
 
     # narrow down to only colors in the image
     for y in range(0, length):
@@ -218,15 +221,15 @@ def maximin(k, pix, width, length):
             pixList.append(element)
 
     # first centroid
-    cen1 = Counter(pixList).most_common(1)
-    cen1toRGB = cen1[0]
-    c = cen1toRGB[0]
+    cen1 = Counter(pixList).most_common(1) # list
+    cen1toRGB = cen1[0] # tuple with color count
+    c = cen1toRGB[0] # tuple of RGB
     pixel = ColorPixel(c)
     centroids.append(pixel)
 
     # remove duplicate colors
     colors = list(set(pixList))
-    print(colors)
+    centroidIndices.append(colors.index(c)) # index of first centroid in color list
     colorLen = len(colors)
     print("Number of colors present: " + str(colorLen))
 
@@ -243,33 +246,53 @@ def maximin(k, pix, width, length):
             r = (i[0]- j[0]) * (i[0]- j[0])
             g = (i[1] - j[1]) * (i[1] - j[1])
             b = (i[2] - j[2]) * (i[2] - j[2])
-            dist = math.sqrt(r + g + b)
+            dist = r + g + b # REMOVED SQRT
             matrix[x][y] = dist
-            matrix[y][x] = dist
+           # matrix[y][x] = dist
 
-
+    total = 0
     # all remaining centroids
-    orig = centroids[0]
-    for i in range(1,k):
+    while (total < k-1):
+        i = 0
         dist = []
-        # figure out distances
-        for j in range(0,colorLen):
-            c = colors[j]
-            r = (orig.r - c[0]) * (orig.r - c[0])
-            g = (orig.g - c[1]) * (orig.g - c[1])
-            b = (orig.b - c[2]) * (orig.b - c[2])
-            euclidean = math.sqrt(r + g + b)  # REMOVE SQRT
-            # add to distances list for check on maximum
-            dist.append(euclidean)
+        distIndex = []  # y index for found minimum distance to a centroid
+
+
+        # use distance matrix to calculate best new centroid to append
+        for y in range(0,colorLen):
+            while (i < len(centroids)):
+                minDist =  195075 # minimum distance from centroid (start with 255^2 + 255^2 + 255^2)
+                x = centroidIndices[i]
+                # make sure not already a centroid
+                if (y not in centroidIndices):
+                    # swap minimum distance if it is less than to this centroid
+                    if (minDist > matrix[x][y]):
+                        minDist = matrix[x][y]
+                        index = y
+                # repeat
+                i += 1
+            # end inner while loop
+
+            # add to distances list for check on minimum along with parallel of its index
+            dist.append(minDist)
+            distIndex.append(index)
+            i = 0
+        # end for loop
 
         # color furthest away becomes a centroid
-        location = dist.index(max(dist))
-        print(location)
-        p = ColorPixel(colors[location])
+        furthest = max(dist)  # int
+        location = dist.index(furthest)  # index within dist
+        yVal = distIndex[location]  # index within matrix
+        p = ColorPixel(colors[yVal])  # color at index changed to ColorPixel
         centroids.append(p)
-        # Set new original to test on
-        orig = centroids[i]
-    # end of for loops
+        centroidIndices.append(yVal)
+        #print(dist)
+        #print(distIndex)
+        #print(colors[yVal])
+
+        # repeat
+        total += 1
+    # end of all loops
 
     # return the intialized k centroids
     return(centroids)
