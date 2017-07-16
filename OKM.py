@@ -239,11 +239,11 @@ def maximin(k, pix, width, length):
     matrix = [[0] * colorLen for l in range(colorLen)]
     for x in range(0,colorLen):
         i = colors[x]
-        for y in range(0,colorLen):
+        for y in range(x,colorLen):
             if (x == y):
                 break
             j = colors[y]
-            r = (i[0]- j[0]) * (i[0]- j[0])
+            r = (i[0] - j[0]) * (i[0] - j[0])
             g = (i[1] - j[1]) * (i[1] - j[1])
             b = (i[2] - j[2]) * (i[2] - j[2])
             dist = r + g + b # REMOVED SQRT
