@@ -235,74 +235,108 @@ def maximin(k, pix, width, length):
 
 
 
-    # # set up and find distances to build up distance matrix
-    # matrix = [[0] * colorLen for l in range(colorLen)]
-    # for x in range(0,colorLen):
-    #     i = colors[x]
-    #     for y in range(x,colorLen):
-    #         if (x == y):
-    #             break
-    #         j = colors[y]
-    #         r = (i[0] - j[0]) * (i[0] - j[0])
-    #         g = (i[1] - j[1]) * (i[1] - j[1])
-    #         b = (i[2] - j[2]) * (i[2] - j[2])
-    #         dist = r + g + b # REMOVED SQRT
-    #         matrix[x][y] = dist
-    #        # matrix[y][x] = dist
-
+    # set up and find distances to build up distance matrix
+    matrix = [[0] * colorLen for l in range(colorLen)]
+    count = 0
     total = 0
+    dist = []
+    distIndex = []  # y index for found minimum distance to a centroid
+    choosingCen = [] # centroid that found the new one
     # all remaining centroids
     while (total < k-1):
         i = 0
-        dist = []
-        distIndex = []  # y index for found minimum distance to a centroid
 
+        # get second centroid
+        if (len(centroids) < 2):
+            # use distance matrix to calculate best new centroid to append
+            for y in range(0,colorLen):
+                while (i < len(centroids)):
+                    minDist =  195075 # minimum distance from centroid (start with 255^2 + 255^2 + 255^2)
+                    x = centroidIndices[0]
 
-        # use distance matrix to calculate best new centroid to append
-        for y in range(0,colorLen):
-            while (i < len(centroids)):
-                minDist =  195075 # minimum distance from centroid (start with 255^2 + 255^2 + 255^2)
-                x = centroidIndices[i]
-                a = colors[x]
-                # make sure not already a centroid
-                if (y not in centroidIndices):
-                    # swap minimum distance if it is less than to this centroid
-                    b = colors[y]
-                    r = (a[0] - b[0]) * (a[0] - b[0])
-                    g = (a[1] - b[1]) * (a[1] - b[1])
-                    b = (a[2] - b[2]) * (a[2] - b[2])
-                    d = r + g + b # REMOVED SQRT
-                    if (minDist > d):
-                        minDist = d
-                        index = y
-                # repeat
-                i += 1
-            # end inner while loop
+                    # make sure not already a centroid
+                    if (y not in centroidIndices):
+                        # swap minimum distance if it is less than to this centroid and populate matrix
+                        if (matrix[x][y] == 0):
+                            matrix[x][y] = tupDistance(colors[x], colors[y])
+                            count += 1
+                        if (minDist > matrix[x][y]):
+                            minDist = matrix[x][y]
+                            index = y
+                            closestCen = x
+                    # repeat
+                    i += 1
+                # end inner while loop
 
-            # add to distances list for check on minimum along with parallel of its index
-            dist.append(minDist)
-            distIndex.append(index)
-            i = 0
-        # end for loop
+                # add to distances list for check on minimum along with parallel of its index
+                dist.append(minDist)
+                distIndex.append(index)
+                choosingCen.append(closestCen)
+                i = 0
+            # end for loop
+        # get replacement centroids and latest one
+        else:
+            L = len(centroids) - 1
+            cont = 0
+            x = centroidIndices[L] # Latest added centroid
+            idx = L
+
+            while (cont < 2):
+                # newest centroid first
+                for y in range(0,colorLen):
+                    minDist = 195075 # minimum distance from centroid (start with 255^2 + 255^2 + 255^2)
+
+                    # make sure not already a centroid
+                    if (y not in centroidIndices):
+                        # swap minimum distance if it is less than to this centroid and populate matrix
+                        if (minDist > matrix[x][y]):
+                            minDist = matrix[x][y]
+                            index = y
+                            closestCen = x
+                # add to distances list for check on minimum along with parallel of its index
+                dist[idx] = minDist
+                distIndex[idx] = index
+                choosingCen[idx] = closestCen
+
+                # reset for previously found centroid
+                idx = choosingCen[location]
+                x = centroidIndices[idx] # centroid that found latest added centroid on previous run
+                cont += 1
+            # end while
+        # end else
+
 
         # color furthest away becomes a centroid
-        furthest = max(dist)  # int
-        location = dist.index(furthest)  # index within dist
-        yVal = distIndex[location]  # index within matrix
+        furthest = max(dist)  # maximum of distances from centroid to color
+        location = dist.index(furthest)  # index within dist of maximum distance
+        yVal = distIndex[location]  # index within matrix for new centroid
         p = ColorPixel(colors[yVal])  # color at index changed to ColorPixel
         centroids.append(p)
         centroidIndices.append(yVal)
-        #print(dist)
-        #print(distIndex)
-        #print(colors[yVal])
+
+
 
         # repeat
         total += 1
     # end of all loops
 
     # return the intialized k centroids
+    print("HERE")
+    print(count)
     return(centroids)
 # end of maximin #
+
+
+
+# distance between two point tuples #
+def tupDistance(a, b):
+    R = (a[0] - b[0]) * (a[0] - b[0])
+    G = (a[1] - b[1]) * (a[1] - b[1])
+    B = (a[2] - b[2]) * (a[2] - b[2])
+    c = R + G + B  # REMOVED SQRT
+
+    return(c)
+# end of tupDistance #
 
 
 
