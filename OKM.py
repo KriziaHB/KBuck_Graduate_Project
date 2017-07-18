@@ -237,7 +237,6 @@ def maximin(k, pix, width, length):
 
     # set up and find distances to build up distance matrix
     matrix = [[0] * colorLen for l in range(colorLen)]
-    count = 0
     total = 0
     dist = []
     distIndex = []  # y index for found minimum distance to a centroid
@@ -259,7 +258,6 @@ def maximin(k, pix, width, length):
                         # swap minimum distance if it is less than to this centroid and populate matrix
                         if (matrix[x][y] == 0):
                             matrix[x][y] = tupDistance(colors[x], colors[y])
-                            count += 1
                         if (minDist > matrix[x][y]):
                             minDist = matrix[x][y]
                             index = y
@@ -278,8 +276,10 @@ def maximin(k, pix, width, length):
         else:
             L = len(centroids) - 1
             cont = 0
-            x = centroidIndices[L] # Latest added centroid
-            idx = L
+
+            # set for previously found centroid
+            idx = choosingCen[location]
+            x = centroidIndices.index(idx)  # centroid that found latest added centroid on previous run
 
             while (cont < 2):
                 # newest centroid first
@@ -292,19 +292,18 @@ def maximin(k, pix, width, length):
                         if (minDist > matrix[x][y]):
                             minDist = matrix[x][y]
                             index = y
-                            closestCen = x
                 # add to distances list for check on minimum along with parallel of its index
                 dist[idx] = minDist
                 distIndex[idx] = index
-                choosingCen[idx] = closestCen
 
-                # reset for previously found centroid
-                idx = choosingCen[location]
-                x = centroidIndices[idx] # centroid that found latest added centroid on previous run
+                # reset for the latest added centroid
+                x = centroidIndices[L]  # Latest added centroid
+                idx = L
+
                 cont += 1
             # end while
         # end else
-
+        print(len(centroids))
 
         # color furthest away becomes a centroid
         furthest = max(dist)  # maximum of distances from centroid to color
@@ -321,8 +320,6 @@ def maximin(k, pix, width, length):
     # end of all loops
 
     # return the intialized k centroids
-    print("HERE")
-    print(count)
     return(centroids)
 # end of maximin #
 
