@@ -235,11 +235,10 @@ def maximin(k, pix, width, length):
     print("Number of colors present: " + str(colorLen))
 
 
-
     # set up and find distances to build up distance matrix
     matrix = [[0] * colorLen for l in range(colorLen)]
     total = 0
-    distances = []  # all distances from a y value to a centroid
+    distances = []  # all minimum distances from y values to a centroid
     yDistIndex = []  # matrix y index for found minimum distance to a centroid
     choosingCen = []  # centroid that found the new one
 
@@ -270,43 +269,69 @@ def maximin(k, pix, width, length):
             yDistIndex.append(index)
             choosingCen.append(closestCen)
         # get replacement centroids and latest one
-        else:
+        elif (len(centroids) == 2):
             # reset centroid that found latest added centroid on previous run
-            distances[locationInDistances] = 0
-            yDistIndex[locationInDistances] = 0
+            distances = []
+            yDistIndex = []
+            choosingCen = []
 
 
             # newest centroid next
             # go through all y to each centroid including the newest one
             for y in range(0,colorLen):
+                minDist = 0
                 if (y not in centroidIndices):
-                    minDist = 195075  # minimum distance from centroid (start with 255^2 + 255^2 + 255^2)
-                    for x in range(0, len(centroids)):
-                        # make sure not already a centroid
-                        if (matrix[x][y] == 0):
-                            matrix[x][y] = tupDistance(colors[x], colors[y])
-                        # swap minimum distance if it is less than to this centroid and populate matrix
-                        if (minDist > matrix[x][y]):
-                            minDist = matrix[x][y]
-                            index = y
-                            closestCen = x
-                    # add to distances list for check on minimum along with parallel of its index
-                    distances.append(minDist)
-                    yDistIndex.append(index)
-                    choosingCen.append(closestCen)
+                    # x is the closest centroid to y
+                    x = closestCen
+                    minDist = matrix[x][y]
+                    # distance to the newest centroid
+                    matrix[yVal][y] = tupDistance(colors[yVal], colors[y])
+                    # swap minimum distance if it is less than to this centroid and populate matrix
+                    if (minDist > matrix[yVal][y]):
+                        minDist = matrix[yVal][y]
+                        index = y
+                        closestCen = yVal
+                # add to distances list for check on minimum along with parallel of its index
+                distances.append(minDist)
+                yDistIndex.append(index)
+                choosingCen.append(closestCen)
+        # end elif
+        else:
+            # reset from last run
+            distances[closestCen] = 0
+            yDistIndex[closestCen] = -1
+
+            # newest centroid next
+            # go through all y to each centroid including the newest one
+            for y in range(0, colorLen):
+                if (y not in centroidIndices):
+                    # x is the closest centroid to y
+                    x = yDistIndex[y]
+                    minDist = matrix[x][y]
+                    # distance to the newest centroid
+                    matrix[yVal][y] = tupDistance(colors[yVal], colors[y])
+                    # swap minimum distance if it is less than to this centroid and populate matrix
+                    if (minDist > matrix[yVal][y]):
+                        minDist = matrix[yVal][y]
+                        index = y
+                        closestCen = yVal
+                # add to distances list for check on minimum along with parallel of its index
+                distances[y] = minDist
+             #   yDistIndex[y] = index
+                choosingCen[y] = closestCen
         # end else
 
 
         # color furthest away becomes a centroid
-        furthestDistance = max(distances)  # maximum of distances from centroid to color
+        furthestDistance = max(distances)  # maximum of minimum distances from centroid to color
         locationInDistances = distances.index(furthestDistance)  # index within dist of maximum distance
-        yVal = yDistIndex[locationInDistances]  # index within matrix for new centroid
+     #   yVal = yDistIndex[locationInDistances]  # index within matrix for new centroid
+        yVal = locationInDistances
+        print("yVAL: " + str(yVal))
         p = ColorPixel(colors[yVal])  # color at index changed to ColorPixel
         centroids.append(p)
         centroidIndices.append(yVal)
 
-        # set previously found centroid for next run
-        prevCen = choosingCen[locationInDistances]
 
         # repeat
         total += 1
