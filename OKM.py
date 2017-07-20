@@ -239,17 +239,18 @@ def maximin(k, pix, width, length):
     # set up and find distances to build up distance matrix
     matrix = [[0] * colorLen for l in range(colorLen)]
     total = 0
+    distances = []  # all distances from a y value to a centroid
+    yDistIndex = []  # matrix y index for found minimum distance to a centroid
+    choosingCen = []  # centroid that found the new one
 
     # all remaining centroids
     while (total < k-1):
-        distances = []  # all distances from a y value to a centroid
-        yDistIndex = []  # matrix y index for found minimum distance to a centroid
-        choosingCen = []  # centroid that found the new one
+
 
         # get second centroid
         if (len(centroids) < 2):
             # use distance matrix to calculate best new centroid to append
-            minDist = 195075  # minimum distance from centroid (start with 255^2 + 255^2 + 255^2)
+            maxDist = 0
             for y in range(0,colorLen):
                 x = centroidIndices[0]
 
@@ -258,47 +259,41 @@ def maximin(k, pix, width, length):
                     # swap minimum distance if it is less than to this centroid and populate matrix
                     if (matrix[x][y] == 0):
                         matrix[x][y] = tupDistance(colors[x], colors[y])
-                    if (minDist > matrix[x][y]):
-                        minDist = matrix[x][y]
+                    if (maxDist < matrix[x][y]):
+                        maxDist = matrix[x][y]
                         index = y
                         closestCen = x
 
-                # add to distances list for check on minimum along with parallel of its index
-                distances.append(minDist)
-                yDistIndex.append(index)
-                choosingCen.append(closestCen)
-            #end of for loop
+            # end of for loop
+            # add to distances list for check on maximum along with parallel of its index
+            distances.append(maxDist)
+            yDistIndex.append(index)
+            choosingCen.append(closestCen)
         # get replacement centroids and latest one
         else:
-            L = len(centroids) - 1
-            cont = 0
+            # centroid that found latest added centroid on previous run
+            distances[locationInDistances] = 0
+            yDistIndex[locationInDistances] = 0
 
-            # set for previously found centroid
-            idx = choosingCen[locationInDistances]
-            x = centroidIndices.index(idx)  # centroid that found latest added centroid on previous run
 
-            while (cont < 2):
-                # newest centroid first
-                minDist = 195075  # minimum distance from centroid (start with 255^2 + 255^2 + 255^2)
-                for y in range(0,colorLen):
-                    # make sure not already a centroid
-                    if ((y not in centroidIndices) and (y != x)):
+            # newest centroid next
+            # go through all y to each centroid including the newest one
+            for y in range(0,colorLen):
+                if (y not in centroidIndices):
+                    for x in range(0, len(centroids)):
+                        minDist = 195075  # minimum distance from centroid (start with 255^2 + 255^2 + 255^2)
+                        # make sure not already a centroid
                         if (matrix[x][y] == 0):
                             matrix[x][y] = tupDistance(colors[x], colors[y])
                         # swap minimum distance if it is less than to this centroid and populate matrix
                         if (minDist > matrix[x][y]):
                             minDist = matrix[x][y]
                             index = y
+                            closestCen = x
                 # add to distances list for check on minimum along with parallel of its index
-                distances[idx] = minDist
-                yDistIndex[idx] = index
-
-                # reset for the latest added centroid
-                x = centroidIndices[L]  # Latest added centroid
-                idx = L
-
-                cont += 1
-            # end while
+                distances.append(minDist)
+                yDistIndex.append(index)
+                choosingCen.append(closestCen)
         # end else
 
 
@@ -310,7 +305,8 @@ def maximin(k, pix, width, length):
         centroids.append(p)
         centroidIndices.append(yVal)
 
-
+        # set previously found centroid for next run
+        prevCen = choosingCen[locationInDistances]
 
         # repeat
         total += 1
