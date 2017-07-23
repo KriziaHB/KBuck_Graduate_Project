@@ -235,7 +235,7 @@ def maximin(k, pix, width, length):
     matrix = [[0] * colorLen for l in range(k)]
     total = 0
     distances = []  # all minimum distances from y values to a centroid
-    yDistIndex = []  # matrix y index for found minimum distance to a centroid
+  #  yDistIndex = []  # matrix y index for found minimum distance to a centroid
     closestCentroids = [] # keep track of the closest Centroid in order to avoid calculating each again
 
     # all remaining centroids
@@ -256,11 +256,11 @@ def maximin(k, pix, width, length):
                     # swap minimum distance if it is less than to this centroid and populate matrix
                     if (minDist > matrix[xVal][y]):
                         minDist = matrix[xVal][y]
-                        index = y
+             #           index = y
                         closestCen = xVal
                 # add to distances list for check on minimum along with parallel of its index
                 distances[y] = minDist
-                yDistIndex[y] = index
+            #    yDistIndex[y] = index
                 closestCentroids[y] = closestCen
         # end if
         # get second centroid
@@ -276,19 +276,19 @@ def maximin(k, pix, width, length):
                         matrix[0][y] = tupDistance(colors[0], colors[y])
                     if (maxDist < matrix[0][y]):
                         maxDist = matrix[0][y]
-                        index = y
+             #           index = y
                         matrix[0][y] = -1
                         closestCen = 0
 
             # end of for loop
             # add to distances list for check on maximum along with parallel of its index
             distances.append(maxDist)
-            yDistIndex.append(index)
+         #   yDistIndex.append(index)
         # get replacement centroids and latest one
         else: # elif (len(centroids) == 2):
             # reset centroid that found latest added centroid on previous run
             distances = []
-            yDistIndex = []
+         #   yDistIndex = []
 
 
             # newest centroid next
@@ -306,11 +306,11 @@ def maximin(k, pix, width, length):
                     if (minDist > matrix[x][y]):
                         minDist = matrix[x][y]
                         matrix[x][y] = -1
-                        index = y
+             #           index = y
                         closestCen = x
                 # add to distances list for check on minimum along with parallel of its index
                 distances.append(minDist)
-                yDistIndex.append(index)
+             #   yDistIndex.append(index)
                 closestCentroids.append(x)
         # end else
 
@@ -320,7 +320,7 @@ def maximin(k, pix, width, length):
         furthestDistance = max(distances)  # maximum of minimum distances from centroid to color
         locationInDistances = distances.index(furthestDistance)  # index within dist of maximum distance
      #   yVal = yDistIndex[locationInDistances]  # index within matrix for new centroid
-        print("yVAL: " + str(locationInDistances))
+        # print("yVAL: " + str(locationInDistances))
         centroids.append(colors[locationInDistances])
         xVal = len(centroids) - 1
 
