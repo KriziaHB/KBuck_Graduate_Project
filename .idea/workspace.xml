@@ -33,10 +33,10 @@
       <file leaf-file-name="OKM.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OKM.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-840">
-              <caret line="235" column="0" lean-forward="true" selection-start-line="235" selection-start-column="0" selection-end-line="235" selection-end-column="0" />
+            <state relative-caret-position="233">
+              <caret line="296" column="27" lean-forward="true" selection-start-line="296" selection-start-column="27" selection-end-line="296" selection-end-column="27" />
               <folding>
-                <element signature="e#13876#13914#0" expanded="false" />
+                <element signature="e#13696#13734#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -450,7 +450,14 @@
       <option name="project" value="LOCAL" />
       <updated>1500517231053</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Maximin: getting more diverse output, but still not right">
+      <created>1500586237345</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1500586237345</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TodoView">
@@ -464,11 +471,12 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="2560" height="1440" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.08697379" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296131" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3296131" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3296131" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296131" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296131" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24980143" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -489,7 +497,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Issue with LR#2: fixed it! Literally a () fix" />
     <MESSAGE value="LR#2 working beautifully!" />
     <MESSAGE value="Smaller peppers image, new test images with more colors, and reduced frequency of checks in randoP. Still need to walk through entire code again checking for same errors/changes that should be made like in Meeting #3 with Dr. Celebi." />
     <MESSAGE value="Not all images were uploaded in last commit" />
@@ -514,24 +521,25 @@
     <MESSAGE value="Go back to 290s in OKM, still on this choosingCen issue" />
     <MESSAGE value="Maximin seems to be working properly now, but is still running at 15 seconds. go back to OKM 280." />
     <MESSAGE value="Maximin: new centroid in Else needs to be max(min( y to all centroids by comparing to what it was closest to before) for all y)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Maximin: new centroid in Else needs to be max(min( y to all centroids by comparing to what it was closest to before) for all y)" />
+    <MESSAGE value="Maximin: getting more diverse output, but still not right" />
+    <option name="LAST_COMMIT_MESSAGE" value="Maximin: getting more diverse output, but still not right" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OKM.py</url>
-          <line>472</line>
+          <line>469</line>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OKM.py</url>
-          <line>459</line>
+          <line>456</line>
           <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OKM.py</url>
-          <line>408</line>
+          <line>405</line>
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -541,31 +549,31 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OKM.py</url>
-          <line>340</line>
+          <line>337</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OKM.py</url>
-          <line>325</line>
+          <line>319</line>
           <option name="timeStamp" value="60" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OKM.py</url>
-          <line>326</line>
+          <line>320</line>
           <option name="timeStamp" value="61" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OKM.py</url>
-          <line>327</line>
-          <option name="timeStamp" value="62" />
+          <line>287</line>
+          <option name="timeStamp" value="64" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OKM.py</url>
-          <line>330</line>
-          <option name="timeStamp" value="63" />
+          <line>266</line>
+          <option name="timeStamp" value="65" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="64" />
+      <option name="time" value="67" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -588,7 +596,7 @@
         <state relative-caret-position="5302">
           <caret line="247" column="31" lean-forward="false" selection-start-line="247" selection-start-column="31" selection-end-line="247" selection-end-column="31" />
           <folding>
-            <element signature="e#13876#13914#0" expanded="false" />
+            <element signature="e#13696#13734#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -619,7 +627,7 @@
         <state relative-caret-position="5434">
           <caret line="247" column="31" lean-forward="false" selection-start-line="247" selection-start-column="31" selection-end-line="247" selection-end-column="31" />
           <folding>
-            <element signature="e#13876#13914#0" expanded="false" />
+            <element signature="e#13696#13734#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -650,7 +658,7 @@
         <state relative-caret-position="3806">
           <caret line="179" column="0" lean-forward="false" selection-start-line="179" selection-start-column="0" selection-end-line="179" selection-end-column="0" />
           <folding>
-            <element signature="e#13876#13914#0" expanded="false" />
+            <element signature="e#13696#13734#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -681,7 +689,7 @@
         <state relative-caret-position="5500">
           <caret line="250" column="16" lean-forward="true" selection-start-line="250" selection-start-column="16" selection-end-line="250" selection-end-column="16" />
           <folding>
-            <element signature="e#13876#13914#0" expanded="false" />
+            <element signature="e#13696#13734#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -737,10 +745,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/OKM.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-840">
-          <caret line="235" column="0" lean-forward="true" selection-start-line="235" selection-start-column="0" selection-end-line="235" selection-end-column="0" />
+        <state relative-caret-position="233">
+          <caret line="296" column="27" lean-forward="true" selection-start-line="296" selection-start-column="27" selection-end-line="296" selection-end-column="27" />
           <folding>
-            <element signature="e#13876#13914#0" expanded="false" />
+            <element signature="e#13696#13734#0" expanded="false" />
           </folding>
         </state>
       </provider>
