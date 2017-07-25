@@ -256,13 +256,15 @@ def maximin(k, pix, width, length):
                 if (colors[y] not in centroids):
                     # x is the closest centroid to y
                     x = closestCentroids[y]
-                    minDist = distances[x]
+                    minDist = tupDistance(centroids[x], colors[y])
                     # distance to the newest centroid
                     d = tupDistance(centroids[xVal], colors[y])
                     # replace minimum distance if it is less than to this centroid
                     if (minDist > d):
                         minDist = d
                         closestCen = xVal
+                    else:
+                        closestCen = x
                 # add to distances list for check on minimum
                 distances[y] = minDist
                 closestCentroids[y] = closestCen
@@ -276,7 +278,8 @@ def maximin(k, pix, width, length):
                 # distance to the original centroid
                 d = tupDistance(centroids[0], colors[y])
 
-                # add to distances list for check on minimum
+
+                # add to distances list for check on maximum
                 distances.append(d)
                 closestCentroids.append(0)
         # end else
