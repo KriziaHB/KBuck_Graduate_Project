@@ -81,12 +81,8 @@ def kmeans(k, im, pix, initC, psC, LR):
 ## ** end of K-MEANS ** ##
 
 
-    start = time.time()
     # Use cluster data to make new image
     pix = newImage(k, pix, centroids, membership, width, length)
-    end = time.time()
-    elapsed = end - start
-    print("newImage Time: " + str(elapsed))
 
     # return to main with final image
     return(im)
@@ -217,6 +213,8 @@ def maximin(k, pix, width, length):
     centroids = []
     # List for all pixels for counting
     pixList = []
+    # removing duplicates did not speed up the algorithm
+   # colors = []
 
 
     # narrow down to only colors in the image
@@ -225,10 +223,12 @@ def maximin(k, pix, width, length):
             p = pix[x,y]
             element = (p[0], p[1], p[2])
             pixList.append(element)
+     #       colors.append(element)
 
     # first centroid
     # print(Counter(pixList).most_common())
     cen1 = Counter(pixList).most_common(1) # list
+#    cen1 = Counter(colors).most_common(1)
     cen1toRGB = cen1[0] # tuple with color count
     c = cen1toRGB[0] # tuple of RGB
     centroids.append(c)
@@ -239,11 +239,9 @@ def maximin(k, pix, width, length):
     print("Number of colors present: " + str(colorLen))
 
 
-    # set up and find distances to build up distance matrix
-    matrix = [[0] * colorLen for l in range(k)]
+
     total = 0
     distances = []  # all minimum distances from y values to a centroid
-  #  yDistIndex = []  # matrix y index for found minimum distance to a centroid
     closestCentroids = [] # keep track of the closest Centroid in order to avoid calculating each again
 
     # all remaining centroids
@@ -251,84 +249,42 @@ def maximin(k, pix, width, length):
 
 
         # most centroids
-        if (len(centroids) > 2):
+        if (len(centroids) > 1):
             # newest centroid next
             # go through all y to each centroid including the newest one
             for y in range(0, colorLen):
                 if (colors[y] not in centroids):
                     # x is the closest centroid to y
                     x = closestCentroids[y]
-                    minDist = matrix[x][y]
+                    minDist = distances[x]
                     # distance to the newest centroid
-                    matrix[xVal][y] = tupDistance(centroids[xVal], colors[y])
-                    # swap minimum distance if it is less than to this centroid and populate matrix
-                    if (minDist > matrix[xVal][y]):
-                        minDist = matrix[xVal][y]
-             #           index = y
+                    d = tupDistance(centroids[xVal], colors[y])
+                    # replace minimum distance if it is less than to this centroid
+                    if (minDist > d):
+                        minDist = d
                         closestCen = xVal
-                # add to distances list for check on minimum along with parallel of its index
+                # add to distances list for check on minimum
                 distances[y] = minDist
-            #    yDistIndex[y] = index
                 closestCentroids[y] = closestCen
         # end if
-        # get second centroid
-        elif (len(centroids) < 2):
-            # use distance matrix to calculate best new centroid to append
-            maxDist = 0
-            for y in range(0,colorLen):
-
-                # make sure not already a centroid
-                if (colors[y] not in centroids):
-                    # swap minimum distance if it is less than to this centroid and populate matrix
-                    if (matrix[0][y] == 0):
-                        matrix[0][y] = tupDistance(colors[0], colors[y])
-                    if (maxDist < matrix[0][y]):
-                        maxDist = matrix[0][y]
-             #           index = y
-                        matrix[0][y] = -1
-                        closestCen = 0
-
-            # end of for loop
-            # add to distances list for check on maximum along with parallel of its index
-            distances.append(maxDist)
-         #   yDistIndex.append(index)
-        # get replacement centroids and latest one
-        else: # elif (len(centroids) == 2):
-            # reset centroid that found latest added centroid on previous run
+        else: # get second centroid
             distances = []
-         #   yDistIndex = []
-
 
             # newest centroid next
             # go through all y to each centroid including the newest one
             for y in range(0,colorLen):
-                minDist = 0
-                if (colors[y] not in centroids):
-                    # x is the closest centroid to y
-                    x = closestCen
-                    minDist = matrix[x][y]
-                    # distance to the newest centroid
-                    matrix[x][y] = tupDistance(centroids[x], colors[y])
+                # distance to the original centroid
+                d = tupDistance(centroids[0], colors[y])
 
-                    # swap minimum distance if it is less than to this centroid and populate matrix
-                    if (minDist > matrix[x][y]):
-                        minDist = matrix[x][y]
-                        matrix[x][y] = -1
-             #           index = y
-                        closestCen = x
-                # add to distances list for check on minimum along with parallel of its index
-                distances.append(minDist)
-             #   yDistIndex.append(index)
-                closestCentroids.append(x)
+                # add to distances list for check on minimum
+                distances.append(d)
+                closestCentroids.append(0)
         # end else
-
 
 
         # color furthest away becomes a centroid
         furthestDistance = max(distances)  # maximum of minimum distances from centroid to color
         locationInDistances = distances.index(furthestDistance)  # index within dist of maximum distance
-     #   yVal = yDistIndex[locationInDistances]  # index within matrix for new centroid
-        # print("yVAL: " + str(locationInDistances))
         centroids.append(colors[locationInDistances])
         xVal = len(centroids) - 1
 
