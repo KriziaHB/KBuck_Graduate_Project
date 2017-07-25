@@ -13,6 +13,7 @@ from random import randint
 import math
 from ColorPixel import ColorPixel # ColorPixel.py
 import copy
+import time
 
 
 
@@ -32,6 +33,7 @@ def kmeans(k, im, pix, initC, psC, LR):
 
 
 # Initializations
+    start = time.time()
     #! Linear Initialization
     if (initC == 1):
         print("Linear Init")
@@ -48,6 +50,9 @@ def kmeans(k, im, pix, initC, psC, LR):
     elif (initC == 4):
         print("Maximin Initialization")
         centroids = maximin(k, pix, width, length)
+    end = time.time()
+    elapsed = end - start
+    print("Initialization Time: " + str(elapsed))
 
 
     print("* Original Centroids *")
@@ -58,27 +63,31 @@ def kmeans(k, im, pix, initC, psC, LR):
 
 
     # Membership data for going through OKM
-# DO NOT NEED previous_membership when using number of iterations as sole convergence type
-    previous_membership = []
     membership = []
     for i in range(0,length*width): # initialize previous membership with original data and fake centroid
         membership.append(0)
-        previous_membership.append(0)
 
 
 ## **  K-MEANS HERE via two different Presentation Styles ** ##
+    start = time.time()
     # Random Presentation Style - OKM runs from a different method entirely
     if (psC == 2):
-        pix = randoP(k, pix, width, length, centroids, previous_centroids, membership, previous_membership, clustersize, LR)
+        pix = randoP(k, pix, width, length, centroids, previous_centroids, membership, clustersize, LR)
     # Linear Presentation Style - OKM runs here
     else:
-        pix = linearP(k, pix, width, length, centroids, previous_centroids, membership, previous_membership, clustersize, LR)
+        pix = linearP(k, pix, width, length, centroids, previous_centroids, membership, clustersize, LR)
+    end = time.time()
+    elapsed = end - start
+    print("K-Means Time: " + str(elapsed))
 ## ** end of K-MEANS ** ##
 
 
+    start = time.time()
     # Use cluster data to make new image
     pix = newImage(k, pix, centroids, membership, width, length)
-
+    end = time.time()
+    elapsed = end - start
+    print("newImage Time: " + str(elapsed))
 
     # return to main with final image
     return(im)
@@ -353,7 +362,7 @@ def tupDistance(a, b):
 
 
 # OKM with Random Points for Presentation Style #
-def randoP(k, pix, width, length, centroids, previous_centroids, membership, previous_membership, clustersize, LR):
+def randoP(k, pix, width, length, centroids, previous_centroids, membership, clustersize, LR):
     print("--in randoP")
 
     # will be 0 when an unused pixel is found
@@ -403,7 +412,7 @@ def randoP(k, pix, width, length, centroids, previous_centroids, membership, pre
 
 
 # OKM with Linear Points for Presentation Style #
-def linearP(k, pix, width, length, centroids, previous_centroids, membership, previous_membership, clustersize, LR):
+def linearP(k, pix, width, length, centroids, previous_centroids, membership, clustersize, LR):
     # iterate through pixels to form clusters
     end = 0
     # t = 100.0
@@ -457,7 +466,10 @@ def linearP(k, pix, width, length, centroids, previous_centroids, membership, pr
 def knn(k, pixel, centroids):
     #print("--in knn")
 
+    # to keep track of minimum in order to capture the closest centroid
     distances = []
+    min = 255 * 255 * 255
+    index = 0
 
     # find distance from current pixel to each centroid and select the closest one
     for i in range(0,k):
@@ -467,12 +479,16 @@ def knn(k, pixel, centroids):
         distB = pixel.b - cent.b
 
         d = (distR * distR) + (distG * distG) + (distB * distB) # removed sqrt
-        distances.append(d)
-  ####!! COME BACK CHECK IF KEEPING TRACK OF MIN IS FASTER, remove some variables to simplify
+   #     distances.append(d)
+  ## Keeping track of min is slightly faster
+        if (d < min):
+            min = d
+            index = i
 
-    centroidIndex = distances.index(min(distances))
+#    centroidIndex = distances.index(min(distances))
 
-    return(centroidIndex)
+ #   return(centroidIndex)
+    return(index)
 # end of knn #
 
 
