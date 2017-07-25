@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a1ba30a6-db51-4e3a-a2f0-4038acb0cd01" name="Default" comment="">
+    <list default="true" id="a1ba30a6-db51-4e3a-a2f0-4038acb0cd01" name="Default" comment="Speeding up algorithm from tips Dr. Celebi pointed out and added profiling">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GradProj" afterPath="$PROJECT_DIR$/GradProj" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OKM.py" afterPath="$PROJECT_DIR$/OKM.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -18,13 +19,13 @@
       <file leaf-file-name="GradProj" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GradProj">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="597">
-              <caret line="373" column="0" lean-forward="false" selection-start-line="373" selection-start-column="0" selection-end-line="373" selection-end-column="0" />
+            <state relative-caret-position="1034">
+              <caret line="176" column="23" lean-forward="true" selection-start-line="176" selection-start-column="23" selection-end-line="176" selection-end-column="23" />
               <folding>
                 <element signature="e#342#2006#0" expanded="false" />
                 <element signature="e#2095#3576#0" expanded="false" />
-                <element signature="e#8113#8160#0" expanded="false" />
-                <element signature="e#10522#10540#0" expanded="false" />
+                <element signature="e#8141#8188#0" expanded="false" />
+                <element signature="e#10550#10568#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -33,10 +34,10 @@
       <file leaf-file-name="OKM.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OKM.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="550">
-              <caret line="427" column="0" lean-forward="true" selection-start-line="427" selection-start-column="0" selection-end-line="427" selection-end-column="0" />
+            <state relative-caret-position="308">
+              <caret line="21" column="39" lean-forward="true" selection-start-line="21" selection-start-column="39" selection-end-line="21" selection-end-column="39" />
               <folding>
-                <element signature="e#13828#13866#0" expanded="false" />
+                <element signature="e#13628#13666#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -65,8 +66,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/ColorPixel.py" />
-        <option value="$PROJECT_DIR$/GradProj" />
         <option value="$PROJECT_DIR$/OKM.py" />
+        <option value="$PROJECT_DIR$/GradProj" />
       </list>
     </option>
   </component>
@@ -471,7 +472,14 @@
       <option name="project" value="LOCAL" />
       <updated>1500844217414</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="Speeding up algorithm from tips Dr. Celebi pointed out and added profiling">
+      <created>1500946195017</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1500946195017</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TodoView">
@@ -511,7 +519,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Not all images were uploaded in last commit" />
     <MESSAGE value="Working on cleaning up code, getting some speedup and the only ugly results come from LR #1 (have a line of pixels at the bottom not properly quantized for Random Presentation)" />
     <MESSAGE value="Fixed empty last row problem on random PS" />
     <MESSAGE value="LR #1 now works!" />
@@ -536,24 +543,25 @@
     <MESSAGE value="Maximin: getting more diverse output, but still not right" />
     <MESSAGE value="Maximin: saving distances after second run to shave off some time" />
     <MESSAGE value="Maximin: fastest version so far, reduced number of lists" />
-    <option name="LAST_COMMIT_MESSAGE" value="Maximin: fastest version so far, reduced number of lists" />
+    <MESSAGE value="Speeding up algorithm from tips Dr. Celebi pointed out and added profiling" />
+    <option name="LAST_COMMIT_MESSAGE" value="Speeding up algorithm from tips Dr. Celebi pointed out and added profiling" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OKM.py</url>
-          <line>481</line>
+          <line>480</line>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OKM.py</url>
-          <line>465</line>
+          <line>464</line>
           <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OKM.py</url>
-          <line>414</line>
+          <line>413</line>
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -563,27 +571,27 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OKM.py</url>
-          <line>346</line>
+          <line>345</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OKM.py</url>
-          <line>328</line>
+          <line>327</line>
           <option name="timeStamp" value="60" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OKM.py</url>
-          <line>329</line>
+          <line>328</line>
           <option name="timeStamp" value="61" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OKM.py</url>
-          <line>296</line>
+          <line>295</line>
           <option name="timeStamp" value="64" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OKM.py</url>
-          <line>275</line>
+          <line>274</line>
           <option name="timeStamp" value="65" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -604,8 +612,8 @@
           <folding>
             <element signature="e#342#2006#0" expanded="false" />
             <element signature="e#2095#3576#0" expanded="false" />
-            <element signature="e#8113#8160#0" expanded="false" />
-            <element signature="e#10522#10540#0" expanded="false" />
+            <element signature="e#8141#8188#0" expanded="false" />
+            <element signature="e#10550#10568#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -615,7 +623,7 @@
         <state relative-caret-position="5302">
           <caret line="247" column="31" lean-forward="false" selection-start-line="247" selection-start-column="31" selection-end-line="247" selection-end-column="31" />
           <folding>
-            <element signature="e#13828#13866#0" expanded="false" />
+            <element signature="e#13628#13666#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -635,8 +643,8 @@
           <folding>
             <element signature="e#342#2006#0" expanded="false" />
             <element signature="e#2095#3576#0" expanded="false" />
-            <element signature="e#8113#8160#0" expanded="false" />
-            <element signature="e#10522#10540#0" expanded="false" />
+            <element signature="e#8141#8188#0" expanded="false" />
+            <element signature="e#10550#10568#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -646,7 +654,7 @@
         <state relative-caret-position="5434">
           <caret line="247" column="31" lean-forward="false" selection-start-line="247" selection-start-column="31" selection-end-line="247" selection-end-column="31" />
           <folding>
-            <element signature="e#13828#13866#0" expanded="false" />
+            <element signature="e#13628#13666#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -666,8 +674,8 @@
           <folding>
             <element signature="e#342#2006#0" expanded="false" />
             <element signature="e#2095#3576#0" expanded="false" />
-            <element signature="e#8113#8160#0" expanded="false" />
-            <element signature="e#10522#10540#0" expanded="false" />
+            <element signature="e#8141#8188#0" expanded="false" />
+            <element signature="e#10550#10568#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -677,7 +685,7 @@
         <state relative-caret-position="3806">
           <caret line="179" column="0" lean-forward="false" selection-start-line="179" selection-start-column="0" selection-end-line="179" selection-end-column="0" />
           <folding>
-            <element signature="e#13828#13866#0" expanded="false" />
+            <element signature="e#13628#13666#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -697,8 +705,8 @@
           <folding>
             <element signature="e#342#2006#0" expanded="false" />
             <element signature="e#2095#3576#0" expanded="false" />
-            <element signature="e#8113#8160#0" expanded="false" />
-            <element signature="e#10522#10540#0" expanded="false" />
+            <element signature="e#8141#8188#0" expanded="false" />
+            <element signature="e#10550#10568#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -708,7 +716,7 @@
         <state relative-caret-position="5500">
           <caret line="250" column="16" lean-forward="true" selection-start-line="250" selection-start-column="16" selection-end-line="250" selection-end-column="16" />
           <folding>
-            <element signature="e#13828#13866#0" expanded="false" />
+            <element signature="e#13628#13666#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -728,8 +736,8 @@
           <folding>
             <element signature="e#342#2006#0" expanded="false" />
             <element signature="e#2095#3576#0" expanded="false" />
-            <element signature="e#8113#8160#0" expanded="false" />
-            <element signature="e#10522#10540#0" expanded="false" />
+            <element signature="e#8141#8188#0" expanded="false" />
+            <element signature="e#10550#10568#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -751,23 +759,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/GradProj">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="597">
-          <caret line="373" column="0" lean-forward="false" selection-start-line="373" selection-start-column="0" selection-end-line="373" selection-end-column="0" />
+        <state relative-caret-position="1034">
+          <caret line="176" column="23" lean-forward="true" selection-start-line="176" selection-start-column="23" selection-end-line="176" selection-end-column="23" />
           <folding>
             <element signature="e#342#2006#0" expanded="false" />
             <element signature="e#2095#3576#0" expanded="false" />
-            <element signature="e#8113#8160#0" expanded="false" />
-            <element signature="e#10522#10540#0" expanded="false" />
+            <element signature="e#8141#8188#0" expanded="false" />
+            <element signature="e#10550#10568#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/OKM.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="550">
-          <caret line="427" column="0" lean-forward="true" selection-start-line="427" selection-start-column="0" selection-end-line="427" selection-end-column="0" />
+        <state relative-caret-position="308">
+          <caret line="21" column="39" lean-forward="true" selection-start-line="21" selection-start-column="39" selection-end-line="21" selection-end-column="39" />
           <folding>
-            <element signature="e#13828#13866#0" expanded="false" />
+            <element signature="e#13628#13666#0" expanded="false" />
           </folding>
         </state>
       </provider>

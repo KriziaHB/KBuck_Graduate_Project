@@ -58,13 +58,12 @@ def kmeans(k, im, pix, initC, psC, LR):
     print("* Original Centroids *")
     for i in centroids:
         i.printRGB()
-    previous_centroids = copy.deepcopy(centroids)
 # end Initializations
 
 
     # Membership data for going through OKM
     membership = []
-    for i in range(0,length*width): # initialize previous membership with original data and fake centroid
+    for i in range(0,length*width):
         membership.append(0)
 
 
@@ -72,10 +71,10 @@ def kmeans(k, im, pix, initC, psC, LR):
     start = time.time()
     # Random Presentation Style - OKM runs from a different method entirely
     if (psC == 2):
-        pix = randoP(k, pix, width, length, centroids, previous_centroids, membership, clustersize, LR)
+        pix = randoP(k, pix, width, length, centroids, membership, clustersize, LR)
     # Linear Presentation Style - OKM runs here
     else:
-        pix = linearP(k, pix, width, length, centroids, previous_centroids, membership, clustersize, LR)
+        pix = linearP(k, pix, width, length, centroids, membership, clustersize, LR)
     end = time.time()
     elapsed = end - start
     print("K-Means Time: " + str(elapsed))
@@ -362,7 +361,7 @@ def tupDistance(a, b):
 
 
 # OKM with Random Points for Presentation Style #
-def randoP(k, pix, width, length, centroids, previous_centroids, membership, clustersize, LR):
+def randoP(k, pix, width, length, centroids, membership, clustersize, LR):
     print("--in randoP")
 
     # will be 0 when an unused pixel is found
@@ -412,7 +411,7 @@ def randoP(k, pix, width, length, centroids, previous_centroids, membership, clu
 
 
 # OKM with Linear Points for Presentation Style #
-def linearP(k, pix, width, length, centroids, previous_centroids, membership, clustersize, LR):
+def linearP(k, pix, width, length, centroids, membership, clustersize, LR):
     # iterate through pixels to form clusters
     end = 0
     # t = 100.0
