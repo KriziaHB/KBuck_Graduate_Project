@@ -69,12 +69,14 @@ def kmeans(k, im, pix, initC, psC, LR):
 
 ## **  K-MEANS HERE via two different Presentation Styles ** ##
     start = time.time()
+    # end value for how many times it iterates through pixel set
+    t = 20
     # Random Presentation Style - OKM runs from a different method entirely
     if (psC == 2):
-        pix = randoP(k, pix, width, length, centroids, membership, clustersize, LR)
+        pix = randoP(k, pix, width, length, centroids, membership, clustersize, LR, t)
     # Linear Presentation Style - OKM runs here
     else:
-        pix = linearP(k, pix, width, length, centroids, membership, clustersize, LR)
+        pix = linearP(k, pix, width, length, centroids, membership, clustersize, LR, t)
     end = time.time()
     elapsed = end - start
     print("K-Means Time: " + str(elapsed))
@@ -320,7 +322,7 @@ def tupDistance(a, b):
 
 
 # OKM with Random Points for Presentation Style #
-def randoP(k, pix, width, length, centroids, membership, clustersize, LR):
+def randoP(k, pix, width, length, centroids, membership, clustersize, LR, term):
     print("--in randoP")
 
     # will be 0 when an unused pixel is found
@@ -349,7 +351,9 @@ def randoP(k, pix, width, length, centroids, membership, clustersize, LR):
         centroids[m] = centroids[m].upC(pixel, LR, clustersize[m])
 
         # End the algorithm after 50 full runs
-        if (end == (max * 10)):
+        if (end == (max * term)):
+            cont = 0
+        elif (end == (max * 10)):
             print("Ten runs")
         elif(end == (max * 20)):
             print("Twenty runs")
@@ -370,11 +374,11 @@ def randoP(k, pix, width, length, centroids, membership, clustersize, LR):
 
 
 # OKM with Linear Points for Presentation Style #
-def linearP(k, pix, width, length, centroids, membership, clustersize, LR):
+def linearP(k, pix, width, length, centroids, membership, clustersize, LR, term):
     # iterate through pixels to form clusters
     end = 0
-    # t = 100.0
-    while (end < 50):  # !! if you change end value here, then also change in randoP
+
+    while (end < term):
         if ((end % 10) == 0):
             print("while: " + str(end))
 
