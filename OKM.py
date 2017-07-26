@@ -71,20 +71,19 @@ def kmeans(k, im, pix, initC, psC, LR):
     start = time.time()
     # end value for how many times it iterates through pixel set
     t = 20
+    # number to add to skips in order to not test so many pixels
+    reduction = 1
     # Random Presentation Style - OKM runs from a different method entirely
     if (psC == 2):
-        pix = randoP(k, pix, width, length, centroids, membership, clustersize, LR, t)
+        pix = randoP(k, pix, width, length, centroids, membership, clustersize, LR, t, reduction)
     # Linear Presentation Style - OKM runs here
     else:
-        pix = linearP(k, pix, width, length, centroids, membership, clustersize, LR, t)
+        pix = linearP(k, pix, width, length, centroids, membership, clustersize, LR, t, reduction)
     end = time.time()
     elapsed = end - start
     print("K-Means Time: " + str(elapsed))
 ## ** end of K-MEANS ** ##
 
-
-    # Use cluster data to make new image
-    pix = newImage(k, pix, centroids, membership, width, length)
 
     # return to main with final image
     return(im)
@@ -322,13 +321,14 @@ def tupDistance(a, b):
 
 
 # OKM with Random Points for Presentation Style #
-def randoP(k, pix, width, length, centroids, membership, clustersize, LR, term):
+def randoP(k, pix, width, length, centroids, membership, clustersize, LR, term, reduction):
     print("--in randoP")
 
     # will be 0 when an unused pixel is found
     cont = 1
     end = 0
     max = (width * length) - 1
+    endingcount = term / reduction
 
     while (cont == 1):
 
@@ -351,7 +351,7 @@ def randoP(k, pix, width, length, centroids, membership, clustersize, LR, term):
         centroids[m] = centroids[m].upC(pixel, LR, clustersize[m])
 
         # End the algorithm after 50 full runs
-        if (end == (max * term)):
+        if (end == (max * endingcount)):
             cont = 0
         elif (end == (max * 10)):
             print("Ten runs")
@@ -368,13 +368,24 @@ def randoP(k, pix, width, length, centroids, membership, clustersize, LR, term):
     # end of while
 
 
-    return(pix)
+
+    # for all pixels, assign a final membership without updating centroids
+    for y in range(0, length):
+        for x in range(0, width):
+            pixel = ColorPixel(pix[x, y])
+            m = knn(k, pixel, centroids)
+            index = (y * width) + x
+            membership[index] = m
+
+    # Use cluster data to make new image
+    p = newImage(k, pix, centroids, membership, width, length)
+    return(p)
 # end of randoP #
 
 
 
 # OKM with Linear Points for Presentation Style #
-def linearP(k, pix, width, length, centroids, membership, clustersize, LR, term):
+def linearP(k, pix, width, length, centroids, membership, clustersize, LR, term, reduction):
     # iterate through pixels to form clusters
     end = 0
 
@@ -401,6 +412,10 @@ def linearP(k, pix, width, length, centroids, membership, clustersize, LR, term)
 
                 # update the nearest center
                 centroids[m] = centroids[m].upC(pixel, LR, clustersize[m])
+
+        ######### skip every other column and row to reduce the number checked #########
+                x += 1
+            y += 1
         # end of for loops
         end += 1
 
@@ -418,8 +433,20 @@ def linearP(k, pix, width, length, centroids, membership, clustersize, LR, term)
         # previous_membership = copyOver(membership)
     # end of while loop
 
+
+    # for all pixels, assign a final membership without updating centroids
+    for y in range(0, length):
+        for x in range(0, width):
+            pixel = ColorPixel(pix[x,y])
+            m = knn(k, pixel, centroids)
+            index = (y * width) + x
+            membership[index] = m
+
+
     print("Iterations: " + str(end))
-    return(pix)
+    # Use cluster data to make new image
+    p = newImage(k, pix, centroids, membership, width, length)
+    return(p)
 # end of linearP #
 
 

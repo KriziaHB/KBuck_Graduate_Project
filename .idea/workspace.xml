@@ -33,11 +33,11 @@
       <file leaf-file-name="OKM.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OKM.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="427">
-              <caret line="269" column="48" lean-forward="true" selection-start-line="269" selection-start-column="48" selection-end-line="269" selection-end-column="48" />
+            <state relative-caret-position="561">
+              <caret line="361" column="33" lean-forward="true" selection-start-line="361" selection-start-column="33" selection-end-line="361" selection-end-column="33" />
               <folding>
                 <element signature="e#186#196#0" expanded="true" />
-                <element signature="e#11544#11582#0" expanded="false" />
+                <element signature="e#12210#12248#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -493,7 +493,21 @@
       <option name="project" value="LOCAL" />
       <updated>1501021059850</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Maximin complete.">
+      <created>1501022410122</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1501022410122</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Reduced knn rules to 20 times the pixel count and got 50% speed up">
+      <created>1501023877389</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1501023877389</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TodoView">
@@ -533,8 +547,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="LR #1 now works!" />
-    <MESSAGE value="Built in quantizer now an option" />
     <MESSAGE value="Set up for All Scenario run, but having issue with colorCount" />
     <MESSAGE value="Same issue in colorCount ... Not sure yet what the cause is" />
     <MESSAGE value="Complete. All Scenarios Run now works beautifully. Tested one images 6 &amp; 8, will test on larger images next." />
@@ -558,14 +570,16 @@
     <MESSAGE value="Speeding up algorithm from tips Dr. Celebi pointed out and added profiling" />
     <MESSAGE value="Same, speeding up more and fixed slight error in main file" />
     <MESSAGE value="Done all possible speed ups, now fixing Maximin's repeating centroids" />
-    <option name="LAST_COMMIT_MESSAGE" value="Done all possible speed ups, now fixing Maximin's repeating centroids" />
+    <MESSAGE value="Maximin complete." />
+    <MESSAGE value="Reduced knn rules to 20 times the pixel count and got 50% speed up" />
+    <option name="LAST_COMMIT_MESSAGE" value="Reduced knn rules to 20 times the pixel count and got 50% speed up" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OKM.py</url>
-          <line>372</line>
+          <line>387</line>
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -575,17 +589,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OKM.py</url>
-          <line>271</line>
+          <line>272</line>
           <option name="timeStamp" value="64" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OKM.py</url>
-          <line>288</line>
+          <line>289</line>
           <option name="timeStamp" value="71" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OKM.py</url>
-          <line>251</line>
+          <line>252</line>
           <option name="timeStamp" value="74" />
         </line-breakpoint>
       </breakpoints>
@@ -613,7 +627,7 @@
           <caret line="247" column="31" lean-forward="false" selection-start-line="247" selection-start-column="31" selection-end-line="247" selection-end-column="31" />
           <folding>
             <element signature="e#186#196#0" expanded="true" />
-            <element signature="e#11544#11582#0" expanded="false" />
+            <element signature="e#12210#12248#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -645,7 +659,7 @@
           <caret line="247" column="31" lean-forward="false" selection-start-line="247" selection-start-column="31" selection-end-line="247" selection-end-column="31" />
           <folding>
             <element signature="e#186#196#0" expanded="true" />
-            <element signature="e#11544#11582#0" expanded="false" />
+            <element signature="e#12210#12248#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -677,7 +691,7 @@
           <caret line="179" column="0" lean-forward="false" selection-start-line="179" selection-start-column="0" selection-end-line="179" selection-end-column="0" />
           <folding>
             <element signature="e#186#196#0" expanded="true" />
-            <element signature="e#11544#11582#0" expanded="false" />
+            <element signature="e#12210#12248#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -709,7 +723,7 @@
           <caret line="250" column="16" lean-forward="true" selection-start-line="250" selection-start-column="16" selection-end-line="250" selection-end-column="16" />
           <folding>
             <element signature="e#186#196#0" expanded="true" />
-            <element signature="e#11544#11582#0" expanded="false" />
+            <element signature="e#12210#12248#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -765,11 +779,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/OKM.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="427">
-          <caret line="269" column="48" lean-forward="true" selection-start-line="269" selection-start-column="48" selection-end-line="269" selection-end-column="48" />
+        <state relative-caret-position="561">
+          <caret line="361" column="33" lean-forward="true" selection-start-line="361" selection-start-column="33" selection-end-line="361" selection-end-column="33" />
           <folding>
             <element signature="e#186#196#0" expanded="true" />
-            <element signature="e#11544#11582#0" expanded="false" />
+            <element signature="e#12210#12248#0" expanded="false" />
           </folding>
         </state>
       </provider>
