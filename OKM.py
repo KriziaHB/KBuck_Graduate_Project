@@ -413,9 +413,9 @@ def linearP(k, pix, width, length, centroids, membership, clustersize, LR, term,
                 # update the nearest center
                 centroids[m] = centroids[m].upC(pixel, LR, clustersize[m])
 
-        ######### skip every other column and row to reduce the number checked #########
-                x += 1
-            y += 1
+        ######### skip columns and rows to reduce the number of pixels checked and used #########
+                x += reduction
+            y += reduction
         # end of for loops
         end += 1
 
