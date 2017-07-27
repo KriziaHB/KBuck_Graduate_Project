@@ -253,7 +253,6 @@ def testDriver(output):
 
         ## Online K - Means ##
                         print("\n#### Running Algorithm ####")
-                        output.write(str(image) + ", " + str(K) + ", " + str(init) + ", " + str(PS) + ", " + str(LR))
                         times = run(output, image, K, im, pix, init, PS, LR, times, c, INIT, pres, lr)
                         c += 1
             # end all for loops
@@ -288,7 +287,8 @@ def run(output, image, K, im, pix, init, PS, LR, times, c, INIT, pres, lr):
 
 
     # Results.txt output
-    output.write(", " + str(sse) + " - " + str(times[c - 1]) + " * " + filename + "\n")  # average of all times executed
+    output.write(str(image) + ", " + str(K) + ", " + str(init) + ", " + str(PS) + ", " + str(LR) + ", " + str(sse) + " - " + str(times[c - 1]) + " * " + filename + "\n")
+
 
     return(times)
 # end of run #

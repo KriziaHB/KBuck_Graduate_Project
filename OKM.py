@@ -75,19 +75,18 @@ def kmeans(k, im, pix, initC, psC, LR):
     reduction = 1
     # Random Presentation Style - OKM runs from a different method entirely
     if (psC == 2):
-        pix = randoP(k, pix, width, length, centroids, membership, clustersize, LR, t, reduction)
+        p = randoP(k, pix, width, length, centroids, membership, clustersize, LR, t, reduction)
     # Linear Presentation Style - OKM runs here
     else:
-        pix = linearP(k, pix, width, length, centroids, membership, clustersize, LR, t, reduction)
+        p = linearP(k, pix, width, length, centroids, membership, clustersize, LR, t, reduction)
     end = time.time()
     elapsed = end - start
     print("K-Means Time: " + str(elapsed))
 ## ** end of K-MEANS ** ##
 
-    # find the SSE
-    s = sse(k, pix, membership, centroids, length, width)
-
-    out = (im, s)
+    # pix info is first part of what was returned, SSE is second part of what was returned
+    pix = p[0]
+    out = (im, p[1])
     # return to main with final image
     return(out)
 # end of kmeans #
@@ -380,9 +379,15 @@ def randoP(k, pix, width, length, centroids, membership, clustersize, LR, term, 
             index = (y * width) + x
             membership[index] = m
 
+    # find the SSE
+    s = sse(k, pix, membership, centroids, length, width)
+
     # Use cluster data to make new image
     p = newImage(k, pix, centroids, membership, width, length)
-    return(p)
+
+    # output with sse and new pix data
+    out = (p, s)
+    return(out)
 # end of randoP #
 
 
@@ -445,11 +450,18 @@ def linearP(k, pix, width, length, centroids, membership, clustersize, LR, term,
             index = (y * width) + x
             membership[index] = m
 
-
     print("Iterations: " + str(end))
+
+
+    # find the SSE
+    s = sse(k, pix, membership, centroids, length, width)
+
     # Use cluster data to make new image
     p = newImage(k, pix, centroids, membership, width, length)
-    return(p)
+
+    # output with sse and new pix data
+    out = (p, s)
+    return (out)
 # end of linearP #
 
 
