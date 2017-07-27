@@ -73,7 +73,7 @@ class ColorPixel(object):
             self.r = (ratesqrt * pixel.r) + (ratesqrtComp * self.r)
             self.g = (ratesqrt * pixel.g) + (ratesqrtComp * self.g)
             self.b = (ratesqrt * pixel.b) + (ratesqrtComp * self.b)
-        # Average of both points for LR
+        # Average of both points for LR [3]
         else:
             self.r = float((pixel.r + self.r) / 2.0)
             self.g = float((pixel.g + self.g) / 2.0)

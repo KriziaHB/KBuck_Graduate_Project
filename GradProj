@@ -19,28 +19,15 @@ import OKM
 def readImage(userIn):
    # print('in readImage')
 
-    # Max on paddleboard  -  JPEG, 750x1334, RGB: IMG_5455.JPG
-    pic1 = "IMG_5455.JPG"
-    # Hiking Gatlinburg  -  JPEG, 2320x3088, RGB: ELOF9870.jpg
-    pic2 = "ELOF9870.jpg"
-    # Max in grass  -  JPEG, 750x1334, RGB: IMG_5331.JPG
-    pic3 = "IMG_5331.JPG"
-    # Max paddleboard from behind  -  JPEG, 750x1334, RGB: IMG_5457.JPG
-    pic4 = "IMG_5457.JPG"
-    # Josh and Max on canoe  -  JPEG, 750 × 1334, RGB: IMG_5755.JPG
-    pic5 = "IMG_5755.JPG"
-    # Max (small testing image) - JPEG, 214 × 240, RGB: IMG_5765.JPG
-    pic6 = "IMG_5765.JPG"
-    # Vegetables - JPEG, 512 x 512, RGB: veggies.JPG
-    pic7 = "veggies.JPG"
-    # Peppers - JPEG, 250 x 250, RGB: peppers.JPG
-    pic8 = "peppers.JPG"
-    # Max kayak - JPEG, 750 × 1334, RGB: IMG_5769.JPG
-    pic9 = "IMG_5769.JPG"
-    # Max flowers no filter - JPEG, 1334 × 750, RGB: IMG_5778.JPG
-    pic10 = "IMG_5778.JPG"
-    # Max flowers with filter - JPEG, 1334 × 750, RGB: IMG_5779.JPG
-    pic11 = "IMG_5779.JPG"
+    # Images
+    pic1 = "Bikes.JPG"
+    pic2 = "Birds.jpg"
+    pic3 = "Boats.JPG"
+    pic4 = "Girl.JPG"
+    pic5 = "Hats.JPG"
+    pic6 = "Lena.JPG"
+    pic7 = "Mandrill.JPG"
+    pic8 = "Peppers.JPG"
 
 
 
@@ -61,12 +48,6 @@ def readImage(userIn):
         picture = pic7
     elif (userIn == '8'):
         picture = pic8
-    elif (userIn == '9'):
-        picture = pic9
-    elif (userIn == '10'):
-        picture = pic10
-    elif (userIn == '11'):
-        picture = pic11
     else:
         picture = pic1
 
@@ -157,7 +138,7 @@ def allScenarios(output):
     times = [] # elapsed time list
 
 ##### User selects image
-    image = input('Select which image to use (1-11) [small testing images (6-Max & 8-peppers)]:  ')
+    image = input('Select which image to use (1-8):  ')
     # read in image
     im = readImage(image)
 
@@ -190,13 +171,15 @@ def allScenarios(output):
             else:
                 pres = "RPS"
 
-            # Learning Rate of [1] 1/(1+t) or [2] sqrt(1/(1+t))
-            for LR in range(1,3):
+            # Learning Rate of [1] 1/(1+t) or [2] sqrt(1/(1+t)) or [3] normal
+            for LR in range(1,4):
                 # for output image name
                 if (LR == 1):
                     lr = "LR1"
-                else:
+                elif (LR == 2):
                     lr = "LR2"
+                else:
+                    lr = "LR3"
 
                 # make sure pix is from original image each run
                 im = readImage(image)
@@ -214,6 +197,75 @@ def allScenarios(output):
 
 
 
+# Test Drive with no User Input #
+def testDriver(output):
+    c = 1 # iteration count
+    times = [] # elapsed time list
+
+    # Image selection
+    for image in range(1,9):
+        # read in image and save built in quantized image
+        im = readImage(image)
+        im.show()
+
+
+        # Cluster Number
+        K = 8
+        for k in range(0, 6):
+            q = im.quantize(K)
+            q.show()
+            f = "PILquantizer_" + str(image) + "_" + str(K) + ".PNG"
+            q.save(f)
+
+            # [1] Linear Initialization, [2] Random Initialization, [3] Most Common Color Initialization, or [4] Maximin Initialization
+            for init in range(1,5):
+                # for output image name
+                if (init == 1):
+                    INIT = "LI"
+                elif (init == 2):
+                    INIT = "RI"
+                elif (init == 3):
+                    INIT = "MCCI"
+                else:
+                    INIT = "MI"
+
+                # Presentation Style of [1] Cyclic/Linear or [2] Random
+                for PS in range(1,3):
+                    # for output image name
+                    if (PS == 1):
+                        pres = "LPS"
+                    else:
+                        pres = "RPS"
+
+                    # Learning Rate of [1] 1/(1+t) or [2] sqrt(1/(1+t)) or [3] normal
+                    for LR in range(1,4):
+                        # for output image name
+                        if (LR == 1):
+                            lr = "LR1"
+                        elif (LR == 2):
+                            lr = "LR2"
+                        else:
+                            lr = "LR3"
+
+                        # make sure pix is from original image each run
+                        im = readImage(image)
+                        pix = im.load()
+
+        ## Online K - Means ##
+                        print("\n#### Running Algorithm ####")
+                        times = run(output, image, K, im, pix, init, PS, LR, times, c, INIT, pres, lr)
+                        c += 1
+            # end all for loops
+            K = K * 2
+        # end cluster number for loop
+    # end image selection for loop
+
+    # Get final results.txt and output to terminal
+    results(times, output)
+# end testDriver #
+
+
+
 # Run OKM, print, and save to file #
 def run(output, image, K, im, pix, init, PS, LR, times, c, INIT, pres, lr):
     # time the clustering of data using stopwatch
@@ -227,7 +279,7 @@ def run(output, image, K, im, pix, init, PS, LR, times, c, INIT, pres, lr):
 
     # save and display the image with fewer colors
  #   out.show()
-    filename = "Output" + str(c) + "_K" + str(K) + "_" + INIT + "_" + pres + "_" + lr + ".PNG"
+    filename = "Output" + str(image) + "_K" + str(K) + "_" + INIT + "_" + pres + "_" + lr + ".PNG"
     print(filename + " now available")
     out.save(filename)
 
@@ -276,17 +328,20 @@ def main():
 
 
 ##### User decides whether to do all of the cases in one or do some individual tests
-    userInput = input('\nRun [1] All Scenarios on one image or go [2] Individually for testing?: ')
+    userInput = input('\nRun [1] All Scenarios on one image or go [2] Individually for testing? or [3] run the Test Driver: ')
     if (userInput == '1'):
         allScenarios(output)
         # Skip option to do individual runs to preserve the information in Results.txt
+        c = -2
+    elif (userInput == '3'):
+        testDriver(output)
         c = -2
 
 
     # rerun as many times as user wants
     while (c > 0):
 ##### User selects image
-        image = input('\nSelect which image to use (1-11) [small testing images (6-Max & 8-peppers)]:  ')
+        image = input('\nSelect which image to use (1-8):  ')
         # read in image
         im = readImage(image)
 # ##### User selects whether to go to maniImage
@@ -331,7 +386,7 @@ def main():
             pres = "LPS"
 
 ##### User chooses the Learning Rate
-        uIn3 = input('Learning Rate of [1] 1/(1+t) or [2] sqrt(1/(1+t)): ')
+        uIn3 = input('Learning Rate of [1] 1/(1+t), [2] sqrt(1/(1+t)), or [3] normal: ')
         if (uIn3 == '1'):
             LR = 1
             lr = "LR1"
@@ -339,7 +394,7 @@ def main():
             LR = 2
             lr = "LR2"
         else:
-            LR = 0
+            LR = 3
             lr = "avgLR"
 
 

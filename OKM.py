@@ -521,6 +521,27 @@ def copyOver(m):
 # end of copyOver #
 
 
+
+# Sum of Square Error #
+def sse(k, membership, centroids, pix, length, width):
+    s = 0
+
+    # calculate SSE by adding up all distances (each point to its cluster centroid)
+    for y in range(0,length):
+        for x in range(0,width):
+            # compensating for flattened membership list
+            # selecting current pixel membership cluster
+            cluster = membership[(y * width) + x ]
+            # find distance between the two and add to the sum
+            b = (centroids[cluster].r, centroids[cluster].g, centroids[cluster].b)
+            s += tupDistance(pix[x, y], b)
+
+    print("SSE: " + str(s))
+    return(s)
+# end of sse #
+
+
+
 ## end of OKM.py ##
 
 
