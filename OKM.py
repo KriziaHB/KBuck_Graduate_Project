@@ -85,7 +85,7 @@ def kmeans(k, im, pix, initC, psC, LR):
 ## ** end of K-MEANS ** ##
 
     # find the SSE
-    s = sse(k, membership, centroids, pix, length, width)
+    s = sse(k, pix, membership, centroids, length, width)
 
     out = (im, s)
     # return to main with final image
@@ -526,7 +526,7 @@ def copyOver(m):
 
 
 # Sum of Square Error #
-def sse(k, membership, centroids, pix, length, width):
+def sse(k, pix, membership, centroids, length, width):
     s = 0
 
     # calculate SSE by adding up all distances (each point to its cluster centroid)
