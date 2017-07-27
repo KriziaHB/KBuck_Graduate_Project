@@ -253,6 +253,7 @@ def testDriver(output):
 
         ## Online K - Means ##
                         print("\n#### Running Algorithm ####")
+                        output.write(str(image) + ", " + str(K) + ", " + str(init) + ", " + str(PS) + ", " + str(LR))
                         times = run(output, image, K, im, pix, init, PS, LR, times, c, INIT, pres, lr)
                         c += 1
             # end all for loops
@@ -270,7 +271,9 @@ def testDriver(output):
 def run(output, image, K, im, pix, init, PS, LR, times, c, INIT, pres, lr):
     # time the clustering of data using stopwatch
     start = time.time()
-    out = OKM.kmeans(K, im, pix, init, PS, LR)
+    OUT = OKM.kmeans(K, im, pix, init, PS, LR)
+    out = OUT[0]
+    sse = OUT[1]
     end = time.time()
     elapsed = end - start
     times.append(elapsed)
@@ -283,9 +286,9 @@ def run(output, image, K, im, pix, init, PS, LR, times, c, INIT, pres, lr):
     print(filename + " now available")
     out.save(filename)
 
+
     # Results.txt output
-    output.write(str(image) + ", " + str(K) + ", " + str(init) + ", " + str(PS) + ", " + str(LR) + " - " + str(
-        times[c - 1]) + " * " + filename + "\n")  # average of all times executed
+    output.write(", " + str(sse) + " - " + str(times[c - 1]) + " * " + filename + "\n")  # average of all times executed
 
     return(times)
 # end of run #
@@ -324,7 +327,7 @@ def main():
     # new file called Results.txt for all user input and elapsed times
     output = open("Results.txt", "w")
     output.write("Krizia Houston Buck - UCA Summer 2017 - Graduate Project - Dr. Emre Celebi \n\n")
-    output.write("Time Result(s) - Image, Clusters, Initialization, Presentation Style, Learning Rate: (in seconds) \n")
+    output.write("Time Result(s) - Image, Clusters, Initialization, Presentation Style, Learning Rate, SSE: (in seconds) \n")
 
 
 ##### User decides whether to do all of the cases in one or do some individual tests

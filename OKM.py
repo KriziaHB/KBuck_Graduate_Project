@@ -84,9 +84,12 @@ def kmeans(k, im, pix, initC, psC, LR):
     print("K-Means Time: " + str(elapsed))
 ## ** end of K-MEANS ** ##
 
+    # find the SSE
+    s = sse(k, membership, centroids, pix, length, width)
 
+    out = (im, s)
     # return to main with final image
-    return(im)
+    return(out)
 # end of kmeans #
 
 
