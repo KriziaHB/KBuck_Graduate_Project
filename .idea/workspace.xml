@@ -557,7 +557,14 @@
       <option name="project" value="LOCAL" />
       <updated>1501126091012</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="Version without Linear Initialization (cuts number of combos by 25%)">
+      <created>1501248176676</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1501248176676</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TodoView">
@@ -596,7 +603,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Working on distance matrix in maximin" />
     <MESSAGE value="Maximin works" />
     <MESSAGE value="Sped up maximin" />
     <MESSAGE value="MATRIX maximin version" />
@@ -621,7 +627,8 @@
     <MESSAGE value="Working on automation and SSE" />
     <MESSAGE value="SSE getting zero every time ... fix it" />
     <MESSAGE value="SSE works" />
-    <option name="LAST_COMMIT_MESSAGE" value="SSE works" />
+    <MESSAGE value="Version without Linear Initialization (cuts number of combos by 25%)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Version without Linear Initialization (cuts number of combos by 25%)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
