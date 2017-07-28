@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a1ba30a6-db51-4e3a-a2f0-4038acb0cd01" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GradProj" afterPath="$PROJECT_DIR$/GradProj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OKM.py" afterPath="$PROJECT_DIR$/OKM.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -15,11 +15,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="GradProj" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GradProj" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GradProj">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="537">
-              <caret line="224" column="33" lean-forward="true" selection-start-line="224" selection-start-column="33" selection-end-line="224" selection-end-column="33" />
+            <state relative-caret-position="1210">
+              <caret line="224" column="33" lean-forward="false" selection-start-line="224" selection-start-column="33" selection-end-line="224" selection-end-column="33" />
               <folding>
                 <element signature="e#342#1085#0" expanded="false" />
                 <element signature="e#1174#2655#0" expanded="false" />
@@ -31,11 +31,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OKM.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="OKM.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OKM.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="430">
-              <caret line="81" column="21" lean-forward="false" selection-start-line="81" selection-start-column="21" selection-end-line="81" selection-end-column="21" />
+            <state relative-caret-position="606">
+              <caret line="552" column="0" lean-forward="true" selection-start-line="552" selection-start-column="0" selection-end-line="552" selection-end-column="0" />
               <folding>
                 <element signature="e#186#196#0" expanded="true" />
                 <element signature="e#12495#12533#0" expanded="false" />
@@ -67,8 +67,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/ColorPixel.py" />
-        <option value="$PROJECT_DIR$/OKM.py" />
         <option value="$PROJECT_DIR$/GradProj" />
+        <option value="$PROJECT_DIR$/OKM.py" />
       </list>
     </option>
   </component>
@@ -227,13 +227,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1496419855547</updated>
-    </task>
-    <task id="LOCAL-00001" summary="LR #2 gives all white image. &#10;Removed sqrt from term, need to go back to it. &#10;Random Presentation Style needs work.">
-      <created>1498524587535</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1498524587535</updated>
     </task>
     <task id="LOCAL-00002" summary="untested Random Presentation">
       <created>1498532590959</created>
@@ -564,7 +557,21 @@
       <option name="project" value="LOCAL" />
       <updated>1501248176676</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="New Testing Images">
+      <created>1501248261686</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1501248261686</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Final Version for Running Tests">
+      <created>1501248339134</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1501248339135</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TodoView">
@@ -578,11 +585,12 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="2560" height="1440" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.08697379" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296131" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2700893" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2700893" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296131" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296131" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24980143" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -603,8 +611,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Maximin works" />
-    <MESSAGE value="Sped up maximin" />
     <MESSAGE value="MATRIX maximin version" />
     <MESSAGE value="On Demand Maximin version" />
     <MESSAGE value="working on updating only the newest centroid and the one that found the newest centroid. Go back to 290s in OKM" />
@@ -628,7 +634,9 @@
     <MESSAGE value="SSE getting zero every time ... fix it" />
     <MESSAGE value="SSE works" />
     <MESSAGE value="Version without Linear Initialization (cuts number of combos by 25%)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Version without Linear Initialization (cuts number of combos by 25%)" />
+    <MESSAGE value="New Testing Images" />
+    <MESSAGE value="Final Version for Running Tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="Final Version for Running Tests" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -825,27 +833,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/OKM.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="430">
-          <caret line="81" column="21" lean-forward="false" selection-start-line="81" selection-start-column="21" selection-end-line="81" selection-end-column="21" />
-          <folding>
-            <element signature="e#186#196#0" expanded="true" />
-            <element signature="e#12495#12533#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/GradProj">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="537">
-          <caret line="224" column="33" lean-forward="true" selection-start-line="224" selection-start-column="33" selection-end-line="224" selection-end-column="33" />
+        <state relative-caret-position="1210">
+          <caret line="224" column="33" lean-forward="false" selection-start-line="224" selection-start-column="33" selection-end-line="224" selection-end-column="33" />
           <folding>
             <element signature="e#342#1085#0" expanded="false" />
             <element signature="e#1174#2655#0" expanded="false" />
             <element signature="e#2758#4505#0" expanded="false" />
             <element signature="e#9620#9667#0" expanded="false" />
             <element signature="e#12042#12060#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OKM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="606">
+          <caret line="552" column="0" lean-forward="true" selection-start-line="552" selection-start-column="0" selection-end-line="552" selection-end-column="0" />
+          <folding>
+            <element signature="e#186#196#0" expanded="true" />
+            <element signature="e#12495#12533#0" expanded="false" />
           </folding>
         </state>
       </provider>

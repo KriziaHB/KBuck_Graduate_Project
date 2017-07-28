@@ -551,8 +551,11 @@ def sse(k, pix, membership, centroids, length, width):
             b = (centroids[cluster].r, centroids[cluster].g, centroids[cluster].b)
             s += tupDistance(pix[x, y], b)
 
-    print("SSE: " + str(s))
-    return(s)
+    # Divide s by 3 (R, G, B channels)
+    out = s / 3
+
+    print("SSE: " + str(out))
+    return(out)
 # end of sse #
 
 
