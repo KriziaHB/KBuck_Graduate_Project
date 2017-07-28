@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a1ba30a6-db51-4e3a-a2f0-4038acb0cd01" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/veggies.JPG" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OKM.py" afterPath="$PROJECT_DIR$/OKM.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GradProj" afterPath="$PROJECT_DIR$/GradProj" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -16,30 +15,30 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="GradProj" pinned="false" current-in-tab="false">
+      <file leaf-file-name="GradProj" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/GradProj">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="770">
-              <caret line="204" column="21" lean-forward="true" selection-start-line="204" selection-start-column="21" selection-end-line="204" selection-end-column="21" />
+            <state relative-caret-position="537">
+              <caret line="224" column="33" lean-forward="true" selection-start-line="224" selection-start-column="33" selection-end-line="224" selection-end-column="33" />
               <folding>
                 <element signature="e#342#1085#0" expanded="false" />
                 <element signature="e#1174#2655#0" expanded="false" />
                 <element signature="e#2758#4505#0" expanded="false" />
-                <element signature="e#9661#9708#0" expanded="false" />
-                <element signature="e#12083#12101#0" expanded="false" />
+                <element signature="e#9620#9667#0" expanded="false" />
+                <element signature="e#12042#12060#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OKM.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="OKM.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/OKM.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="521">
-              <caret line="542" column="13" lean-forward="true" selection-start-line="542" selection-start-column="13" selection-end-line="542" selection-end-column="13" />
+            <state relative-caret-position="430">
+              <caret line="81" column="21" lean-forward="false" selection-start-line="81" selection-start-column="21" selection-end-line="81" selection-end-column="21" />
               <folding>
                 <element signature="e#186#196#0" expanded="true" />
-                <element signature="e#12331#12369#0" expanded="false" />
+                <element signature="e#12495#12533#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -49,7 +48,7 @@
         <entry file="file://$PROJECT_DIR$/ColorPixel.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1804">
-              <caret line="82" column="21" lean-forward="true" selection-start-line="82" selection-start-column="21" selection-end-line="82" selection-end-column="21" />
+              <caret line="82" column="21" lean-forward="false" selection-start-line="82" selection-start-column="21" selection-end-line="82" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -68,8 +67,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/ColorPixel.py" />
-        <option value="$PROJECT_DIR$/GradProj" />
         <option value="$PROJECT_DIR$/OKM.py" />
+        <option value="$PROJECT_DIR$/GradProj" />
       </list>
     </option>
   </component>
@@ -544,7 +543,21 @@
       <option name="project" value="LOCAL" />
       <updated>1501124987996</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="SSE getting zero every time ... fix it">
+      <created>1501125285142</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1501125285142</updated>
+    </task>
+    <task id="LOCAL-00047" summary="SSE works">
+      <created>1501126091012</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1501126091012</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TodoView">
@@ -583,8 +596,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Set up for Maximin and made new run method for sending to OKM" />
-    <MESSAGE value="working on maximin" />
     <MESSAGE value="Working on distance matrix in maximin" />
     <MESSAGE value="Maximin works" />
     <MESSAGE value="Sped up maximin" />
@@ -608,14 +619,16 @@
     <MESSAGE value="Code complete, awaiting Dr. Celebi's sign off" />
     <MESSAGE value="Added 8 images for the final testing, all combos in testDriver, and SSE (not being called yet)" />
     <MESSAGE value="Working on automation and SSE" />
-    <option name="LAST_COMMIT_MESSAGE" value="Working on automation and SSE" />
+    <MESSAGE value="SSE getting zero every time ... fix it" />
+    <MESSAGE value="SSE works" />
+    <option name="LAST_COMMIT_MESSAGE" value="SSE works" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OKM.py</url>
-          <line>390</line>
+          <line>395</line>
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -625,17 +638,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OKM.py</url>
-          <line>275</line>
+          <line>274</line>
           <option name="timeStamp" value="64" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OKM.py</url>
-          <line>292</line>
+          <line>291</line>
           <option name="timeStamp" value="71" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OKM.py</url>
-          <line>255</line>
+          <line>254</line>
           <option name="timeStamp" value="74" />
         </line-breakpoint>
       </breakpoints>
@@ -652,8 +665,8 @@
             <element signature="e#342#1085#0" expanded="false" />
             <element signature="e#1174#2655#0" expanded="false" />
             <element signature="e#2758#4505#0" expanded="false" />
-            <element signature="e#9661#9708#0" expanded="false" />
-            <element signature="e#12083#12101#0" expanded="false" />
+            <element signature="e#9620#9667#0" expanded="false" />
+            <element signature="e#12042#12060#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -664,7 +677,7 @@
           <caret line="247" column="31" lean-forward="false" selection-start-line="247" selection-start-column="31" selection-end-line="247" selection-end-column="31" />
           <folding>
             <element signature="e#186#196#0" expanded="true" />
-            <element signature="e#12331#12369#0" expanded="false" />
+            <element signature="e#12495#12533#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -685,8 +698,8 @@
             <element signature="e#342#1085#0" expanded="false" />
             <element signature="e#1174#2655#0" expanded="false" />
             <element signature="e#2758#4505#0" expanded="false" />
-            <element signature="e#9661#9708#0" expanded="false" />
-            <element signature="e#12083#12101#0" expanded="false" />
+            <element signature="e#9620#9667#0" expanded="false" />
+            <element signature="e#12042#12060#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -697,7 +710,7 @@
           <caret line="247" column="31" lean-forward="false" selection-start-line="247" selection-start-column="31" selection-end-line="247" selection-end-column="31" />
           <folding>
             <element signature="e#186#196#0" expanded="true" />
-            <element signature="e#12331#12369#0" expanded="false" />
+            <element signature="e#12495#12533#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -718,8 +731,8 @@
             <element signature="e#342#1085#0" expanded="false" />
             <element signature="e#1174#2655#0" expanded="false" />
             <element signature="e#2758#4505#0" expanded="false" />
-            <element signature="e#9661#9708#0" expanded="false" />
-            <element signature="e#12083#12101#0" expanded="false" />
+            <element signature="e#9620#9667#0" expanded="false" />
+            <element signature="e#12042#12060#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -730,7 +743,7 @@
           <caret line="179" column="0" lean-forward="false" selection-start-line="179" selection-start-column="0" selection-end-line="179" selection-end-column="0" />
           <folding>
             <element signature="e#186#196#0" expanded="true" />
-            <element signature="e#12331#12369#0" expanded="false" />
+            <element signature="e#12495#12533#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -751,8 +764,8 @@
             <element signature="e#342#1085#0" expanded="false" />
             <element signature="e#1174#2655#0" expanded="false" />
             <element signature="e#2758#4505#0" expanded="false" />
-            <element signature="e#9661#9708#0" expanded="false" />
-            <element signature="e#12083#12101#0" expanded="false" />
+            <element signature="e#9620#9667#0" expanded="false" />
+            <element signature="e#12042#12060#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -763,7 +776,7 @@
           <caret line="250" column="16" lean-forward="true" selection-start-line="250" selection-start-column="16" selection-end-line="250" selection-end-column="16" />
           <folding>
             <element signature="e#186#196#0" expanded="true" />
-            <element signature="e#12331#12369#0" expanded="false" />
+            <element signature="e#12495#12533#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -784,8 +797,8 @@
             <element signature="e#342#1085#0" expanded="false" />
             <element signature="e#1174#2655#0" expanded="false" />
             <element signature="e#2758#4505#0" expanded="false" />
-            <element signature="e#9661#9708#0" expanded="false" />
-            <element signature="e#12083#12101#0" expanded="false" />
+            <element signature="e#9620#9667#0" expanded="false" />
+            <element signature="e#12042#12060#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -800,32 +813,32 @@
     <entry file="file://$PROJECT_DIR$/ColorPixel.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1804">
-          <caret line="82" column="21" lean-forward="true" selection-start-line="82" selection-start-column="21" selection-end-line="82" selection-end-column="21" />
+          <caret line="82" column="21" lean-forward="false" selection-start-line="82" selection-start-column="21" selection-end-line="82" selection-end-column="21" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GradProj">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="770">
-          <caret line="204" column="21" lean-forward="true" selection-start-line="204" selection-start-column="21" selection-end-line="204" selection-end-column="21" />
-          <folding>
-            <element signature="e#342#1085#0" expanded="false" />
-            <element signature="e#1174#2655#0" expanded="false" />
-            <element signature="e#2758#4505#0" expanded="false" />
-            <element signature="e#9661#9708#0" expanded="false" />
-            <element signature="e#12083#12101#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/OKM.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="521">
-          <caret line="542" column="13" lean-forward="true" selection-start-line="542" selection-start-column="13" selection-end-line="542" selection-end-column="13" />
+        <state relative-caret-position="430">
+          <caret line="81" column="21" lean-forward="false" selection-start-line="81" selection-start-column="21" selection-end-line="81" selection-end-column="21" />
           <folding>
             <element signature="e#186#196#0" expanded="true" />
-            <element signature="e#12331#12369#0" expanded="false" />
+            <element signature="e#12495#12533#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GradProj">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="537">
+          <caret line="224" column="33" lean-forward="true" selection-start-line="224" selection-start-column="33" selection-end-line="224" selection-end-column="33" />
+          <folding>
+            <element signature="e#342#1085#0" expanded="false" />
+            <element signature="e#1174#2655#0" expanded="false" />
+            <element signature="e#2758#4505#0" expanded="false" />
+            <element signature="e#9620#9667#0" expanded="false" />
+            <element signature="e#12042#12060#0" expanded="false" />
           </folding>
         </state>
       </provider>

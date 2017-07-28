@@ -218,7 +218,7 @@ def testDriver(output):
             q.save(f)
 
             # [1] Linear Initialization, [2] Random Initialization, [3] Most Common Color Initialization, or [4] Maximin Initialization
-            for init in range(1,5):
+            for init in range(2,5): # CORRECTION - skip linear
                 # for output image name
                 if (init == 1):
                     INIT = "LI"
