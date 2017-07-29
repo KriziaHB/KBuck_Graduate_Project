@@ -275,7 +275,10 @@ def run(output, image, K, im, pix, init, PS, LR, times, c, INIT, pres, lr):
     start = time.time()
     OUT = OKM.kmeans(K, im, pix, init, PS, LR)
     out = OUT[0]
-    sse = OUT[1]
+    metrics = OUT[1]
+    sse = metrics[0]
+    mse = metrics[1]
+    mae = metrics[2]
     end = time.time()
     elapsed = end - start
     times.append(elapsed)
@@ -290,7 +293,7 @@ def run(output, image, K, im, pix, init, PS, LR, times, c, INIT, pres, lr):
 
 
     # Results.txt output
-    output.write(str(image) + ", " + str(K) + ", " + str(init) + ", " + str(PS) + ", " + str(LR) + ", " + str(sse) + " - " + str(times[c - 1]) + " * " + filename + "\n")
+    output.write(str(image) + ", " + str(K) + ", " + str(init) + ", " + str(PS) + ", " + str(LR) + ", " + str(sse) + ", " + str(mse) + ", " + str(mae) + " - " + str(times[c - 1]) + " * " + filename + "\n")
 
 
     return(times)
@@ -332,7 +335,7 @@ def main():
     filename = "Results" + str(ts) + ".txt"
     output = open(filename, "w")
     output.write("Krizia Houston Buck - UCA Summer 2017 - Graduate Project - Dr. Emre Celebi \n\n")
-    output.write("Time Result(s) - Image, Clusters, Initialization, Presentation Style, Learning Rate, SSE: (in seconds) \n")
+    output.write("Time Result(s) - Image, Clusters, Initialization, Presentation Style, Learning Rate, SSE, MSE, MAE: (in seconds) \n")
 
 
 ##### User decides whether to do all of the cases in one or do some individual tests

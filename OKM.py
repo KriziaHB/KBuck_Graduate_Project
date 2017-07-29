@@ -84,7 +84,7 @@ def kmeans(k, im, pix, initC, psC, LR):
     print("K-Means Time: " + str(elapsed))
 ## ** end of K-MEANS ** ##
 
-    # pix info is first part of what was returned, SSE is second part of what was returned
+    # pix info is first part of what was returned, SSE/MSE/MAE is second part of what was returned
     pix = p[0]
     out = (im, p[1])
     # return to main with final image
@@ -501,11 +501,7 @@ def knn(k, pixel, centroids):
 def newImage(k, pix, centroids, membership, width, length):
     print("--in newImage")
     print("* Final Centroids *")
-
-    # round centroids to ints for quantization
     for i in range(0,k):
-        a = centroids[i]
-        centroids[i] = ColorPixel((int(a.r), int(a.g), int(a.b)))
         centroids[i].printRGB()
 
 
@@ -537,9 +533,15 @@ def copyOver(m):
 
 
 
-# Sum of Square Error #
+# Sum of Square Error, Mean Squared Error, and Mean Absolute Error #
 def sse(k, pix, membership, centroids, length, width):
     s = 0
+    m = 0
+
+    # round centroids to ints for quantization
+    for i in range(0,k):
+        a = centroids[i]
+        centroids[i] = ColorPixel((int(a.r), int(a.g), int(a.b)))
 
     # calculate SSE by adding up all distances (each point to its cluster centroid)
     for y in range(0,length):
@@ -547,14 +549,26 @@ def sse(k, pix, membership, centroids, length, width):
             # compensating for flattened membership list
             # selecting current pixel membership cluster
             cluster = membership[(y * width) + x ]
-            # find distance between the two and add to the sum
+            # find distance between the two
             b = (centroids[cluster].r, centroids[cluster].g, centroids[cluster].b)
-            s += tupDistance(pix[x, y], b)
+            d2 = tupDistance(pix[x, y], b)
+            # square the distance
+            s += (d2 * d2)
+            # add the absolute distance
+            m += math.fabs(d2)
 
-    # Divide s by 3 (R, G, B channels)
-    out = s / 3
 
-    print("SSE: " + str(out))
+    # mean squared error
+    mse = s / (length * width)
+    # mean absolute error
+    mae = m / (length * width)
+
+    # Tuple to return
+    out = (s, mse, mae)
+
+    print("SSE: " + str(s))
+    print("MSE: " + str(mse))
+    print("MAE: " + str(mae))
     return(out)
 # end of sse #
 
