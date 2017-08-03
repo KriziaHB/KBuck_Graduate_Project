@@ -312,9 +312,12 @@ def maximin(k, pix, width, length):
 
 # distance between two point tuples #
 def tupDistance(a, b):
-    R = (a[0] - b[0]) * (a[0] - b[0])
-    G = (a[1] - b[1]) * (a[1] - b[1])
-    B = (a[2] - b[2]) * (a[2] - b[2])
+    red = a[0] - b[0]
+    R = red * red
+    green = a[1] - b[1]
+    G = green * green
+    blue = a[2] - b[2]
+    B = blue * blue
     c = R + G + B  # REMOVED SQRT
 
     return(c)
@@ -379,8 +382,8 @@ def randoP(k, pix, width, length, centroids, membership, clustersize, LR, term, 
             index = (y * width) + x
             membership[index] = m
 
-    # find the SSE
-    s = sse(k, pix, membership, centroids, length, width)
+    # find the SSE / MSE / MAE
+    s = metrics(k, pix, membership, centroids, length, width)
 
     # Use cluster data to make new image
     p = newImage(k, pix, centroids, membership, width, length)
@@ -454,7 +457,7 @@ def linearP(k, pix, width, length, centroids, membership, clustersize, LR, term,
 
 
     # find the SSE
-    s = sse(k, pix, membership, centroids, length, width)
+    s = metrics(k, pix, membership, centroids, length, width)
 
     # Use cluster data to make new image
     p = newImage(k, pix, centroids, membership, width, length)
@@ -534,14 +537,14 @@ def copyOver(m):
 
 
 # Sum of Square Error, Mean Squared Error, and Mean Absolute Error #
-def sse(k, pix, membership, centroids, length, width):
+def metrics(k, pix, membership, centroids, length, width):
     s = 0
     m = 0
 
     # round centroids to ints for quantization
     for i in range(0,k):
         a = centroids[i]
-        centroids[i] = ColorPixel((int(a.r), int(a.g), int(a.b)))
+        centroids[i] = ColorPixel((int(round(a.r)), int(round(a.g)), int(round(a.b))))
 
     # calculate SSE by adding up all distances (each point to its cluster centroid)
     for y in range(0,length):
@@ -550,12 +553,14 @@ def sse(k, pix, membership, centroids, length, width):
             # selecting current pixel membership cluster
             cluster = membership[(y * width) + x ]
             # find distance between the two
+            a = pix[x, y]
             b = (centroids[cluster].r, centroids[cluster].g, centroids[cluster].b)
-            d2 = tupDistance(pix[x, y], b)
-            # square the distance
-            s += (d2 * d2)
-            # add the absolute distance
-            m += math.fabs(d2)
+            d2 = tupDistance(a, b)
+            # squared distances already from tupDistance (sqrt not in that function)
+            s += d2
+            # add the absolute distance of each color
+
+            m += (math.fabs(a[0]-b[0]) + math.fabs(a[1]-b[1]) + math.fabs(a[2]-b[2]))
 
 
     # mean squared error
@@ -570,7 +575,56 @@ def sse(k, pix, membership, centroids, length, width):
     print("MSE: " + str(mse))
     print("MAE: " + str(mae))
     return(out)
-# end of sse #
+# end of metrics #
+
+
+
+# Metrics for PIL Quantized Image #
+def pilMetrics(q, original):
+    # all the pixels in order to compare
+    OrigPixels = original.load()
+    qPixels = q.load()
+    width = int(q.size[0])
+    length = int(q.size[1])
+    sse = 0
+    m = 0
+
+    # calculate SSE by adding up all distances (each point to its cluster centroid)
+    for y in range(0,length):
+        for x in range(0,width):
+            # find distance between the two
+            a = OrigPixels[x,y]
+            b = qPixels[x,y]
+            r = a[0]
+            r2 = b[0]
+            distR = a[0] - b[0]
+            d2 = distR * distR
+            distG = a[1] - b[1]
+            d2 += distG * distG
+            distB = a[2] - b[2]
+            d2 += distB * distB
+            # d2 = tupDistance(OrigPixels[x,y], qPixels[x,y])
+            # squared distances already from tupDistance (sqrt not in that function)
+            sse += d2
+            # add the absolute distance
+            m += math.fabs(math.sqrt(d2))
+
+
+    # mean squared error
+    mse = sse / (length * width)
+    # mean absolute error
+    mae = m / (length * width)
+
+    # Tuple to return
+    out = (sse, mse, mae)
+
+    print("PIL SSE: " + str(sse))
+    print("PIL MSE: " + str(mse))
+    print("PIL MAE: " + str(mae))
+
+
+    return(out)
+# end of pilMetrics #
 
 
 

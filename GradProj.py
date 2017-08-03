@@ -147,9 +147,16 @@ def allScenarios(output):
     K = 8
     for k in range(0, 6):
         q = im.quantize(K)
-        q.show()
+    #    q.show()
         f = "PILquantizer_" + str(image) + "_" + str(K) + ".PNG"
         q.save(f)
+    ## NEED TO DO SEPARATELY BECAUSE NEEDS TO BE IN .JPG FORMAT ##
+        # Get tuple of SSE / MSE / MAE of PILquantizer
+      #  quantized = Image.open(f)
+      #  pilMETRICS = OKM.pilMetrics(quantized, im)
+      #  print(pilMETRICS)
+      #  output.write(pilMETRICS)
+
 
         # [1] Linear Initialization, [2] Random Initialization, [3] Most Common Color Initialization, or [4] Maximin Initialization
         for init in range(2,5): # SKIP LINEAR
@@ -410,10 +417,12 @@ def main():
 
 
 ##### built in PIL quantization (use for comparison)
-        uIN = input('Built in PIL Quantizer? (y/n): ')
-        if (uIN == 'y'):
-            q = im.quantize(k)
-            q.show()
+ #       uIN = input('Built in PIL Quantizer? (y/n): ')
+  #      if (uIN == 'y'):
+  #          q = im.quantize(k)
+  #          q.show()
+  #      else:
+  #          q = im.quantize(k)
 
 
     ## Online K - Means ##
